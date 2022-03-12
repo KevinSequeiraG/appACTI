@@ -1,0 +1,69 @@
+
+/*Navegador*/
+.navbar{
+    padding-bottom: 0;
+    padding-top: 0;  
+    background-color: rgb(13, 45, 109)!important;
+}
+.NavTitle{
+    font-size: 2.6rem;    
+}
+.navegador ul:first-child{
+    border-left: 2px solid white;
+}
+.navegador a{
+    font-size: 1.6rem!important;
+    height: 100%;
+    color: white!important;
+}
+#navbarSupportedContent{
+    height: 100%;
+}
+.navegador li{    
+    transition: background-color 0.5s ease-out 100ms;
+}
+.navegador li:hover{
+    background-color: rgb(21, 71, 176);
+}
+
+@media (max-width: 1000px) {
+    .navbar{
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .navegador li{    
+        transition: background-color 2s ease-out 1ms
+    }
+    .navegador a{
+        font-size: 3.5rem!important;
+    }
+    .container-fluid span{
+        font-size: 5rem!important;
+    }    
+    .container-fluid{
+        padding: 0 40px;
+    }    
+    .NavTitle{
+        font-size: 5rem!important;
+    }
+    .navegador ul:first-child{
+        border-left: none;
+    }
+}
+
+.PrincipalContainer{
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #9890e3 0%, #b1f4cf 100%);
+}
+
+.PrincipalContent{
+    position: absolute;
+    top: 16rem;
+}
+
+.PrincipalContent h1{
+    font-size: 5rem;
+}
