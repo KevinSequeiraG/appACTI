@@ -15,7 +15,9 @@
     <h:body>
         <h:outputScript library="js" name="Logica.js" />
         <div class="PrincipalContainer">
-            <div>
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div class="RegistroContent">
                 <div class="col-md-12 col-lg-8 centrarRegistro">
                     <h4 class="mb-3">Datos de registro</h4>
                     <form class="needs-validation" novalidate="true">
@@ -65,7 +67,7 @@
                                     La fecha de nacimiento es requerida.
                                 </div>                                    
                             </div>
-                          
+
 
                             <div class="col-md-4">
                                 <label class="form-label">Provincia</label>
@@ -112,7 +114,7 @@
                                     Otras señas es requerido.
                                 </div>
                             </div>
-                      
+
                             <div class="col-sm-4">
                                 <label class="form-label">Tipo teléfono</label>
                                 <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
@@ -154,10 +156,10 @@
                                     Seleccione una sede.
                                 </div>
                             </div>                                
-                        <hr class="my-4"></hr>
-                        <button class="w-10 btn btn-primary botones">Aceptar</button>
+                            <hr class="my-4"></hr>
+                            <button class="w-10 btn btn-primary botones">Aceptar</button>
                             <button class="w-10 btn btn-primary botones">Regresar</button>
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>
