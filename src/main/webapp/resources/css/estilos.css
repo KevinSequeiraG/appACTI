@@ -67,3 +67,12 @@
 .PrincipalContent h1{
     font-size: 5rem;
 }
+
+.centrarRegistro{
+    width: 50% !important;
+    margin: auto;
+    margin-top: 5rem;
+}
+.espacioRegistro{
+    margin-right: 100%;
+}
