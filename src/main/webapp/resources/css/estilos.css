@@ -76,3 +76,7 @@
 .espacioRegistro{
     margin-right: 100%;
 }
+.botones{
+    background-color: rgb(13, 45, 109)!important;
+    color: white !important;
+}
