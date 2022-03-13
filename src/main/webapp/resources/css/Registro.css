@@ -7,28 +7,33 @@ and open the template in the editor.
     Created on : 13/03/2022, 04:30:00 PM
     Author     : Oscar
 */
+html{
+    height: 100%
+}
 .RegistroContent{
-    color: gray
+    color: silver;
+
 }
 
 body {
-	background-image: linear-gradient(135deg, black 15%, midnightblue 100%);
-	font-family: 'Montserrat', sans-serif;
-	font-size: 16px;
-	line-height: 1.25;
-	letter-spacing: 1px;
-        background-position: center;
+    background-image: linear-gradient(135deg, black 15%, midnightblue 100%);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: 1px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 * {
-	box-sizing: border-box;
-	transition: .25s all ease;
+    box-sizing: border-box;
+    transition: .25s all ease;
 }
 
 .centrarRegistro{
     width: 50% !important;
     margin: auto;
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 .espacioRegistro{
     margin-right: 100%;
@@ -37,9 +42,24 @@ body {
 .botones{
     background-color: rgb(13, 45, 109)!important;
     color: white !important;
+    border-radius: 3%  !important;
+    border: none !important;
 }
-
-
+.botones a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-decoration: none !important;
+}
+.botones:hover{
+    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
+    font-size: 1.5rem;
+    color: whitesmoke !important;
+}
+.botones a:hover{
+    color: whitesmoke !important;
+}
 
 
 
