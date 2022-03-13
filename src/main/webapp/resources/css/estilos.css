@@ -89,18 +89,6 @@
     text-shadow: 2px 2px 10px black;
 }
 
-.centrarRegistro{
-    width: 50% !important;
-    margin: auto;
-    margin-top: 5rem;
-}
-.espacioRegistro{
-    margin-right: 100%;
-}
-.botones{
-    background-color: rgb(13, 45, 109)!important;
-    color: white !important;
-}
 
 /*Estrellas*/
 
@@ -113,7 +101,7 @@
 #stars:after {
     content: " ";
     position: absolute;
-    top: 2000px;
+    //top: 2000px;
     width: 1px;
     height: 1px;
     background: transparent;
@@ -130,7 +118,7 @@
 #stars2:after {
     content: " ";
     position: absolute;
-    top: 2000px;
+    //top: 2000px;
     width: 2px;
     height: 2px;
     background: transparent;
@@ -146,8 +134,4 @@
     }
 }
 
-/*Pagina Registro*/
 
-.RegistroContent{
-    color: gray
-}
