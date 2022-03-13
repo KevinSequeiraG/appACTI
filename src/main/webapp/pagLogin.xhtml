@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Inicio de Sesión</title>
+        <h:outputStylesheet library="css" name="Login.css"/>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+        
+    </h:head>
+    <h:body>
+        <div id ="stars"></div>
+        <div id ="stars2"></div>
+        
+        
+        <div class="login-container">
+	<form action="" class="form-login">
+		<ul class="login-nav">
+			<li class="login-nav__item active">
+				<a href="#">Iniciar Sesión</a>
+			</li>
+			<li class="login-nav__item">
+				<a href="pagRegistro.xhtml">Registrarse</a>
+			</li>
+		</ul>
+		<label for="login-input-user" class="login__label">
+			Usuario
+		</label>
+		<input id="login-input-user" class="login__input" type="text" />
+		<label for="login-input-password" class="login__label">
+			Contraseña
+		</label>
+		<input id="login-input-password" class="login__input" type="password" />
+                <br></br><br></br>
+		<button class="login__submit">Ingresar</button>
+	</form>
+	<a href="#" class="login__forgot">Has Olvido tu Contraseña?</a>
+</div>
+    </h:body>
+</html>
+
