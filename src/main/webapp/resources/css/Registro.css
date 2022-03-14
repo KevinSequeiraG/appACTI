@@ -7,9 +7,6 @@ and open the template in the editor.
     Created on : 13/03/2022, 04:30:00 PM
     Author     : Oscar
 */
-html{
-    height: 100%;
-}
 .RegistroContent{
     color: silver;
 
@@ -23,6 +20,7 @@ body {
     letter-spacing: 1px;
     background-position: center;
     background-repeat: no-repeat;
+    height: 100%
 }
 
 * {
