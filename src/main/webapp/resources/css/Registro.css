@@ -34,8 +34,8 @@ body {
     margin-top: 3rem;
 }
 .espacioRegistro{
-    margin-right: 100%;
-    width: 260px !important;
+    margin-right: 50% !important;
+    margin-left: 10% !important;
 }
 .botones{
     background-color: rgb(13, 45, 109)!important;
