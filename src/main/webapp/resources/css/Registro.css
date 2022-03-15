@@ -9,7 +9,8 @@ and open the template in the editor.
 */
 .RegistroContent{
     color: silver;
-
+    margin: auto;
+    width: 90% !important;
 }
 
 body {
@@ -32,10 +33,19 @@ body {
     width: 50% !important;
     margin: auto;
     margin-top: 3rem;
+    height: 100%!important;
+    display: block;
+    position: relative;
+    z-index: 0;
+    padding: 0rem 4rem 0rem 4rem;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 860px;
+    box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.85);
 }
 .espacioRegistro{
-    margin-right: 50% !important;
-    margin-left: 10% !important;
+    
+
 }
 .botones{
     background-color: rgb(13, 45, 109)!important;
@@ -59,5 +69,9 @@ body {
     color: whitesmoke !important;
 }
 
-
+.calendar *{
+    padding: 0 !important;
+    width: 100% !important;
+    text-align: center;
+}
 
