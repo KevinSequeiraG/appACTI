@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro</title>
+        <h:outputStylesheet library="css" name="Registro.css"/>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"></link>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    </h:head>
+    <h:body style="overflow-x: hidden">
+
+        <div class="PrincipalContainer" style="width: 100vw; overflow-x: hidden">
+
+            <div class ="RegistroContent" >
+
+                <div id='stars'></div>
+                <div id='stars2'></div>
+                <div class="col-md-12 col-lg-8 centrarRegistro" style="text-align: center !important; min-height: 1020px; margin-top: 20rem; margin-bottom: 5rem">
+                    <h1 class="mb-3">Universidad Técnica Nacional</h1>
+                    <h4 class="mb-3">Control de Bienes e Inventarios</h4>
+                    <h5 class="mb-3">Solicitud de movimiento de activo</h5>
+                    <hr class="my-4"></hr>
+                    <h:form>
+                        <div class="row g-3" style="text-align: center !important">
+                            <div class="col-md-4">
+                                <label class="form-label">Fecha</label>
+                                <p:calendar class="form-control calendar" value="" style="border-color: black !important"></p:calendar>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Orden</label>
+                                <h:outputText class="form-control" value="1000"></h:outputText>                   
+                            </div>
+                            <hr class="my-4"></hr>
+                            <div class="col-sm-4">
+                                <label class="form-label">Dependencia que entrega</label>
+                                <h:inputText style="text-align: center !important" class="form-control" value="UserEntrega"></h:inputText>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Sede de destino</label>
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()">
+                                    <f:selectItem itemLabel="Central" itemValue="1"></f:selectItem>
+                                    <f:selectItem itemLabel="Guanacaste" itemValue="2"></f:selectItem>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Dependencia que recibe</label>
+                                <h:inputText style="text-align: center !important" class="form-control" value="UserRecibe" required="true"></h:inputText>
+                            </div>
+                            <hr class="my-6"></hr>
+                            <div class="col-md-4">
+                                <label class="form-label">Tipo de Orden</label>
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()">
+                                    <f:selectItem itemLabel="Traslado" itemValue="1"></f:selectItem>
+                                    <f:selectItem itemLabel="Préstamo" itemValue="2"></f:selectItem>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Identificador del activo</label>
+                                <h:inputText style="text-align: center !important" class="form-control" value="HP"></h:inputText>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Cantidad</label>
+                                <h:inputText style="text-align: center !important" class="form-control" value="1"></h:inputText>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label">Justificación</label>
+                                <h:inputTextarea class="form-control" disabled="false"></h:inputTextarea>
+                            </div>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease; width: 20%; margin: auto; margin-top: 1rem" value="Agregar"></h:commandButton>
+                            <hr class="my-6"></hr>
+                            <div class="col-sm-12">
+                                <label class="form-label">Lista de activos</label>
+                                <h:inputTextarea class="form-control" disabled="true"></h:inputTextarea>
+                            </div>
+                            <hr class="my-4"></hr>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Confirmar"></h:commandButton>
+                            <button class="w-10 btn btn-primary botones"><a href="PagPrincipal.xhtml">Cancelar</a></button>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+
