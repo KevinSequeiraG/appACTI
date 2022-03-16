@@ -1,0 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16/03/2022, 10:36:19 AM
+    Author     : erick
+*/
+
+
+.datagrid table { border-collapse: collapse; text-align: center; width: 100%; } 
+.datagrid {overflow: auto;margin: 0 auto; width: 100%; font: normal 12px/150% Arial, Helvetica, sans-serif; background: #fff; overflow: hidden; border: 1px solid #000000; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+.datagrid table td, .datagrid table th { padding: 3px 10px; color: silver}
+.datagrid table thead th {background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);font-size: 15px; font-weight: bold; }
+.datagrid table thead th:first-child { border: none; }
+.datagrid table tbody td { color: #000000; border-left: 1px solid #E1EEF4;font-size: 12px;font-weight: normal; }
+.datagrid table tbody .alt td { background: #E1EEF4; color: #000000; }
+.datagrid table tbody td:first-child { border-left: none; }
+.datagrid table tbody tr:last-child td { border-bottom: none; }
