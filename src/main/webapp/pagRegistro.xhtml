@@ -24,52 +24,38 @@
                 <div class="col-md-12 col-lg-8 centrarRegistro">
                     <h4 class="mb-3">Datos de registro</h4>
                     <hr class="my-4"></hr>
-                    <form class="needs-validation" novalidate="true">
-                        <div class="row g-3">
+                    <h:form>
+                        <div class="row g-3" style="text-align: center !important">
                             <div class="col-md-6">
                                 <label class="form-label">Tipo de identificación</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo">
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione el tipo de identifiación.
-                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Identificación</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    La identificación es requerida.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo" ></h:inputText>
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Nombre</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    El nombre es requerido.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo" ></h:inputText>
+
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Primer apellido</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    El apellido es requerido.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo"></h:inputText>
+
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Seguno apellido</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    El apellido es requerido.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo" ></h:inputText>
+
                             </div>
 
                             <div class="col-sm-8" >
                                 <label class="form-label">Fecha de nacimiento</label>
-                                <p:calendar class="form-control calendar" value="" required="true"></p:calendar>
-                                <div class="invalid-feedback">
-                                    La fecha de nacimiento es requerida.
-                                </div>                                    
+                                <p:calendar class="form-control calendar"></p:calendar>
+
                             </div>
                             <div class="col-sm-4 espacioRegistro">
                                 <label class="form-label">Edad</label>
@@ -78,96 +64,79 @@
 
                             <div class="col-md-4">
                                 <label class="form-label">Provincia</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo" >
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione la provincia.
-                                </div>
+
                             </div>
 
                             <div class="col-md-4">
                                 <label class="form-label">Cantón</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo" >
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione el cantón.
-                                </div>
+
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Distrito</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo" >
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione el distrito.
-                                </div>
+
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Barrio</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo" >
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione el barrio.
-                                </div>
+
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Otras señas</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    Otras señas es requerido.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo" ></h:inputText>
+
                             </div>
 
                             <div class="col-sm-4">
                                 <label class="form-label">Tipo teléfono</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo" >
                                     <f:selectItems/>
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione un tipo de teléfono.
-                                </div>
+
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Teléfono</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    El teléfono es requerido.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo" ></h:inputText>
+
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Correo</label>
-                                <h:inputText class="form-control" value="Nuevo" required="true"></h:inputText>
-                                <div class="invalid-feedback">
-                                    El correo es requerido.
-                                </div>
+                                <h:inputText style="text-align: center !important" class="form-control" value="Nuevo" ></h:inputText>
+
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Sede</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo">
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione una sede.
-                                </div>
+
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Tipo de perfil</label>
-                                <h:selectOneMenu class="form-select" onchange="submit()" value="Nuevo" required="true">
+                                <h:selectOneMenu style="text-align: center !important" class="form-select" onchange="submit()" value="Nuevo" >
                                     <f:selectItems />
                                 </h:selectOneMenu>
-                                <div class="invalid-feedback">
-                                    Seleccione una sede.
-                                </div>
+
                             </div>                                
                             <hr class="my-4"></hr>
-                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar"></h:commandButton>
+
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" action="PagPrincipal"></h:commandButton>
+
+
                             <button class="w-10 btn btn-primary botones"><a href="pagLogin.xhtml">Regresar</a></button>
                         </div>
-                    </form>
+                    </h:form>
                 </div>
             </div>
         </div>
