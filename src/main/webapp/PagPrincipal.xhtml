@@ -26,9 +26,6 @@
                             <a class="nav-link" aria-current="page" href="#">Activos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Funcionarios</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#">Traslados</a>
                         </li>
                         <li class="nav-item">
@@ -45,11 +42,20 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Funcionarios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><h:link class="dropdown-item" value = "Mantenimiento de Funcionarios" outcome = "pagCRUDFuncionarios" /></li>
+                                <li><h:link class="dropdown-item" value = "Solicitudes de funcionarios" outcome = "pagSoliFuncionariosNuevos" /></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Reportes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Reporte de Activos</a></li>
-                                <li><a class="dropdown-item" href="#">Reportes de Solicitudes</a></li>
+                                <li><h:link class="dropdown-item" value = "Reporte de Activos" outcome = "pagRepoMovimientoActivos" /></li>
+                                <li><h:link class="dropdown-item" value = "Reportes de Solicitudes" outcome = "pagRepoCanSolActivos" /></li>
                             </ul>
                         </li>
                     </ul>
