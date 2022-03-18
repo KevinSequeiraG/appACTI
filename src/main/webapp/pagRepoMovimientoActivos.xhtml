@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Reporte Movimiento Activos</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"></link>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </h:head>
+    <h:body>
+        <div class="background">
+            <div id='stars'></div>
+            <div id='stars2'></div>            
+        </div>
+        <div class="RepoMovActContent">
+            <h1>Reporte por rango de fechas de activos prestados, trasladados y asignados</h1>
+            <div class="centrarReporte">
+                <div class="OpcionesFecha">
+                    <div class="float-start">
+                        <h5>Desde:</h5>
+                        <p:calendar class="form-control calendario"></p:calendar>
+                    </div>
+                    <div class="float-end">
+                        <h5>Hasta:</h5>
+                        <p:calendar class="form-control calendario"></p:calendar>
+                    </div>
+                </div>
+                <table class="table table-dark table-striped table-hover tablaReporte">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Sede</th>
+                            <th scope="col">Fecha de Registro</th>
+                            <th scope="col">ID del Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>vacio</td>
+                            <td>vacio</td>
+                            <td>vacio</td>
+                            <td>vacio</td>
+                            <td>vacio</td>
+                            <td>vacio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </h:body>
+</html>
+
