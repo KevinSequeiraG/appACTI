@@ -66,16 +66,16 @@
 
                             <div class="col-md-4">
                                 <label class="form-label">Provincia</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo" >
-                                    <f:selectItems />
+                                <h:selectOneMenu onchange="submit()" style="text-align: center !important" class="form-select login__input" value="#{beanProvincia.ID}"  id="pro" label="pro">
+                                    <f:selectItems value="#{beanProvincia.listaPro}" />
                                 </h:selectOneMenu>
 
                             </div>
 
                             <div class="col-md-4">
                                 <label class="form-label">Cantón</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo" >
-                                    <f:selectItems />
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanCanton.ID}" >
+                                    <f:selectItems value="#{beanCanton.getListaCan(beanProvincia.ID)}"/>
                                 </h:selectOneMenu>
 
                             </div>
