@@ -30,8 +30,8 @@
                         <div class="row g-3" style="text-align: center !important">
                             <div class="col-md-6">
                                 <label class="form-label">Tipo de identificación</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo">
-                                    <f:selectItems />
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanTipoID.ID}">
+                                    <f:selectItems value="#{beanTipoID.listaTipoID}"/>
                                 </h:selectOneMenu>
                             </div>
                             <div class="col-sm-6">
@@ -56,7 +56,7 @@
 
                             <div class="col-sm-8" >
                                 <label class="form-label">Fecha de nacimiento</label>
-                                <p:datePicker style="text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" pattern="dd/MM/yyyy"></p:datePicker>
+                                <p:datePicker style="text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" pattern="dd/MM/yyyy" yearRange="1950:2004"></p:datePicker>
 
                             </div>
                             <div class="col-sm-4 espacioRegistro">

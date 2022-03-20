@@ -33,4 +33,20 @@
         <managed-bean-class>Controller.beanCanton</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>beanTipoID</managed-bean-name>
+        <managed-bean-class>Controller.beanTipoID</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanDistrito</managed-bean-name>
+        <managed-bean-class>Controller.beanDistrito</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanBarrio</managed-bean-name>
+        <managed-bean-class>Controller.beanBarrio</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
