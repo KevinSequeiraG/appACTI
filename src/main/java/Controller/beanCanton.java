@@ -54,23 +54,23 @@ public class beanCanton {
     public LinkedList<SelectItem> getListaCan(int idProvincia) 
             throws SNMPExceptions, SQLException{
         String dscCortaCanton="";
-        float codigoCanton=0;
+        int codigoCanton=0;
         
-        LinkedList<Canton> lista = new 
-        LinkedList<Canton>();
+        LinkedList<Canton> lista = new LinkedList<Canton>();
         CantonDB cDB = new CantonDB();
         
         lista = cDB.moID(idProvincia);
         
         LinkedList resultList = new LinkedList();
         resultList.add(new SelectItem(0, 
-                "Seleccione Canton"));
+                "Seleccione Cantón"));
         
         for (Iterator iter= lista.iterator();
                 iter.hasNext();) {
         
             Canton can = (Canton) iter.next();
             codigoCanton=can.getID();
+            
             resultList.add(new SelectItem(codigoCanton, 
                     can.getDescripcion()));
          }         

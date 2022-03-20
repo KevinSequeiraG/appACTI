@@ -26,11 +26,11 @@
     <managed-bean>
         <managed-bean-name>beanProvincia</managed-bean-name>
         <managed-bean-class>Controller.beanProvincia</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>beanCanton</managed-bean-name>
         <managed-bean-class>Controller.beanCanton</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

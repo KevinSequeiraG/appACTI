@@ -64,8 +64,7 @@ public class CantonDB {
               AccesoDatos accesoDatos = new AccesoDatos();  
 
               //Se crea la sentencia de búsqueda
-              select = 
-                      "SELECT * FROM Canton WHERE idProvincia = "+idProvincia;
+              select = "SELECT ID, Descripcion, idProvincia FROM Canton WHERE idProvincia = "+idProvincia;
               //Se ejecuta la sentencia SQL
               ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
              //Se llena el arryaList con los proyectos   

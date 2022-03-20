@@ -74,7 +74,7 @@
 
                             <div class="col-md-4">
                                 <label class="form-label">Cantón</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanCanton.ID}" >
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanCanton.ID}" id="can" label="can">
                                     <f:selectItems value="#{beanCanton.getListaCan(beanProvincia.ID)}"/>
                                 </h:selectOneMenu>
 
