@@ -15,9 +15,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     </h:head>
-    <h:body>
+    <h:body style="overflow-x: hidden">
 
-        <div class="PrincipalContainer">
+        <div class="PrincipalContainer" style="width: 100vw; overflow-x: hidden">
 
             <div class ="RegistroContent">
 
@@ -56,7 +56,7 @@
 
                             <div class="col-sm-8" >
                                 <label class="form-label">Fecha de nacimiento</label>
-                                <p:calendar class="form-control calendar login__input fechaSol"></p:calendar>
+                                <p:datePicker style="text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" pattern="dd/MM/yyyy"></p:datePicker>
 
                             </div>
                             <div class="col-sm-4 espacioRegistro">
