@@ -81,16 +81,16 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Distrito</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo" >
-                                    <f:selectItems />
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanDistrito.ID}" >
+                                    <f:selectItems value="#{beanDistrito.getListaDis(beanProvincia.ID, beanCanton.ID)}"/>
                                 </h:selectOneMenu>
 
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Barrio</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo" >
-                                    <f:selectItems />
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanBarrio.ID}" >
+                                    <f:selectItems value="#{beanBarrio.getListaBar(beanProvincia.ID, beanCanton.ID, beanDistrito.ID)}"/>
                                 </h:selectOneMenu>
 
                             </div>
