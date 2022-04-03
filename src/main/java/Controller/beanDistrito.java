@@ -86,7 +86,7 @@ public class beanDistrito {
             ID = dis.getID();
             descripcion = dis.getDescripcion();
             resultList.add(new SelectItem(ID,
-                    descripcion));
+                    descripcion.toLowerCase()));
         }
         return resultList;
 

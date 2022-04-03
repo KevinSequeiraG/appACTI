@@ -90,7 +90,7 @@ public class beanBarrio {
             ID = bar.getID();
             descripcion = bar.getDescripcion();
             resultList.add(new SelectItem(ID,
-                    descripcion));
+                    descripcion.toLowerCase()));
         }
         return resultList;
 

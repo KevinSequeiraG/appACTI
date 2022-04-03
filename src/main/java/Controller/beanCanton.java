@@ -72,7 +72,7 @@ public class beanCanton {
             codigoCanton=can.getID();
             
             resultList.add(new SelectItem(codigoCanton, 
-                    can.getDescripcion()));
+                    can.getDescripcion().toLowerCase()));
          }         
          return resultList; 
         
