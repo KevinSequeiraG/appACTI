@@ -17,7 +17,7 @@ public class Usuario {
     String Nombre;
     String Apellido1;
     String Apellido2;
-    Date FechNac;
+    String FechNac;
     int idProvincia;
     int idCanton;
     int idDistrito;
@@ -29,7 +29,7 @@ public class Usuario {
     String Password;
     int idPerfil;
     char EstadoSolicitud;
-    Date FechaSolicitud;
+    String FechaSolicitud;
 
     public Usuario() {
     }
@@ -74,13 +74,7 @@ public class Usuario {
         this.Apellido2 = Apellido2;
     }
 
-    public Date getFechNac() {
-        return FechNac;
-    }
 
-    public void setFechNac(Date FechNac) {
-        this.FechNac = FechNac;
-    }
 
     public int getIdProvincia() {
         return idProvincia;
@@ -170,11 +164,21 @@ public class Usuario {
         this.EstadoSolicitud = EstadoSolicitud;
     }
 
-    public Date getFechaSolicitud() {
+    public String getFechNac() {
+        return FechNac;
+    }
+
+    public void setFechNac(String FechNac) {
+        this.FechNac = FechNac;
+    }
+
+    public String getFechaSolicitud() {
         return FechaSolicitud;
     }
 
-    public void setFechaSolicitud(Date FechaSolicitud) {
+    public void setFechaSolicitud(String FechaSolicitud) {
         this.FechaSolicitud = FechaSolicitud;
     }
+
+
 }

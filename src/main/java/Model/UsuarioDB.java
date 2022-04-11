@@ -66,8 +66,7 @@ public class UsuarioDB {
         String strSQL = "";
 
         try {
-            //Se obtienen los valores del objeto Departamento
-
+            //Se obtienen los valores del objeto Usuario
             strSQL = "INSERT INTO [dbo].[Usuario]"
                     + " ([ID]"
                     + ",[idTipoID]"

@@ -49,4 +49,19 @@
         <managed-bean-class>Controller.beanBarrio</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanUsuario</managed-bean-name>
+        <managed-bean-class>Controller.beanUsuario</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanSede</managed-bean-name>
+        <managed-bean-class>Controller.beanSede</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanPerfil</managed-bean-name>
+        <managed-bean-class>Controller.beanPerfil</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

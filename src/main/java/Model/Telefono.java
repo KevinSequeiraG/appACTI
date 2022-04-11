@@ -3,24 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
-
-import Model.TelefonoDB;
-import java.util.LinkedList;
-import javax.faces.model.SelectItem;
+package Model;
 
 /**
  *
- * @author Oscar
+ * @author erick
  */
-public class beanTelefono {
+public class Telefono {
     int NumTelefono;
     String idUsuario;
     String TipoTelefono;
-    LinkedList<SelectItem> listaTiposTelefono = new LinkedList();
-    
-    public beanTelefono() {
+
+    public Telefono() {
     }
+
+    public Telefono(int NumTelefono, String idUsuario, String TipoTelefono) {
+        this.NumTelefono = NumTelefono;
+        this.idUsuario = idUsuario;
+        this.TipoTelefono = TipoTelefono;
+    }
+    
 
     public int getNumTelefono() {
         return NumTelefono;
@@ -45,14 +47,4 @@ public class beanTelefono {
     public void setTipoTelefono(String TipoTelefono) {
         this.TipoTelefono = TipoTelefono;
     }
-
-    public LinkedList<SelectItem> getListaTiposTelefono() {
-        TelefonoDB telefonoDB = new TelefonoDB();       
-        return telefonoDB.TiposTelefono();
-    }
-
-    public void setListaTiposTelefono(LinkedList<SelectItem> listaTiposTelefono) {
-        this.listaTiposTelefono = listaTiposTelefono;
-    }
-    
 }

@@ -36,32 +36,32 @@
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Identificación</label>
-                                <h:inputText style="text-align: center !important" class="form-control login__input" value="Nuevo" ></h:inputText>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.ID}" ></h:inputText>
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Nombre</label>
-                                <h:inputText style="text-align: center !important" class="form-control login__input" value="Nuevo" ></h:inputText>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.nombre}" ></h:inputText>
 
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Primer apellido</label>
-                                <h:inputText style="text-align: center !important" class="form-control login__input" value="Nuevo"></h:inputText>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.apellido1}"></h:inputText>
 
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Seguno apellido</label>
-                                <h:inputText style="text-align: center !important" class="form-control login__input" value="Nuevo" ></h:inputText>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.apellido2}" ></h:inputText>
 
                             </div>
 
                             <div class="col-sm-8" >
                                 <label class="form-label">Fecha de nacimiento</label>
-                                <p:datePicker style="text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" pattern="dd/MM/yyyy" yearRange="1950:2004"></p:datePicker>
+                                <p:datePicker style="text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" pattern="dd/MM/yyyy" yearRange="1950:2004" value="#{beanUsuario.fechNac}"></p:datePicker>
 
                             </div>
                             <div class="col-sm-4 espacioRegistro">
                                 <label class="form-label">Edad</label>
-                                <h:outputText class="form-control login__input" value="13"></h:outputText>                   
+                                <h:outputText class="form-control login__input" value="#{beanUsuario.edad}"></h:outputText>                   
                             </div>
 
                             <div class="col-md-4">
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Otras señas</label>
-                                <h:inputText style="text-align: center !important" class="form-control login__input" value="Nuevo" ></h:inputText>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.otrasSennas}" ></h:inputText>
 
                             </div>
 
@@ -113,21 +113,26 @@
 
                             </div>
                             <div class="col-sm-4">
-                                <label class="form-label">Correo</label>
+                                <label class="form-label">Otro teléfono(opcional)</label>
                                 <h:inputText style="text-align: center !important" class="form-control login__input" value="Nuevo" ></h:inputText>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label">Correo</label>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.email}" ></h:inputText>
 
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Sede</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo">
-                                    <f:selectItems />
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanSede.ID}">
+                                    <f:selectItems value="#{beanSede.listaSedes}"/>
                                 </h:selectOneMenu>
 
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <label class="form-label">Tipo de perfil</label>
-                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="Nuevo" >
-                                    <f:selectItems />
+                                <h:selectOneMenu style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanPerfil.ID}" >
+                                    <f:selectItems value="#{beanPerfil.listaPerfiles}"/>
                                 </h:selectOneMenu>
 
                             </div>                                

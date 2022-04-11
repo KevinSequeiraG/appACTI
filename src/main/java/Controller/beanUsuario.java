@@ -24,6 +24,7 @@ public class beanUsuario {
     String Apellido1;
     String Apellido2;
     Date FechNac;
+    String SFechaNac;
     int idProvincia;
     int idCanton;
     int idDistrito;
@@ -36,8 +37,13 @@ public class beanUsuario {
     int idPerfil;
     char EstadoSolicitud;
     Date FechaSolicitud;
-    String edad = "14";
-    
+    String SFechaSolicitud;
+    String edad = "15";
+
+    //BD
+    Usuario user;
+    UsuarioDB userDB = new UsuarioDB();
+
     //Para darle formato a los Date
     String pattern = "dd/MM/yyyy";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -196,34 +202,56 @@ public class beanUsuario {
      * @throws SQLException return void
      */
     public void InsertarUsuario() throws SNMPExceptions, SQLException {
-        Usuario user = new Usuario();
-        UsuarioDB userDB = new UsuarioDB();
 
-        //Falta Validar
-        user.setID(this.getID());
-        user.setIdTipoID(this.getIdTipoID());
-        user.setNombre(this.getNombre());
-        user.setApellido1(this.getApellido1());
-        user.setApellido2(this.getApellido2());
-        user.setFechNac(this.getFechNac());
-        user.setIdProvincia(this.getIdProvincia());
-        user.setIdCanton(this.getIdCanton());
-        user.setIdDistrito(this.getIdDistrito());
-        user.setOtrasSennas(this.getOtrasSennas());
-        user.setEmail(this.getEmail());
-        user.setIdSede(this.getIdSede());
-        user.setCodSeg(this.getCodSeg());
-        user.setPassword(this.getPassword());
-        user.setIdBarrio(this.getIdBarrio());
-        user.setIdPerfil(this.getIdPerfil());
-        user.setEstadoSolicitud(this.getEstadoSolicitud());
-        user.setFechaSolicitud(this.getFechaSolicitud());
-
-        if (!userDB.consultarUsuario(this.getID())) { //consulta si el usuario ya existe
-            userDB.InsertarUsuario(user);             //lo inserta
-        } else {
-            //el usuario ya existe (hacer mensaje con validaciones)
+        if (ValidarDatos()) {
+            
+            this.user = new Usuario();
+            user.setID(this.getID());
+            user.setIdTipoID(this.getIdTipoID());
+            user.setNombre(this.getNombre());
+            user.setApellido1(this.getApellido1());
+            user.setApellido2(this.getApellido2());            
+            user.setFechNac(this.getSFechaNac());
+            user.setIdProvincia(this.getIdProvincia());
+            user.setIdCanton(this.getIdCanton());
+            user.setIdDistrito(this.getIdDistrito());
+            user.setOtrasSennas(this.getOtrasSennas());
+            user.setEmail(this.getEmail());
+            user.setIdSede(this.getIdSede());
+            user.setCodSeg(this.getCodSeg());
+            user.setPassword(this.getPassword());
+            user.setIdBarrio(this.getIdBarrio());
+            user.setIdPerfil(this.getIdPerfil());
+            user.setEstadoSolicitud(this.getEstadoSolicitud());
+            user.setFechaSolicitud(this.getSFechaSolicitud());
+            
+            //consulta si el usuario ya existe
+            if (!ExisteUsuario(this.getID())) { 
+                userDB.InsertarUsuario(user); //lo inserta
+            } else {
+                //el usuario ya existe (hacer mensaje con validaciones)
+            }
         }
+
+    }
+    /**
+     * Valida los datos del usuario
+     * @return boolean
+     */
+    public boolean ValidarDatos() {
+        
+        return true;
+    }
+    
+    /**
+     * Consulta si el usuario existe en la BD
+     * @param id
+     * @return boolean
+     * @throws SNMPExceptions
+     * @throws SQLException 
+     */
+    public boolean ExisteUsuario(String id) throws SNMPExceptions, SQLException {
+        return userDB.consultarUsuario(id); //consulta si el usuario ya existe
     }
 
     /**
@@ -238,10 +266,26 @@ public class beanUsuario {
 
     public String getEdad() {
         return edad;
-    }    
-    
+    }
+
     public void setEdad(String edad) {
         this.edad = edad;
     }
 
+    public String getSFechaNac() {
+        return simpleDateFormat.format(this.getFechNac());
+    }
+
+    public void setSFechaNac(String SFechaNac) {
+        this.SFechaNac = SFechaNac;
+    }
+
+    public String getSFechaSolicitud() {
+        return simpleDateFormat.format(this.getFechaSolicitud());
+    }
+
+    public void setSFechaSolicitud(String SFechaSolicitud) {
+        this.SFechaSolicitud = SFechaSolicitud;
+    }
+    
 }
