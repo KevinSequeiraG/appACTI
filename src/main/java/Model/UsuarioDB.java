@@ -104,7 +104,7 @@ public class UsuarioDB {
                     + user.getIdBarrio() + ","
                     + user.getIdPerfil() + ","
                     + "'" + user.getEstadoSolicitud() + "'" + ","
-                    + "'" + user.getFechaSolicitud() + "'" + ","
+                    + "'" + user.getFechaSolicitud() + "'"
                     + ")";
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);

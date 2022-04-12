@@ -14,7 +14,8 @@ import javax.faces.model.SelectItem;
  * @author Oscar
  */
 public class beanTelefono {
-    int NumTelefono;
+    String NumTelefono;
+    String NumTelefonoOpc;
     String idUsuario;
     String TipoTelefono;
     LinkedList<SelectItem> listaTiposTelefono = new LinkedList();
@@ -22,13 +23,7 @@ public class beanTelefono {
     public beanTelefono() {
     }
 
-    public int getNumTelefono() {
-        return NumTelefono;
-    }
 
-    public void setNumTelefono(int NumTelefono) {
-        this.NumTelefono = NumTelefono;
-    }
 
     public String getIdUsuario() {
         return idUsuario;
@@ -54,5 +49,23 @@ public class beanTelefono {
     public void setListaTiposTelefono(LinkedList<SelectItem> listaTiposTelefono) {
         this.listaTiposTelefono = listaTiposTelefono;
     }
+
+    public String getNumTelefono() {
+        return NumTelefono;
+    }
+
+    public void setNumTelefono(String NumTelefono) {
+        this.NumTelefono = NumTelefono;
+    }
+
+    public String getNumTelefonoOpc() {
+        return NumTelefonoOpc;
+    }
+
+    public void setNumTelefonoOpc(String NumTelefonoOpc) {
+        this.NumTelefonoOpc = NumTelefonoOpc;
+    }
+
+
     
 }

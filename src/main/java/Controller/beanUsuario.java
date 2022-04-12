@@ -6,11 +6,14 @@
 package Controller;
 
 import DAO.SNMPExceptions;
+import Model.Telefono;
+import Model.TelefonoDB;
 import Model.Usuario;
 import Model.UsuarioDB;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  *
@@ -47,7 +50,8 @@ public class beanUsuario {
     //Para darle formato a los Date
     String pattern = "dd/MM/yyyy";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
+    String mensaje = "";
+    String mensaje2 = "";
     public beanUsuario() {
     }
 
@@ -188,29 +192,78 @@ public class beanUsuario {
     }
 
     public Date getFechaSolicitud() {
-        return FechaSolicitud;
+        long miliseconds = System.currentTimeMillis(); 
+        return new Date(miliseconds);
     }
 
     public void setFechaSolicitud(Date FechaSolicitud) {
         this.FechaSolicitud = FechaSolicitud;
     }
 
+    public void RegistrarFuncionario(int TipoId,int proId, int canId, int disId, int barId,String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException {
+        setMensaje("");
+        setMensaje2("");
+        this.setIdTipoID(TipoId);
+        this.setIdProvincia(proId);
+        this.setIdCanton(canId);
+        this.setIdDistrito(disId);
+        this.setIdBarrio(barId);
+        this.setIdSede(sede);
+        this.setIdPerfil(tipoPerfil);
+        this.setEstadoSolicitud('P');
+        if (InsertarUsuario()) {
+            Telefonos(numTelefono, tipoTelefono, numTelefono2);
+        }        
+        mensaje2 = "Usuario registrado exitosamente";
+    }
+    
+    public void Telefonos(String numTelefono, String tipoTelefono, String numTelefono2) throws SNMPExceptions, SQLException{
+        TelefonoDB tDB = new TelefonoDB();
+        int numero = 0, numero2 = 0;
+        
+        //Validaciones
+        /**if (tipoTelefono.equals("Tipo de teléfono")) {
+            this.mensaje = "Necesita elegir el tipo de teléfono";
+        }
+        try {
+            numero = Integer.parseInt(numTelefono);
+            if (!numTelefono2.equals("")) {
+                numero2 = Integer.parseInt(numTelefono2);
+            }
+        } catch (Exception e) {
+            this.mensaje = "Formato incocorrecto de números telefónicos.";
+            return;
+        }       
+        if (numTelefono.equals(numTelefono2)) {
+            this.mensaje = "Los números de teléfono no pueden ser iguales";
+        }*/
+        numero = Integer.parseInt(numTelefono);
+        numero2 = Integer.parseInt(numTelefono2);
+        Telefono tel = new Telefono(numero, this.getID(), tipoTelefono);
+        Telefono tel2 = new Telefono(numero2, this.getID(), tipoTelefono);
+
+        if (numero != 0) {
+            tDB.InsertarTelefono(tel);
+        }
+        if (numero2 != 0) {
+            tDB.InsertarTelefono(tel2);
+        }
+    }
+
     /**
      * Inserta un usuario
      *
+     * @return boolean
      * @throws SNMPExceptions
      * @throws SQLException return void
      */
-    public void InsertarUsuario() throws SNMPExceptions, SQLException {
-
-        if (ValidarDatos()) {
-            
+    public boolean InsertarUsuario() throws SNMPExceptions, SQLException {
             this.user = new Usuario();
             user.setID(this.getID());
             user.setIdTipoID(this.getIdTipoID());
             user.setNombre(this.getNombre());
             user.setApellido1(this.getApellido1());
-            user.setApellido2(this.getApellido2());            
+            user.setApellido2(this.getApellido2());
             user.setFechNac(this.getSFechaNac());
             user.setIdProvincia(this.getIdProvincia());
             user.setIdCanton(this.getIdCanton());
@@ -224,36 +277,28 @@ public class beanUsuario {
             user.setIdPerfil(this.getIdPerfil());
             user.setEstadoSolicitud(this.getEstadoSolicitud());
             user.setFechaSolicitud(this.getSFechaSolicitud());
-            
-            //consulta si el usuario ya existe
-            if (!ExisteUsuario(this.getID())) { 
-                userDB.InsertarUsuario(user); //lo inserta
-            } else {
-                //el usuario ya existe (hacer mensaje con validaciones)
-            }
-        }
 
+            //consulta si el usuario ya existe
+            if (!ExisteUsuario(this.getID())) {
+                userDB.InsertarUsuario(user); //lo inserta
+                return true;
+            } else {
+                mensaje = "El usuario ya se encuentra registrado";//el usuario ya existe (hacer mensaje con validaciones)
+                return false;
+            }
     }
-    /**
-     * Valida los datos del usuario
-     * @return boolean
-     */
-    public boolean ValidarDatos() {
-        
-        return true;
-    }
-    
+
     /**
      * Consulta si el usuario existe en la BD
+     *
      * @param id
      * @return boolean
      * @throws SNMPExceptions
-     * @throws SQLException 
+     * @throws SQLException
      */
     public boolean ExisteUsuario(String id) throws SNMPExceptions, SQLException {
         return userDB.consultarUsuario(id); //consulta si el usuario ya existe
     }
-
     /**
      * Convertir Date a String
      *
@@ -287,5 +332,21 @@ public class beanUsuario {
     public void setSFechaSolicitud(String SFechaSolicitud) {
         this.SFechaSolicitud = SFechaSolicitud;
     }
-    
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getMensaje2() {
+        return mensaje2;
+    }
+
+    public void setMensaje2(String mensaje2) {
+        this.mensaje2 = mensaje2;
+    }
+
 }

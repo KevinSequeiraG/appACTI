@@ -63,11 +63,11 @@ public class TelefonoDB {
             strSQL = "INSERT INTO [dbo].[Telefono]"
                     + " ([NumTelefonico]"
                     + ",[idUsuario]"
-                    + ",[TipoTelefono]"  
+                    + ",[TipoTelefono])"  
                     + " VALUES"
                     + "(" +tel.getNumTelefono()+","
                     + "'" + tel.getIdUsuario()+ "'" + ","
-                    + "'" + tel.getTipoTelefono()+ "'" + ","
+                    + "'" + tel.getTipoTelefono()+ "'"
                     + ")";
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
