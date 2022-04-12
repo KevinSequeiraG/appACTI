@@ -23,6 +23,7 @@ public class TipoIDDB {
     private Connection conn;
 
     public TipoIDDB() {
+        super();
     }
 
     public TipoIDDB(Connection conn) {

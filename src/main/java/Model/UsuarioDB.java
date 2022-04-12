@@ -23,6 +23,7 @@ public class UsuarioDB {
     private LinkedList<Usuario> listaU = new LinkedList<Usuario>();
 
     public UsuarioDB() {
+        super();
     }
 
     public UsuarioDB(Connection conn) {

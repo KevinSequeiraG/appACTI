@@ -212,9 +212,9 @@ public class beanUsuario {
         this.setIdPerfil(tipoPerfil);
         this.setEstadoSolicitud('P');
         if (InsertarUsuario()) {
+            mensaje2 = "Usuario registrado exitosamente";
             Telefonos(numTelefono, tipoTelefono, numTelefono2);
-        }        
-        mensaje2 = "Usuario registrado exitosamente";
+        }       
     }
     
     public void Telefonos(String numTelefono, String tipoTelefono, String numTelefono2) throws SNMPExceptions, SQLException{
@@ -279,7 +279,7 @@ public class beanUsuario {
             user.setFechaSolicitud(this.getSFechaSolicitud());
 
             //consulta si el usuario ya existe
-            if (!ExisteUsuario(this.getID())) {
+            if (!ExisteUsuario(this.getID())) {                
                 userDB.InsertarUsuario(user); //lo inserta
                 return true;
             } else {
