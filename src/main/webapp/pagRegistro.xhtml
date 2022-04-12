@@ -140,7 +140,7 @@
                             <h:outputLabel value="#{beanUsuario.mensaje2}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
                             <hr class="my-4"></hr>
 
-                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" action="#{beanUsuario.RegistrarFuncionario(beanTipoID.ID, beanProvincia.ID, beanCanton.ID, beanDistrito.ID, beanBarrio.ID, beanTelefono.numTelefono, beanTelefono.tipoTelefono, beanTelefono.numTelefonoOpc, beanSede.ID, beanPerfil.ID)}"></h:commandButton>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" actionListener="#{beanUsuario.RegistrarFuncionario(beanTipoID.ID, beanProvincia.ID, beanCanton.ID, beanDistrito.ID, beanBarrio.ID, beanTelefono.numTelefono, beanTelefono.tipoTelefono, beanTelefono.numTelefonoOpc, beanSede.ID, beanPerfil.ID)}"></h:commandButton>
 
 
                             <button class="w-10 btn btn-primary botones"><a href="pagLogin.xhtml">Regresar</a></button>
