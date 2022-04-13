@@ -12,6 +12,7 @@ import Model.Usuario;
 import Model.UsuarioDB;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -48,7 +49,7 @@ public class beanUsuario {
     UsuarioDB userDB = new UsuarioDB();
 
     //Para darle formato a los Date
-    String pattern = "dd/MM/yyyy";
+    String pattern = "yyyy/MM/dd";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
     String mensaje2 = "";
@@ -192,8 +193,7 @@ public class beanUsuario {
     }
 
     public Date getFechaSolicitud() {
-        long miliseconds = System.currentTimeMillis(); 
-        return new Date(miliseconds);
+        return (Date) Calendar.getInstance().getTime();
     }
 
     public void setFechaSolicitud(Date FechaSolicitud) {
