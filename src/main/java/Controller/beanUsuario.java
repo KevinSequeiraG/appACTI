@@ -12,9 +12,11 @@ import Model.Usuario;
 import Model.UsuarioDB;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-
 
 /**
  *
@@ -42,7 +44,7 @@ public class beanUsuario {
     char EstadoSolicitud;
     Date FechaSolicitud;
     String SFechaSolicitud;
-    String edad = "15";
+    String edad = "0";
 
     //BD
     Usuario user;
@@ -53,6 +55,7 @@ public class beanUsuario {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
     String mensaje2 = "";
+
     public beanUsuario() {
     }
 
@@ -200,7 +203,7 @@ public class beanUsuario {
         this.FechaSolicitud = FechaSolicitud;
     }
 
-    public void RegistrarFuncionario(int TipoId,int proId, int canId, int disId, int barId,String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException {
+    public void RegistrarFuncionario(int TipoId, int proId, int canId, int disId, int barId, String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException {
         setMensaje("");
         setMensaje2("");
         this.setIdTipoID(TipoId);
@@ -211,32 +214,40 @@ public class beanUsuario {
         this.setIdSede(sede);
         this.setIdPerfil(tipoPerfil);
         this.setEstadoSolicitud('P');
-        if (InsertarUsuario()) {
-            mensaje2 = "Usuario registrado exitosamente";
-            Telefonos(numTelefono, tipoTelefono, numTelefono2);
-        }       
+        if (tipoTelefono.equals("Tipo de teléfono")) {
+            mensaje = "Debe elegir un tipo de telefono.";
+        } else if (numTelefono.equals("")) {
+            mensaje = "Debe ingresar su numero de telefono.";
+        } else if ((!numTelefono.equals("")) & !numTelefono.matches("[+-]?\\d*(\\.\\d+)?")) {
+            mensaje = "Debe verificar que lo ingresado si sean numeros solamente.";
+        } else if (numTelefono2.equals("")) {
+            mensaje = "Debe ingresar un segundo telefono.";
+        } else if ((!numTelefono2.equals("")) & !numTelefono2.matches("[+-]?\\d*(\\.\\d+)?")) {
+            mensaje = "Debe ingresar numero en el espacio segundo telefono.";
+        } else {
+            if (InsertarUsuario()) {
+                mensaje2 = "Usuario registrado exitosamente";
+
+                Telefonos(numTelefono, tipoTelefono, numTelefono2);
+            }
+
+        }
     }
-    
-    public void Telefonos(String numTelefono, String tipoTelefono, String numTelefono2) throws SNMPExceptions, SQLException{
+
+    public void Telefonos(String numTelefono, String tipoTelefono, String numTelefono2) throws SNMPExceptions, SQLException {
         TelefonoDB tDB = new TelefonoDB();
         int numero = 0, numero2 = 0;
-        
+
         //Validaciones
-        /**if (tipoTelefono.equals("Tipo de teléfono")) {
-            this.mensaje = "Necesita elegir el tipo de teléfono";
-        }
-        try {
-            numero = Integer.parseInt(numTelefono);
-            if (!numTelefono2.equals("")) {
-                numero2 = Integer.parseInt(numTelefono2);
-            }
-        } catch (Exception e) {
-            this.mensaje = "Formato incocorrecto de números telefónicos.";
-            return;
-        }       
-        if (numTelefono.equals(numTelefono2)) {
-            this.mensaje = "Los números de teléfono no pueden ser iguales";
-        }*/
+        /**
+         * if (tipoTelefono.equals("Tipo de teléfono")) { this.mensaje =
+         * "Necesita elegir el tipo de teléfono"; } try { numero =
+         * Integer.parseInt(numTelefono); if (!numTelefono2.equals("")) {
+         * numero2 = Integer.parseInt(numTelefono2); } } catch (Exception e) {
+         * this.mensaje = "Formato incocorrecto de números telefónicos.";
+         * return; } if (numTelefono.equals(numTelefono2)) { this.mensaje = "Los
+         * números de teléfono no pueden ser iguales"; }
+         */
         numero = Integer.parseInt(numTelefono);
         numero2 = Integer.parseInt(numTelefono2);
         Telefono tel = new Telefono(numero, this.getID(), tipoTelefono);
@@ -248,6 +259,7 @@ public class beanUsuario {
         if (numero2 != 0) {
             tDB.InsertarTelefono(tel2);
         }
+
     }
 
     /**
@@ -258,34 +270,39 @@ public class beanUsuario {
      * @throws SQLException return void
      */
     public boolean InsertarUsuario() throws SNMPExceptions, SQLException {
-            this.user = new Usuario();
-            user.setID(this.getID());
-            user.setIdTipoID(this.getIdTipoID());
-            user.setNombre(this.getNombre());
-            user.setApellido1(this.getApellido1());
-            user.setApellido2(this.getApellido2());
-            user.setFechNac(this.getSFechaNac());
-            user.setIdProvincia(this.getIdProvincia());
-            user.setIdCanton(this.getIdCanton());
-            user.setIdDistrito(this.getIdDistrito());
-            user.setOtrasSennas(this.getOtrasSennas());
-            user.setEmail(this.getEmail());
-            user.setIdSede(this.getIdSede());
-            user.setCodSeg(this.getCodSeg());
-            user.setPassword(this.getPassword());
-            user.setIdBarrio(this.getIdBarrio());
-            user.setIdPerfil(this.getIdPerfil());
-            user.setEstadoSolicitud(this.getEstadoSolicitud());
-            user.setFechaSolicitud(this.getSFechaSolicitud());
+        this.user = new Usuario();
+        user.setID(this.getID());
+        user.setIdTipoID(this.getIdTipoID());
+        user.setNombre(this.getNombre());
+        user.setApellido1(this.getApellido1());
+        user.setApellido2(this.getApellido2());
+        user.setFechNac(this.getSFechaNac());
+        user.setIdProvincia(this.getIdProvincia());
+        user.setIdCanton(this.getIdCanton());
+        user.setIdDistrito(this.getIdDistrito());
+        user.setOtrasSennas(this.getOtrasSennas());
+        user.setEmail(this.getEmail());
+        user.setIdSede(this.getIdSede());
+        user.setCodSeg(this.getCodSeg());
+        user.setPassword(this.getPassword());
+        user.setIdBarrio(this.getIdBarrio());
+        user.setIdPerfil(this.getIdPerfil());
+        user.setEstadoSolicitud(this.getEstadoSolicitud());
+        user.setFechaSolicitud(this.getSFechaSolicitud());
 
+        if (Validacion()) {
             //consulta si el usuario ya existe
-            if (!ExisteUsuario(this.getID())) {                
+            if (!ExisteUsuario(this.getID())) {
                 userDB.InsertarUsuario(user); //lo inserta
                 return true;
             } else {
                 mensaje = "El usuario ya se encuentra registrado";//el usuario ya existe (hacer mensaje con validaciones)
                 return false;
             }
+        }
+
+        return false;
+
     }
 
     /**
@@ -299,6 +316,7 @@ public class beanUsuario {
     public boolean ExisteUsuario(String id) throws SNMPExceptions, SQLException {
         return userDB.consultarUsuario(id); //consulta si el usuario ya existe
     }
+
     /**
      * Convertir Date a String
      *
@@ -310,6 +328,16 @@ public class beanUsuario {
     }
 
     public String getEdad() {
+        if (FechNac != null) {
+
+            String resp = "0";
+            Date date = new Date();
+            if (!FechNac.equals("")) {
+                Period periodo = Period.between(this.getFechNac().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                resp = String.valueOf(periodo.getYears());
+            }
+            return resp;
+        }
         return edad;
     }
 
@@ -349,4 +377,64 @@ public class beanUsuario {
         this.mensaje2 = mensaje2;
     }
 
+    public boolean Validacion() {
+        boolean resp = true;
+        Date date = new Date();
+
+        if (this.getID().equals("")) {
+            mensaje = "Debe llenar el campo Identificación." + String.valueOf(this.getIdTipoID());
+            resp = false;
+        } else if (String.valueOf(this.getIdTipoID()).equals("0")) {
+            mensaje = "Debe elegir un tipo de identificación.";
+            resp = false;
+        } else if (this.getNombre().equals("")) {
+            mensaje = "Debe llenar el campo Nombre.";
+            resp = false;
+        } else if (this.getApellido1().equals("")) {
+            mensaje = "Debe llenar el campo Primer Apellido.";
+            resp = false;
+        } else if (this.getApellido2().equals("")) {
+            mensaje = "Debe llenar el campo Segundo Apellido.";
+            resp = false;
+        } else if (this.getApellido1().equals("")) {
+            mensaje = "Debe llenar el campo Primer Apellido.";
+            resp = false;
+        } /*else if (this.getFechNac().equals(date)) {
+            mensaje = "La fecha de nacimiento debe ser un dia diferente a hoy.";
+            resp = false;
+        } else if (this.getFechNac().after(date)) {
+            mensaje = "La fecha de nacimiento no puede ser mayor a la fecha de hoy.";
+            resp = false;
+        }*/ else if (this.getEdad().equals("")) {
+            mensaje = "Debe llenar el campo Edad.";
+            resp = false;
+        } else if ((!this.getEdad().equals("")) & !this.getEdad().matches("[+-]?\\d*(\\.\\d+)?")) {
+            mensaje = "El campo edad debe contener solo números.";
+            return false;
+        } else if (String.valueOf(this.getIdProvincia()).equals("0")) {
+            mensaje = "Debe seleccionar una Provincia";
+            resp = false;
+        } else if (String.valueOf(this.getIdCanton()).equals("0")) {
+            mensaje = "Debe seleccionar un Canton.";
+            resp = false;
+        } else if (String.valueOf(this.getIdDistrito()).equals("0")) {
+            mensaje = "Debe seleccionar un Distrito.";
+            resp = false;
+        } else if (String.valueOf(this.getIdBarrio()).equals("0")) {
+            mensaje = "Debe seleccionar un Barrio.";
+            resp = false;
+        } else if (this.getOtrasSennas().equals("")) {
+            mensaje = "Debe incluir información en el espacio de otras señas.";
+            resp = false;
+        } else if (this.getEmail().equals("")) {
+            mensaje = "Debe agregar su correo en el campo definido.";
+            resp = false;
+        } else if (String.valueOf(this.getIdSede()).equals("0")) {
+            mensaje = "Debe elegir una sede.";
+            resp = false;
+        } else if (String.valueOf(this.getIdPerfil()).equals("0")) {
+            mensaje = "Debe elegir un tipo de perfil";
+        }
+        return resp;
+    }
 }
