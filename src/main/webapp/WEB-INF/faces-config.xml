@@ -69,4 +69,14 @@
         <managed-bean-class>Controller.beanTelefono</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanLoginControlador</managed-bean-name>
+        <managed-bean-class>Controller.beanLoginControlador</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanObtenerDatosSesion</managed-bean-name>
+        <managed-bean-class>Controller.beanObtenerDatosSesion</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
