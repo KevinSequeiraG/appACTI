@@ -34,6 +34,13 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(String ID, int idTipoID, String Password, char EstadoSolicitud) {
+        this.ID = ID;
+        this.idTipoID = idTipoID;
+        this.Password = Password;
+        this.EstadoSolicitud = EstadoSolicitud;
+    }
+    
     public String getID() {
         return ID;
     }

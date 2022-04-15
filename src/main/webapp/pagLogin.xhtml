@@ -12,7 +12,7 @@
         <div id ="stars"></div>
         <div id ="stars2"></div>
         <div class="login-container">
-            <form action="" class="form-login">
+            <h:form  class="form-login">
                 <ul class="login-nav">
                     <li class="login-nav__item active">
                         <a href="#">Iniciar Sesión</a>
@@ -24,16 +24,16 @@
                 <label for="login-input-user" class="login__label">
                     Usuario
                 </label>
-                <input id="login-input-user" class="login__input" type="text" />
+                <h:inputText id="login-input-user" class="login__input" value="#{beanLoginControlador.usuarioIngresado}"></h:inputText>
                 <label for="login-input-password" class="login__label">
                     Contraseña
                 </label>
-                <input id="login-input-password" class="login__input" type="password" />
+                <h:inputSecret id="login-input-password" class="login__input" value="#{beanLoginControlador.password}"></h:inputSecret>
                 <br></br><br></br>
-                <h:form>
-                    <h:commandButton class="login__submit" value="Ingresar" action="PagPrincipal"></h:commandButton>
-                </h:form>
-            </form>
+                
+                <h:commandButton class="login__submit" value="Ingresar" action="#{beanLoginControlador.autenticar()}"></h:commandButton>
+                
+            </h:form>
             <a href="pagOlvidoContra.xhtml" class="login__forgot">¿Has Olvido tu Contraseña?</a>
         </div>
     </h:body>

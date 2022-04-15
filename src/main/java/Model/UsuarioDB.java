@@ -161,5 +161,57 @@ public class UsuarioDB {
         }
 
     }
+    
+    public static Usuario login(String Login) throws SNMPExceptions, 
+            SQLException {
+      String select = "";
+          Usuario user = new Usuario();
+          try {
+    
+              //Se instancia la clase de acceso a datos
+              AccesoDatos accesoDatos = new AccesoDatos();  
 
+              //Se crea la sentencia de búsqueda
+              select = "SELECT ID, idPerfil, Password, EstadoSolicitud FROM Usuario where ID ='"+ Login + "'" ;
+              //Se ejecuta la sentencia SQL
+              ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+             //Se llena el arryaList con los proyectos   
+              while (rsPA.next()) {
+
+                String ID = rsPA.getString("ID");
+                String Password = rsPA.getString("Password");
+                int idPerfil = rsPA.getInt("idPerfil");
+                char EstadoSolicitud = rsPA.getString("EstadoSolicitud").charAt(0);
+                
+                user = new Usuario(ID, idPerfil, Password, EstadoSolicitud);
+              }
+              rsPA.close();
+              
+          } catch (SQLException e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage(), e.getErrorCode());
+          }catch (Exception e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage());
+          } finally {
+              
+          }
+          
+         return user; 
+      }
+    
+    
+
+    public static Usuario Autenticar(String ID, String Password) throws SNMPExceptions, 
+            SQLException{
+ 
+        Usuario u = login(ID);
+        
+        if (u.ID.equals(ID) && u.Password.equals(Password)) {
+            if (u.EstadoSolicitud == 'A') {
+                return u;
+            }
+        }
+    return null;
+    }
 }
