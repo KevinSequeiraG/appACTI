@@ -10,6 +10,7 @@ import Model.Telefono;
 import Model.TelefonoDB;
 import Model.Usuario;
 import Model.UsuarioDB;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -205,7 +207,49 @@ public class beanUsuario {
         this.FechaSolicitud = FechaSolicitud;
     }
 
-    public void RegistrarFuncionario(int TipoId, int proId, int canId, int disId, int barId, String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException {
+    /**
+     * Limpia los campos
+     */
+    public void Limpiar() {
+        ID= "";
+        idTipoID= 0;
+        Nombre= "";
+        Apellido1= "";
+        Apellido2= "";
+        FechNac= null;
+        SFechaNac= "";
+        idProvincia= 0;
+        idCanton= 0;
+        idDistrito= 0;
+        idBarrio= 0;
+        OtrasSennas= "";
+        Email= "";
+        idSede = "";
+        idPerfil = 0;
+        FechaSolicitud = null;
+        SFechaSolicitud = "";
+        edad = "0";
+    }
+
+    /**
+     * Paso final, aquí se hacen todas las validaciones y se llaman los métodos
+     * para insertar a la DB
+     *
+     * @param TipoId
+     * @param proId
+     * @param canId
+     * @param disId
+     * @param barId
+     * @param numTelefono
+     * @param tipoTelefono
+     * @param numTelefono2
+     * @param sede
+     * @param tipoPerfil
+     * @throws SNMPExceptions
+     * @throws SQLException
+     * @throws IOException
+     */
+    public void RegistrarFuncionario(int TipoId, int proId, int canId, int disId, int barId, String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException, IOException {
         setMensaje("");
         setMensaje2("");
         this.setIdTipoID(TipoId);
@@ -246,6 +290,15 @@ public class beanUsuario {
         }
         return result;
     }*/
+    /**
+     * Insertar teléfonos
+     *
+     * @param numTelefono
+     * @param tipoTelefono
+     * @param numTelefono2
+     * @throws SNMPExceptions
+     * @throws SQLException
+     */
     public void Telefonos(String numTelefono, String tipoTelefono, String numTelefono2) throws SNMPExceptions, SQLException {
         TelefonoDB tDB = new TelefonoDB();
         int numero = 0, numero2 = 0;
@@ -386,6 +439,14 @@ public class beanUsuario {
         this.mensaje2 = mensaje2;
     }
 
+    /**
+     * Valida todos los datos, tanto de usuario como teléfonos
+     *
+     * @param tipoTelefono
+     * @param numTelefono
+     * @param numTelefono2
+     * @return
+     */
     public boolean Validacion(String tipoTelefono, String numTelefono, String numTelefono2) {
         boolean resp = true;
         Date date = new Date();
@@ -454,6 +515,10 @@ public class beanUsuario {
             mensaje = "Debe ingresar un número de teléfono.";
             resp = false;
             return resp;
+        } else if(numTelefono.length()!=8){
+            mensaje = "La cantidad de digitos en teléfono es incorrecta.";
+            resp = false;
+            return resp;            
         } else if ((!numTelefono.equals("")) && !numTelefono.matches("[+-]?\\d*(\\.\\d+)?")) {
             mensaje = "Debe ingresar números en el espacio de teléfono.";
             resp = false;
@@ -462,7 +527,11 @@ public class beanUsuario {
             mensaje = "Debe ingresar números en el espacio de teléfono.";
             resp = false;
             return resp;
-        } else if (this.getEmail().equals("")) {
+        } else if ((!numTelefono2.equals("")) && numTelefono2.length() != 8) {
+            mensaje = "La cantidad de digitos en teléfono es incorrecta.";
+            resp = false;
+            return resp;
+        }else if (this.getEmail().equals("")) {
             mensaje = "Debe agregar su correo en el campo definido.";
             resp = false;
             return resp;
@@ -479,6 +548,7 @@ public class beanUsuario {
             resp = false;
             return resp;
         }
+        mensaje = "";
         return resp;
     }
 }
