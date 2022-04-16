@@ -515,14 +515,14 @@ public class beanUsuario {
             mensaje = "Debe ingresar un número de teléfono.";
             resp = false;
             return resp;
-        } else if(numTelefono.length()!=8){
-            mensaje = "La cantidad de digitos en teléfono es incorrecta.";
-            resp = false;
-            return resp;            
         } else if ((!numTelefono.equals("")) && !numTelefono.matches("[+-]?\\d*(\\.\\d+)?")) {
             mensaje = "Debe ingresar números en el espacio de teléfono.";
             resp = false;
             return resp;
+        } else if(numTelefono.length()!=8){
+            mensaje = "La cantidad de digitos en teléfono es incorrecta.";
+            resp = false;
+            return resp;            
         } else if ((!numTelefono2.equals("")) & !numTelefono2.matches("[+-]?\\d*(\\.\\d+)?")) {
             mensaje = "Debe ingresar números en el espacio de teléfono.";
             resp = false;
