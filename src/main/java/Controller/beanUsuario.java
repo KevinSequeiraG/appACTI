@@ -585,7 +585,7 @@ public class beanUsuario {
             mensaje2 = "";
         } else {
             UsuarioDB logica = new UsuarioDB();
-            logica.editarFuncionario(ID, idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede);
+            logica.editarFuncionario(ID, idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede, idProvincia, idCanton, idDistrito, idBarrio, OtrasSennas,EstadoSolicitud);
             mensaje2 = "Funcionario Editado Correctamente.";
             mensaje = "";
             this.Nombre = "";
@@ -594,6 +594,12 @@ public class beanUsuario {
             this.idTipoID = 0;
             this.Email = "";
             this.idSede = "";
+            this.idProvincia = 0;
+            this.idCanton = 0;
+            this.idDistrito = 0;
+            this.idBarrio = 0;
+            this.OtrasSennas= "";
+            this.EstadoSolicitud=' ';
         }
     }
 
@@ -604,8 +610,21 @@ public class beanUsuario {
         this.Apellido1 = user.getApellido1();
         this.Apellido2 = user.getApellido2();
         this.FechNac = user.getFecNacDate();
-        this.Email = user.getEmail();
         this.idSede = user.getIdSede();
+        
+        Usuario usuarioCompleto = retornarUsuario(user.getID());
+        this.idProvincia = usuarioCompleto.getIdProvincia();
+        this.idCanton = usuarioCompleto.getIdCanton();
+        this.idDistrito = usuarioCompleto.getIdDistrito();
+        this.idBarrio = usuarioCompleto.getIdBarrio();
+        this.OtrasSennas = usuarioCompleto.getOtrasSennas();
+        this.Email = usuarioCompleto.getEmail();
+        this.idSede = usuarioCompleto.getIdSede();
+        System.out.println("yesssssssssssssssssss " + usuarioCompleto.getIdSede());
+       /* this.CodSeg;
+        this.Password;*/
+        this.EstadoSolicitud = usuarioCompleto.getEstadoSolicitud();
+        this.edad = "0";
 
     }
 

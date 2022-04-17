@@ -188,6 +188,10 @@ function Validacion() {
     } else {
         return true;
     }
+    
+    function Volver(){
+        window.history.back();
+    }
 }
 
 

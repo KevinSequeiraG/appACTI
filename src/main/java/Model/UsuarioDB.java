@@ -199,7 +199,7 @@ public class UsuarioDB {
         }
     }
     
-    public void editarFuncionario(String ID, int idTipoPerfil,String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede)throws SNMPExceptions, SQLException{
+    public void editarFuncionario(String ID, int idTipoPerfil,String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede, int idProvincia, int idCanton, int idDistrito, int idBarrio, String otrasSennas, char estadoSoli)throws SNMPExceptions, SQLException{
         String select = "";
         
         try {
@@ -208,7 +208,7 @@ public class UsuarioDB {
                 AccesoDatos accesoDatos = new AccesoDatos();
                 
                 //Se borran primero los numeros pertenecientes al user
-                select = "update usuario set idTipoID="+idTipoPerfil+", nombre='"+nombre+"', apellido1='"+apellido1+"', apellido2='"+apellido2+"', fechnac='"+fechaNac+"' where id='"+ID+"'";
+                select = "update usuario set idTipoID="+idTipoPerfil+", nombre='"+nombre+"', apellido1='"+apellido1+"', apellido2='"+apellido2+"', fechnac='"+fechaNac+"',"+"Email='"+ email +"', idSede='"+Sede+"', idProvincia="+idProvincia+", idCanton="+idCanton+",idDistrito="+idDistrito+",idBarrio="+idBarrio+",OtraSennas='"+otrasSennas+"', estadoSolicitud='"+estadoSoli+"' where id='"+ID+"'";
                 System.out.println(select);
                 accesoDatos.ejecutaSQL(select);
                 
@@ -281,8 +281,17 @@ public class UsuarioDB {
                 String apellido1 = rsPA.getString("Apellido1");
                 String apellido2 = rsPA.getString("Apellido2");
                 Date fechaNac = rsPA.getDate("FechNac");
+                int idProvincia = rsPA.getInt("idProvincia");
+                int idCanton = rsPA.getInt("idCanton");
+                int idDistrito = rsPA.getInt("idDistrito");
+                String otrasSennas = rsPA.getString("OtraSennas");
                 String email = rsPA.getString("Email");
                 String sede = rsPA.getString("idSede");
+                int idBarrio = rsPA.getInt("idBarrio");
+                char EstadoSoli = rsPA.getString("EstadoSolicitud").charAt(0);
+                
+                
+                
 
                 user.setID(IDu);
                 user.setIdTipoID(idTipoID);
@@ -290,8 +299,14 @@ public class UsuarioDB {
                 user.setApellido1(apellido1);
                 user.setApellido2(apellido2);
                 user.setFechNac(fechaNac.toString());
+                user.setIdProvincia(idProvincia);
+                user.setIdCanton(idCanton);
+                user.setIdDistrito(idDistrito);
+                user.setOtrasSennas(otrasSennas);
                 user.setEmail(email);
                 user.setIdSede(sede);
+                user.setIdBarrio(idBarrio);
+                user.setEstadoSolicitud(EstadoSoli);
             }
 
             rsPA.close();

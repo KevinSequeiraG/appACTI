@@ -85,17 +85,44 @@
                                     <h:inputText style="display: inline-block;width: 7rem!important" class="form-control login__input"  value="#{beanUsuario.apellido2}"></h:inputText>
                                 </div>
                                 <div>
-                                    <label>Tipo de Perfil: </label>
-                                    <h:inputText style="display: inline-block;width: 15rem!important" class="form-control login__input" value="#{beanUsuario.idTipoID}"></h:inputText>
+                                    <label>Tipo de Identificacion: </label>
+                                    <h:selectOneMenu style="display: inline-block;width: 15rem!important;text-align: center !important" id="listaTipoID" class="form-select login__input" onchange="submit()" value="#{beanUsuario.idTipoID}">
+                                        <f:selectItems value="#{beanTipoID.listaTipoID}"/>
+                                    </h:selectOneMenu>
                                     <label>Correo Electrónico: </label>
                                     <h:inputText style="display: inline-block;width: 15rem!important" class="form-control login__input"  value="#{beanUsuario.email}"></h:inputText>
-                                    <br/>
+                                </div>
+                                <div>
                                     <label>Sede: </label>
-                                    <h:selectOneMenu id="ListaSede" style="display: inline-block; text-align: center !important; width: 15rem!important" class="form-select login__input" onchange="submit()" value="#{beanSede.ID}">
+                                    <h:selectOneMenu style="display: inline-block; text-align: center !important; width: 15rem!important" class="form-select login__input" onchange="submit()" value="#{beanUsuario.idSede}">
                                         <f:selectItems value="#{beanSede.listaSedes}"/>
                                     </h:selectOneMenu>
                                     <label>Fecha de Nacimiento: </label>
                                     <p:datePicker onchange="submit()" id="FechaNac" style="display: inline-block;width: 15rem!important;text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" yearRange="1950:2004" value="#{beanUsuario.fechNac}"></p:datePicker>
+                                </div>
+                                <div>
+                                    <label class="form-label">Provincia</label>
+                                    <h:selectOneMenu  onchange="submit()" style="display: inline-block;width: 15rem!important;text-align: center !important" class="form-select login__input" value="#{beanUsuario.idProvincia}"  label="pro">
+                                        <f:selectItems value="#{beanProvincia.listaPro}" />
+                                    </h:selectOneMenu>
+                                    <label class="form-label">Cantón</label>
+                                    <h:selectOneMenu  style="display: inline-block;width: 15rem!important;text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanUsuario.idCanton}" label="can">
+                                        <f:selectItems value="#{beanCanton.getListaCan(beanUsuario.idProvincia)}"/>
+                                    </h:selectOneMenu>
+                                    <label class="form-label">Distrito</label>
+                                    <h:selectOneMenu  style="display: inline-block;width: 15rem!important;text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanUsuario.idDistrito}" >
+                                        <f:selectItems value="#{beanDistrito.getListaDis(beanUsuario.idProvincia, beanUsuario.idCanton)}"/>
+                                    </h:selectOneMenu>
+                                    <label class="form-label">Barrio</label>
+                                    <h:selectOneMenu style="display: inline-block;width: 15rem!important;text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanUsuario.idBarrio}" >
+                                        <f:selectItems value="#{beanBarrio.getListaBar(beanUsuario.idProvincia, beanUsuario.idCanton, beanUsuario.idDistrito)}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div>
+                                    <label class="form-label">Otras señas</label>
+                                    <h:inputText  style="display: inline-block;width: 15rem!important;text-align: center !important" class="form-control login__input" value="#{beanUsuario.otrasSennas}" ></h:inputText>
+                                    <label class="form-label">Estado Solicitud</label>
+                                    <h:inputText  style="display: inline-block;width: 15rem!important;text-align: center !important" class=" login__input" value="#{beanUsuario.estadoSolicitud}" ></h:inputText>
                                 </div>
                                 <h:outputText style="color: lime" value="#{beanUsuario.mensaje2}"></h:outputText>
                                 <h:outputText style="color: red" value="#{beanUsuario.mensaje}"></h:outputText>
