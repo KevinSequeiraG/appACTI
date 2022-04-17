@@ -322,6 +322,38 @@ public class UsuarioDB {
 
         }
     }
+    public int consultarPerfil(String Login) throws SNMPExceptions,
+            SQLException {
+        String select = "";
+        int idPerfil = 0;
+        Usuario user = new Usuario();
+        try {
+
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "SELECT ID, idPerfil FROM Usuario where ID ='" + Login + "'";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+                idPerfil = rsPA.getInt("idPerfil");
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+
+        return idPerfil;
+    }
 
     public static Usuario login(String Login) throws SNMPExceptions,
             SQLException {

@@ -71,7 +71,7 @@
                                 <label class="form-label">Cantidad</label>
                                 <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanLineaD.cant}"></h:inputText>
                             </div>                            
-                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease; width: 20%; margin: auto; margin-top: 1rem" value="Agregar" actionListener="#{beanEncOrden.GenerarLineaDetalle(beanLineaD.idActivo, beanLineaD.cant)}"></h:commandButton>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease; width: 20%; margin: auto; margin-top: 1rem" value="Agregar" actionListener="#{beanEncOrden.GenerarLineaDetalle(beanLineaD.idActivo, beanLineaD.cant,beanSede.ID)}"></h:commandButton>
                             <hr class="my-6"></hr>
                             <div class="col-sm-12">
                                 <label class="form-label">Lista de activos</label>

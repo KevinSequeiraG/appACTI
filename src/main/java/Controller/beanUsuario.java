@@ -386,6 +386,11 @@ public class beanUsuario {
     public boolean ExisteUsuario(String id) throws SNMPExceptions, SQLException {
         return userDB.consultarUsuario(id); //consulta si el usuario ya existe
     }
+    
+    public int consultarPerfilUsuario(String ID) throws SNMPExceptions, SQLException{
+        UsuarioDB userDB = new UsuarioDB();
+        return userDB.consultarPerfil(ID);
+    }
 
     /**
      * Convertir Date a String

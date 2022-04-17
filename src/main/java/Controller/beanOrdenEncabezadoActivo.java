@@ -148,7 +148,7 @@ public class beanOrdenEncabezadoActivo {
         this.listaTipoOrden = listaTipoOrden;
     }
 
-    public void InsertarOrden(String idSedeD, String idUsuarioEntrega, String idActivo, int cantidad) throws SNMPExceptions, SQLException {
+        public void InsertarOrden(String idSedeD, String idUsuarioEntrega, String idActivo, int cantidad) throws SNMPExceptions, SQLException {
         mensaje = "";
         mensaje2 = "";
         EncOrdenDB encOrden = new EncOrdenDB();
@@ -162,7 +162,7 @@ public class beanOrdenEncabezadoActivo {
         orden.setFechaOrden(this.getSFechaOrden());
         this.setIdSedeDestino(idSedeD);
         orden.setIdSedeDestino(this.getIdSedeDestino());
-        if (Validar(idActivo, cantidad)) {
+        if (Validar(idActivo, cantidad, idSedeD)) {
             if (carrito.isEmpty()) {
                 mensaje = "Debe añadir al menos un activo a la lista.";
                 return;
@@ -177,10 +177,11 @@ public class beanOrdenEncabezadoActivo {
 
     }
 
-    public boolean Validar(String idActivo, int cantidad) throws SNMPExceptions, SQLException {
+    public boolean Validar(String idActivo, int cantidad,String idSedeD) throws SNMPExceptions, SQLException {
         boolean resp = true;
         UsuarioDB userDB = new UsuarioDB();
         ActivoDB activoDB = new ActivoDB();
+        this.setIdSedeDestino(idSedeD);
         if (String.valueOf(this.getIdSedeDestino()).equals("0")) {
             mensaje = "Debe elegir una sede de destino.";
             resp = false;
@@ -222,9 +223,9 @@ public class beanOrdenEncabezadoActivo {
         return resp;
     }
 
-    public void GenerarLineaDetalle(String idActivo, int cantidad) throws SNMPExceptions, SQLException {
+    public void GenerarLineaDetalle(String idActivo, int cantidad, String idSedeD) throws SNMPExceptions, SQLException {
 
-        if (Validar(idActivo, cantidad)) {
+        if (Validar(idActivo, cantidad,idSedeD)) {
             for (OrdenDetalle ordenDetalle : carrito) {
                 if (ordenDetalle.getIdActivo().equals(idActivo)) {
                     mensaje = "El activo ya está agregado en la lista";
