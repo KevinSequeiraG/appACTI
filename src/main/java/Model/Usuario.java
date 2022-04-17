@@ -30,6 +30,9 @@ public class Usuario {
     int idPerfil;
     char EstadoSolicitud;
     String FechaSolicitud;
+    Date fecNacDate;
+    
+    boolean editFunc=true;
 
     public Usuario() {
     }
@@ -39,6 +42,19 @@ public class Usuario {
         this.idTipoID = idTipoID;
         this.Password = Password;
         this.EstadoSolicitud = EstadoSolicitud;
+    }
+    
+    public Usuario(String ID, int idTipoID, String nombre,String apellido1, String apellido2, Date fechaNac, String email, String Sede){
+        this.ID = ID;
+        this.idTipoID = idTipoID;
+        this.Nombre = nombre;
+        this.Apellido1 = apellido1;
+        this.Apellido2 = apellido2;
+        this.FechNac = String.valueOf(fechaNac);
+        this.Email = email;
+        this.idSede = Sede;
+        this.fecNacDate =fechaNac;
+        editFunc = true;
     }
     
     public String getID() {
@@ -187,5 +203,20 @@ public class Usuario {
         this.FechaSolicitud = FechaSolicitud;
     }
 
+    public boolean isEditFunc() {
+        return editFunc;
+    }
 
+    public void setEditFunc(boolean editFunc) {
+        this.editFunc = editFunc;
+    }
+
+    public Date getFecNacDate() {
+        return fecNacDate;
+    }
+
+    public void setFecNacDate(Date fecNacDate) {
+        this.fecNacDate = fecNacDate;
+    }
 }
+
