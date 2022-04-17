@@ -5,11 +5,13 @@
  */
 package Controller;
 
+import DAO.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import Model.Usuario;
 import Model.UsuarioDB;
+import java.sql.SQLException;
 import javax.faces.context.FacesContext;
 
 /**
@@ -23,6 +25,9 @@ public class beanLoginControlador implements Serializable {
     String UsuarioIngresado;
     String Password;
     Usuario Usuario1;
+    String mensaje;
+    
+    UsuarioDB user = new UsuarioDB();
 
      /**
      * Creates a new instance of LoginControlador
@@ -45,14 +50,31 @@ public class beanLoginControlador implements Serializable {
     public void setPassword(String Password) {
         this.Password = Password;
     }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
     
    public void autenticar(){
        try{
+           if (this.getUsuarioIngresado().equals("")) {
+            mensaje = "Usuario o Contraseña incorrectos.";
+        } 
+           if (this.getPassword().equals("")) {
+            mensaje = "Usuario o Contraseña incorrectos.";
+        }
+           
            Usuario1=UsuarioDB.Autenticar(this.getUsuarioIngresado(), this.getPassword());
            
            if (Usuario1 != null){
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario",UsuarioIngresado);
                FacesContext.getCurrentInstance().getExternalContext().redirect("PagPrincipal.xhtml");
+           }else{
+               mensaje = "Usuario o Contraseña incorrectos.";
            }
        }catch (Exception e){
        

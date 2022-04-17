@@ -32,19 +32,6 @@ public class beanObtenerDatosSesion implements Serializable {
     }
 
     public String getDatos() {
-        return datos;
-    }
-
-    public void setDatos(String datos) {
-        this.datos = datos;
-    }
-    /**
-     * Creates a new instance of ObtenerDatosSesion
-     */
-    public beanObtenerDatosSesion() {
-    }
-    
-    public void consultarSesion(){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("Usuario");
         
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -64,9 +51,17 @@ public class beanObtenerDatosSesion implements Serializable {
 		context.invalidateSession();
 		
 	}
-	
-	
+        return datos;
     }
-            
+
+    public void setDatos(String datos) {
+        this.datos = datos;
+    }
+    /**
+     * Creates a new instance of ObtenerDatosSesion
+     */
+    public beanObtenerDatosSesion() {
+    }
+          
 }
 

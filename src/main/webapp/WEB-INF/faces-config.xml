@@ -79,4 +79,9 @@
         <managed-bean-class>Controller.beanObtenerDatosSesion</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanActivo</managed-bean-name>
+        <managed-bean-class>Controller.beanActivo</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
