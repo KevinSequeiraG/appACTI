@@ -23,6 +23,15 @@ public class Activo {
     public Activo() {
     }
 
+    public Activo(String ID, String Descripcion, float Valor, String idSede, String FechaRegistro, int Cantidad) {
+        this.ID = ID;
+        this.Descripcion = Descripcion;
+        this.Valor = Valor;
+        this.idSede = idSede;
+        this.FechaRegistro = FechaRegistro;
+        this.Cantidad = Cantidad;
+    }
+
     public String getID() {
         return ID;
     }

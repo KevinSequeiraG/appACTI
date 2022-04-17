@@ -10,8 +10,11 @@ import Model.Activo;
 import Model.ActivoDB;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -26,7 +29,7 @@ public class beanActivo {
     String SFechaRegistro;
     String idUsuario;
     int Cantidad;
-
+    ArrayList<Activo> listaAct = new ArrayList<>();
     //BD
     Activo activo;
     ActivoDB activoDB = new ActivoDB();
@@ -197,4 +200,18 @@ public class beanActivo {
         }
         return resp;
     }
+
+    public ArrayList<Activo> getListaAct(String idUsuario) throws SNMPExceptions, SQLException {
+        return activoDB.consultarActivosPorFunc(idUsuario);
+    }
+
+    public void setListaAct(ArrayList<Activo> listaAct) {
+        this.listaAct = listaAct;
+    }
+
+    
+    
+    
+    
+    
 }

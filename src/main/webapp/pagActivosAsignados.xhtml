@@ -33,46 +33,46 @@
                             <div class="col-sm-12">
                                 <label class="form-label">Lista de activos</label>
                                 <div align="center" class="datagrid">                  
-                                    <h:dataTable  var="activo"  class="container-table-clientes table">
+                                    <h:dataTable value="#{beanActivo.getListaAct(beanObtenerDatosSesion.datos)}" var="activo"  class="container-table-clientes table">
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Identificador"></h:outputText>
                                             </f:facet>
-                                            
+                                           #{activo.ID}
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Descripción"></h:outputText>
                                             </f:facet>
-                                            
+                                            #{activo.descripcion}
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Valor"></h:outputText>
                                             </f:facet>
-                                           
+                                           #{activo.valor}
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Sede"></h:outputText>
                                             </f:facet>
-                                            
+                                            #{activo.idSede}
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Fecha registro"></h:outputText>
                                             </f:facet>
-                                            
+                                            #{activo.fechaRegistro}
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Cantidad"></h:outputText>
                                             </f:facet>
-                                            
+                                            #{activo.cantidad}
                                         </h:column>    
                                     </h:dataTable>
                                 </div>
