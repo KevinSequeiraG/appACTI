@@ -66,4 +66,36 @@ public class SedeDB {
           }
           return listaSedes;
       }
+    
+    public String sedePorIdD(String ID)throws SNMPExceptions, 
+            SQLException {
+      String select = "";     
+      String descripcion ="";
+          try {
+    
+              //Se instancia la clase de acceso a datos
+              AccesoDatos accesoDatos = new AccesoDatos();  
+
+              //Se crea la sentencia de búsqueda
+              select = 
+                      "SELECT DESCRIPCION FROM Sede WHERE ID = " +"'"+ID+"'";
+              //Se ejecuta la sentencia SQL
+              ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+             //Se llena el arryaList con los proyectos   
+              while (rsPA.next()) {
+                descripcion = rsPA.getString("DESCRIPCION");
+              }
+              rsPA.close();
+              
+          } catch (SQLException e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage(), e.getErrorCode());
+          }catch (Exception e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage());
+          } finally {
+              
+          }
+          return descripcion;
+      }
 }

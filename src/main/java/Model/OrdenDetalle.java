@@ -3,20 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Model;
 
 /**
  *
- * @author Oscar
+ * @author erick
  */
-public class beanOrdenDetalleActivo {
+public class OrdenDetalle {
     String idActivo;
     int idOrdenEncabezadoActivo;
-    int cant = 1;
+    int cant;
 
-    public beanOrdenDetalleActivo() {
+    public OrdenDetalle() {
     }
 
+    public OrdenDetalle(String idActivo, int idOrdenEncabezadoActivo, int cant) {
+        this.idActivo = idActivo;
+        this.idOrdenEncabezadoActivo = idOrdenEncabezadoActivo;
+        this.cant = cant;
+    }
+    
+    
     public String getIdActivo() {
         return idActivo;
     }
@@ -40,5 +47,4 @@ public class beanOrdenDetalleActivo {
     public void setCant(int cant) {
         this.cant = cant;
     }
-   
 }

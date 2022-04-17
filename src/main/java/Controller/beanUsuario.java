@@ -514,8 +514,7 @@ public class beanUsuario {
             mensaje = "Debe incluir información en el espacio de otras señas.";
             resp = false;
             return resp;
-        }
-        if (tipoTelefono.equals("Tipo de teléfono")) {
+        } else if (tipoTelefono.equals("Tipo de teléfono")) {
             mensaje = "Debe elegir un tipo de teléfono.";
             resp = false;
             return resp;

@@ -126,5 +126,38 @@ public class ActivoDB {
         }
 
     }
+    
+    public int consultarCantidad(String ID) throws SNMPExceptions, 
+            SQLException {
+      String select = "";
+          int cant = 0;
+          try {
+    
+              //Se instancia la clase de acceso a datos
+              AccesoDatos accesoDatos = new AccesoDatos();  
+
+              //Se crea la sentencia de búsqueda
+              select = "SELECT Cantidad FROM Activo where ID ='"+ ID + "'" ;
+              //Se ejecuta la sentencia SQL
+              ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+             //Se llena el arryaList con los proyectos   
+              while (rsPA.next()) {
+                cant = rsPA.getInt("Cantidad");
+                
+              }
+              rsPA.close();
+              
+          } catch (SQLException e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage(), e.getErrorCode());
+          }catch (Exception e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage());
+          } finally {
+              
+          }
+          
+         return cant; 
+      }
      
 }

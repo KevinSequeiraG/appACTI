@@ -14,13 +14,16 @@ and open the template in the editor.
 .datagrid table td, .datagrid table th { padding: 3px 10px; color: silver}
 .datagrid table thead th {background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);font-size: 15px; font-weight: bold; }
 .datagrid table thead th:first-child { border: none; }
-.datagrid table tbody td { color: #85929E; border-left: 0px solid #E1EEF4;font-size: 12px;font-weight: normal; }
+.datagrid table tbody td { padding-top: 10px; color: white; border-left: 0px solid #E1EEF4;font-size: 1rem;font-weight: normal; }
 .datagrid table tbody .alt td { background: #85929E; color: #85929E; }
 .datagrid table tbody td:first-child { border-left: none; }
 .datagrid table tbody tr:last-child td { border-bottom: none; }
 
 .fechaSol{    
-    border: none !important;    
+    border: none !important;  
+    padding: 0 !important;
+    width: 100% !important;
+    text-align: center;
 }
 
 .fechaSol input{
@@ -37,6 +40,7 @@ and open the template in the editor.
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.5);
     background-color: transparent;
+    
 }
 
 select option{
