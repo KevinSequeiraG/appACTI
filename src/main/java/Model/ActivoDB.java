@@ -10,6 +10,7 @@ import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -126,7 +127,47 @@ public class ActivoDB {
         }
 
     }
+    public ArrayList<Activo> consultarActivosPorFunc(String idUsuario) throws SNMPExceptions, 
+            SQLException {
+      String select = "";
+      SedeDB sedeDB = new SedeDB();
+      ArrayList<Activo> lista = new ArrayList<>();
+          
+          try {
     
+              //Se instancia la clase de acceso a datos
+              AccesoDatos accesoDatos = new AccesoDatos();  
+
+              //Se crea la sentencia de búsqueda
+              select = 
+                      "SELECT * FROM Activo WHERE idUsuario = " + "'" + idUsuario + "'";
+              //Se ejecuta la sentencia SQL
+              ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+             //Se llena el arryaList con los proyectos   
+              while (rsPA.next()) {
+
+                String ID = rsPA.getString("ID");
+                String dsc = rsPA.getString("Descripcion");
+                float valor = rsPA.getFloat("Valor");
+                String idSede = sedeDB.sedePorIdD(rsPA.getString("idSede"));
+                String fechaRegistro = rsPA.getString("FechaRegistro").toString();
+                int cantidad = rsPA.getInt("Cantidad");
+                Activo perActivo = new Activo(ID,dsc,valor,idSede,fechaRegistro,cantidad);
+                lista.add(perActivo);
+              }
+              rsPA.close();
+              
+          } catch (SQLException e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage(), e.getErrorCode());
+          }catch (Exception e) {
+              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
+                                      e.getMessage());
+          } finally {
+              
+          }
+          return lista;
+      }
     public int consultarCantidad(String ID) throws SNMPExceptions, 
             SQLException {
       String select = "";
