@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.SNMPExceptions;
+import Model.Provincia;
 import Model.Telefono;
 import Model.TelefonoDB;
 import Model.Usuario;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -59,6 +61,12 @@ public class beanUsuario {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
     String mensaje2 = "";
+
+    //Lista para el crud de Funcionarios
+    ArrayList<Usuario> listaFuncionarios = new ArrayList<>();
+
+    //pruebas
+    boolean editFunc = false;
 
     public beanUsuario() {
     }
@@ -551,4 +559,63 @@ public class beanUsuario {
         mensaje = "";
         return resp;
     }
+
+    public ArrayList<Usuario> getListaFuncionarios() throws SNMPExceptions, SQLException {
+        UsuarioDB logica = new UsuarioDB();
+
+        return logica.ListaFuncionarios();
+    }
+
+    public void setListaFuncionarios(ArrayList<Usuario> ListaFuncionarios) {
+        this.listaFuncionarios = ListaFuncionarios;
+    }
+
+    public void eliminarFuncionario(String ID) throws SNMPExceptions, SQLException {
+        UsuarioDB logica = new UsuarioDB();
+        logica.eliminarFuncionario(ID);
+    }
+
+    public Usuario retornarUsuario(String ID) throws SNMPExceptions, SQLException {
+        UsuarioDB logica = new UsuarioDB();
+        return logica.retornarUsuario(ID);
+    }
+
+    public void editarFuncionario() throws SNMPExceptions, SQLException {
+        if (Nombre.equals("") || Apellido1.equals("") || Apellido2.equals("") || idTipoID == 0 || Email.equals("") || idSede.equals("")) {
+            mensaje = "Debe presionar el botón editar del funcionario que desea modificar.";
+            mensaje2 = "";
+        } else {
+            UsuarioDB logica = new UsuarioDB();
+            logica.editarFuncionario(ID, idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede);
+            mensaje2 = "Funcionario Editado Correctamente.";
+            mensaje = "";
+            this.Nombre = "";
+            this.Apellido1 = "";
+            this.Apellido2 = "";
+            this.idTipoID = 0;
+            this.Email = "";
+            this.idSede = "";
+        }
+    }
+
+    public void AsignaDatosEdit(Usuario user) throws Exception {
+        this.ID = user.getID();
+        this.idTipoID = user.getIdTipoID();
+        this.Nombre = user.getNombre();
+        this.Apellido1 = user.getApellido1();
+        this.Apellido2 = user.getApellido2();
+        this.FechNac = user.getFecNacDate();
+        this.Email = user.getEmail();
+        this.idSede = user.getIdSede();
+
+    }
+
+    public boolean isEditFunc() {
+        return editFunc;
+    }
+
+    public void setEditFunc(boolean editFunc) {
+        this.editFunc = editFunc;
+    }
+
 }

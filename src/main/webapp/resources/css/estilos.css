@@ -235,3 +235,30 @@
     right: 0!important;
     margin: 0 auto!important;
 }
+
+.f{
+    width: 40rem;
+}
+
+.ContentEdit{
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 2px white solid;
+    color: white;
+}
+
+.ContentEdit h4{
+}
+
+.ContentEdit div{
+    height: 30%; 
+    width: 100%;
+    margin: 1%;
+    color: white;
+}
+
+.ContentEdit input{
+    width: 8rem;
+    color: white;
+    background-color: transparent;
+}

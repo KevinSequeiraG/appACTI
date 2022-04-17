@@ -8,8 +8,10 @@ package Model;
 import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -127,6 +129,101 @@ public class UsuarioDB {
      * @throws SNMPExceptions
      * @throws SQLException
      */
+    public ArrayList<Usuario> ListaFuncionarios() throws SNMPExceptions, SQLException {
+        String select = "";
+        Usuario user;
+        ArrayList<Usuario> lista = new ArrayList<>();
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where idPerfil=2";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+
+                String ID = rsPA.getString("ID");
+                int idTipoID = rsPA.getInt("idTipoID");
+                String nombre = rsPA.getString("Nombre");
+                String apellido1 = rsPA.getString("Apellido1");
+                String apellido2 = rsPA.getString("Apellido2");
+                Date fechaNac = rsPA.getDate("FechNac");
+                String email = rsPA.getString("Email");
+                String sede = rsPA.getString("Sede");
+                
+                user = new Usuario(ID, idTipoID, nombre, apellido1, apellido2, fechaNac, email, sede);
+                lista.add(user);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return lista;
+    }
+
+    public void eliminarFuncionario(String ID) throws SNMPExceptions, SQLException {
+        String select = "";
+        try {
+            if (consultarUsuario(ID)) {
+                //Se intancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                
+                //Se borran primero los numeros pertenecientes al user
+                select = "delete from telefono where idUsuario = "+ "'" + ID + "'";
+                
+                accesoDatos.ejecutaSQL(select);
+
+                //Se crea la sentencia de Busqueda
+                select = "delete from Usuario where ID = " + "'" + ID + "'";
+
+                //se ejecuta la sentencia sql
+                accesoDatos.ejecutaSQL(select);
+                
+            }
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+    
+    public void editarFuncionario(String ID, int idTipoPerfil,String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede)throws SNMPExceptions, SQLException{
+        String select = "";
+        
+        try {
+            if (consultarUsuario(ID)) {
+                //Se intancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                
+                //Se borran primero los numeros pertenecientes al user
+                select = "update usuario set idTipoID="+idTipoPerfil+", nombre='"+nombre+"', apellido1='"+apellido1+"', apellido2='"+apellido2+"', fechnac='"+fechaNac+"' where id='"+ID+"'";
+                System.out.println(select);
+                accesoDatos.ejecutaSQL(select);
+                
+            }
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+
     public boolean consultarUsuario(String ID)
             throws SNMPExceptions, SQLException {
 
@@ -162,56 +259,103 @@ public class UsuarioDB {
 
     }
     
-    public static Usuario login(String Login) throws SNMPExceptions, 
-            SQLException {
-      String select = "";
-          Usuario user = new Usuario();
-          try {
-    
-              //Se instancia la clase de acceso a datos
-              AccesoDatos accesoDatos = new AccesoDatos();  
+    public Usuario retornarUsuario(String ID)throws SNMPExceptions, SQLException{
+        Usuario user = new Usuario();
+        
+        String select = "";
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
 
-              //Se crea la sentencia de búsqueda
-              select = "SELECT ID, idPerfil, Password, EstadoSolicitud FROM Usuario where ID ='"+ Login + "'" ;
-              //Se ejecuta la sentencia SQL
-              ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-             //Se llena el arryaList con los proyectos   
-              while (rsPA.next()) {
+            //Se crea la sentencia de Busqueda
+            select = "select * from Usuario where ID = " + "'" + ID + "'";
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            if (rsPA.next()) {
+                
+                String IDu = rsPA.getString("ID");
+                int idTipoID = rsPA.getInt("idTipoID");
+                String nombre = rsPA.getString("Nombre");
+                String apellido1 = rsPA.getString("Apellido1");
+                String apellido2 = rsPA.getString("Apellido2");
+                Date fechaNac = rsPA.getDate("FechNac");
+                String email = rsPA.getString("Email");
+                String sede = rsPA.getString("idSede");
+
+                user.setID(IDu);
+                user.setIdTipoID(idTipoID);
+                user.setNombre(nombre);
+                user.setApellido1(apellido1);
+                user.setApellido2(apellido2);
+                user.setFechNac(fechaNac.toString());
+                user.setEmail(email);
+                user.setIdSede(sede);
+            }
+
+            rsPA.close();
+
+            return user;
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+
+    public static Usuario login(String Login) throws SNMPExceptions,
+            SQLException {
+        String select = "";
+        Usuario user = new Usuario();
+        try {
+
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "SELECT ID, idPerfil, Password, EstadoSolicitud FROM Usuario where ID ='" + Login + "'";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
 
                 String ID = rsPA.getString("ID");
                 String Password = rsPA.getString("Password");
                 int idPerfil = rsPA.getInt("idPerfil");
                 char EstadoSolicitud = rsPA.getString("EstadoSolicitud").charAt(0);
-                
-                user = new Usuario(ID, idPerfil, Password, EstadoSolicitud);
-              }
-              rsPA.close();
-              
-          } catch (SQLException e) {
-              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                      e.getMessage(), e.getErrorCode());
-          }catch (Exception e) {
-              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                      e.getMessage());
-          } finally {
-              
-          }
-          
-         return user; 
-      }
-    
-    
 
-    public static Usuario Autenticar(String ID, String Password) throws SNMPExceptions, 
-            SQLException{
- 
+                user = new Usuario(ID, idPerfil, Password, EstadoSolicitud);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+
+        return user;
+    }
+
+    public static Usuario Autenticar(String ID, String Password) throws SNMPExceptions,
+            SQLException {
+
         Usuario u = login(ID);
-        
+
         if (u.ID.equals(ID) && u.Password.equals(Password)) {
             if (u.EstadoSolicitud == 'A') {
                 return u;
             }
         }
-    return null;
+        return null;
     }
 }

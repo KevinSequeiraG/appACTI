@@ -2,14 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Mantenimiento de Funcionarios</title>
-       
-        
+
+
         <h:outputStylesheet library="css" name="Registro.css"/>
         <h:outputStylesheet library="css" name="estilos.css"/>
-        
+
         <h:outputStylesheet library="css" name="Login.css"/>
         <h:outputStylesheet library="css" name="soliOrden.css"/>
         <!-- CSS only -->
@@ -29,36 +30,82 @@
                     <div class="text-center">
                         <h:form>
                             <h:commandButton class="btn btn-secondary btnCRUD" value="Crear" action="pagRegistro"></h:commandButton>
-                            <h:commandButton class="btn btn-secondary btnCRUD" value="Eliminar" action="PagPrincipal"></h:commandButton>
-                            <h:commandButton class="btn btn-secondary btnCRUD" value="Editar" action="PagPrincipal"></h:commandButton>
+
                             <h:commandButton class="btn btn-secondary btnCRUD" value="Ayuda" action="PagPrincipal"></h:commandButton>
+                            <h:commandButton class="btn btn-secondary btnCRUD" value="Volver" action="PagPrincipal"></h:commandButton>
+                            <h:dataTable value="#{beanUsuario.listaFuncionarios}" var = "funcionario"
+                                         class="table table-dark table-striped table-hover tablaReporte m-0">
+                                <h:column>
+                                    <f:facet name = "header">ID</f:facet>
+                                        #{funcionario.ID}                                    
+                                </h:column>
+
+                                <h:column>    				
+                                    <f:facet name = "header">Tipo de Perfil</f:facet>  
+                                        #{funcionario.idTipoID}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name = "header">Nombre Completo</f:facet>
+                                        #{funcionario.nombre} #{funcionario.apellido1} #{funcionario.apellido2}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name = "header">Fecha de Nacimiento</f:facet>
+                                        #{funcionario.fechNac}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name = "header">Correo Electrónico</f:facet>
+                                        #{funcionario.email}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name = "header">Sede</f:facet>
+                                        #{funcionario.idSede}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name = "header">Acciones</f:facet>
+                                    <h:commandButton style="width: 5rem" class="btn btn-danger btnCRUD" value="Eliminar" actionListener="#{beanUsuario.eliminarFuncionario(funcionario.ID)}"></h:commandButton>
+                                    <h:commandButton style="width: 5rem" class="btn btn-secondary btnCRUD" value="Editar" action="#{beanUsuario.AsignaDatosEdit(funcionario)}"></h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+
+
+                            <div class="ContentEdit">
+
+                                <h4 >Edición de Funcionario</h4>
+                                <div>
+                                    <label>Nombre: </label>
+                                    <h:inputText style="display: inline-block;width: 7rem!important" class="form-control login__input"  value="#{beanUsuario.nombre}"></h:inputText>
+                                    <label>Primer Apellido: </label>
+                                    <h:inputText style="display: inline-block;width: 7rem!important" class="form-control login__input"  value="#{beanUsuario.apellido1}"></h:inputText>
+                                    <label>Segundo Apellido: </label>
+                                    <h:inputText style="display: inline-block;width: 7rem!important" class="form-control login__input"  value="#{beanUsuario.apellido2}"></h:inputText>
+                                </div>
+                                <div>
+                                    <label>Tipo de Perfil: </label>
+                                    <h:inputText style="display: inline-block;width: 15rem!important" class="form-control login__input" value="#{beanUsuario.idTipoID}"></h:inputText>
+                                    <label>Correo Electrónico: </label>
+                                    <h:inputText style="display: inline-block;width: 15rem!important" class="form-control login__input"  value="#{beanUsuario.email}"></h:inputText>
+                                    <br/>
+                                    <label>Sede: </label>
+                                    <h:selectOneMenu id="ListaSede" style="display: inline-block; text-align: center !important; width: 15rem!important" class="form-select login__input" onchange="submit()" value="#{beanSede.ID}">
+                                        <f:selectItems value="#{beanSede.listaSedes}"/>
+                                    </h:selectOneMenu>
+                                    <label>Fecha de Nacimiento: </label>
+                                    <p:datePicker onchange="submit()" id="FechaNac" style="display: inline-block;width: 15rem!important;text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" yearRange="1950:2004" value="#{beanUsuario.fechNac}"></p:datePicker>
+                                </div>
+                                <h:outputText style="color: lime" value="#{beanUsuario.mensaje2}"></h:outputText>
+                                <h:outputText style="color: red" value="#{beanUsuario.mensaje}"></h:outputText>
+                                <br/>
+                                <h:commandButton class="btn btn-secondary btnCRUD" value="Guardar" action="#{beanUsuario.editarFuncionario()}"></h:commandButton>
+                            </div>
                         </h:form>
                     </div>
                 </div>
-                <table class="table table-dark table-striped table-hover tablaReporte m-0">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>                            
-                            <th scope="col">Tipo de Perfil</th>
-                            <th scope="col">Nombre Completo</th>
-                            <th scope="col">Fecha de Nacimiento</th>               
-                            <th scope="col">Correo Electrónico</th>
-                            <th scope="col">Sede</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>vacio</td>
-                            <td>vacio</td>
-                            <td>vacio</td>
-                            <td>vacio</td>
-                            <td>vacio</td>
-                            <td>vacio</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="w-10 btn btn-primary botones" style="margin-top: .5rem"><a href="PagPrincipal.xhtml">Volver</a></button>
             </div>
         </div>
     </h:body>
