@@ -220,23 +220,13 @@ public class beanUsuario {
      */
     public void Limpiar() {
         ID= "";
-        idTipoID= 0;
         Nombre= "";
         Apellido1= "";
         Apellido2= "";
         FechNac= null;
         SFechaNac= "";
-        idProvincia= 0;
-        idCanton= 0;
-        idDistrito= 0;
-        idBarrio= 0;
         OtrasSennas= "";
         Email= "";
-        idSede = "";
-        idPerfil = 0;
-        FechaSolicitud = null;
-        SFechaSolicitud = "";
-        edad = "0";
     }
 
     /**
@@ -272,6 +262,7 @@ public class beanUsuario {
             if (InsertarUsuario()) {
                 mensaje2 = "Usuario registrado exitosamente";
                 Telefonos(numTelefono, tipoTelefono, numTelefono2);
+                Limpiar();
             }
         }
 
