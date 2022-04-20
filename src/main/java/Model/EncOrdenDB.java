@@ -10,6 +10,7 @@ import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.faces.model.SelectItem;
 
@@ -163,6 +164,139 @@ public class EncOrdenDB {
 
         }
     }
+    
+    /**
+     * Lista de órdenes estado 'P'
+     * @return ArrayList
+     * @throws SNMPExceptions
+     * @throws SQLException 
+     */
+    public ArrayList<EncOrden> ListaOrdenesPendientes() throws SNMPExceptions, SQLException {
+        SedeDB sedeDB = new SedeDB();
+        String select = "";
+        EncOrden ordenP;        
+        ArrayList<EncOrden> lista = new ArrayList<EncOrden>();
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "SELECT [ID],[Descripcion],[idUserEntrega],[idUserRecibe],[TipoOrden],[Estado],[FechaOrden],[idSedeDestino] FROM [dbo].[OrdenEncabezadoActivo] WHERE [Estado] = 'P'";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+                ordenP = new EncOrden();
+                ordenP.ID = rsPA.getInt("ID");
+                ordenP.Descripcion = rsPA.getString("Descripcion");
+                ordenP.idUserEntrega = rsPA.getString("idUserEntrega");
+                ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
+                ordenP.FechaOrdenD = rsPA.getDate("FechaOrden");
+                ordenP.idSedeDestino = sedeDB.sedePorIdD(rsPA.getString("idSedeDestino"));
+                
+                lista.add(ordenP);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return lista;
+    }
+
+    /**
+     * Lista de órdenes (Préstamos)
+     * @return ArrayList
+     * @throws SNMPExceptions
+     * @throws SQLException 
+     */
+    public ArrayList<EncOrden> ListaPrestamosPendientes() throws SNMPExceptions, SQLException {
+        SedeDB sedeDB = new SedeDB();
+        String select = "";
+        EncOrden ordenP;
+        ArrayList<EncOrden> lista = new ArrayList<EncOrden>();
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "SELECT [ID],[Descripcion],[idUserEntrega],[idUserRecibe],[TipoOrden],[Estado],[FechaOrden],[idSedeDestino] FROM [dbo].[OrdenEncabezadoActivo] WHERE [TipoOrden] = 'Préstamo' AND [Estado] = 'P'";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+                ordenP = new EncOrden();
+                ordenP.ID = rsPA.getInt("ID");
+                ordenP.Descripcion = rsPA.getString("Descripcion");
+                ordenP.idUserEntrega = rsPA.getString("idUserEntrega");
+                ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
+                ordenP.FechaOrdenD = rsPA.getDate("FechaOrden");
+                ordenP.idSedeDestino = sedeDB.sedePorIdD(rsPA.getString("idSedeDestino"));
+                
+                lista.add(ordenP);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return lista;
+    }
+    
+    /**
+     * Lista de órdenes (Préstamos)
+     * @return ArrayList
+     * @throws SNMPExceptions
+     * @throws SQLException 
+     */
+    public ArrayList<EncOrden> ListaTrasladosPendientes() throws SNMPExceptions, SQLException {
+        SedeDB sedeDB = new SedeDB();
+        String select = "";
+        EncOrden ordenP;
+        ArrayList<EncOrden> lista = new ArrayList<EncOrden>();
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "SELECT [ID],[Descripcion],[idUserEntrega],[idUserRecibe],[TipoOrden],[Estado],[FechaOrden],[idSedeDestino] FROM [dbo].[OrdenEncabezadoActivo] WHERE [TipoOrden] = 'Traslado' AND [Estado] = 'P'";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+                ordenP = new EncOrden();
+                ordenP.ID = rsPA.getInt("ID");
+                ordenP.Descripcion = rsPA.getString("Descripcion");
+                ordenP.idUserEntrega = rsPA.getString("idUserEntrega");
+                ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
+                ordenP.FechaOrdenD = rsPA.getDate("FechaOrden");
+                ordenP.idSedeDestino = sedeDB.sedePorIdD(rsPA.getString("idSedeDestino"));
+                
+                lista.add(ordenP);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return lista;
+    }
+
 
     public LinkedList<SelectItem> listaTipoOrden() {
         LinkedList ListaConsulta = new LinkedList();
