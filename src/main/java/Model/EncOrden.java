@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author erick
@@ -16,6 +18,7 @@ public class EncOrden {
     String idUserRecibe;
     String TipoOrden;
     char Estado;
+    Date FechaOrdenD;
     String FechaOrden;
     String FechaRecepcion;
     String idSedeDestino;
@@ -33,6 +36,14 @@ public class EncOrden {
 
     public String getDescripcion() {
         return Descripcion;
+    }
+    
+    public Date getFechaOrdenD() {
+        return FechaOrdenD;
+    }
+
+    public void setFechaOrdenD(Date FechaOrdenD) {
+        this.FechaOrdenD = FechaOrdenD;
     }
 
     public void setDescripcion(String Descripcion) {

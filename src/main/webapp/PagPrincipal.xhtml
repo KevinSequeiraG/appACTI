@@ -25,6 +25,7 @@
                     document.getElementById("funcionarios").style.display = "none";
                     document.getElementById("mantenimientoFuncionarios").style.display = "none";
                     document.getElementById("solicitudesFuncionarios").style.display = "none";
+                    document.getElementById("ordenesPendientes").style.display = "block";
                 }
                 if (#{beanUsuario.consultarPerfilUsuario(beanObtenerDatosSesion.datos)} == 2) {
                     document.getElementById("registroActivos").style.display = "none";
@@ -39,6 +40,7 @@
                     document.getElementById("funcionarios").style.display = "none";
                     document.getElementById("mantenimientoFuncionarios").style.display = "none";
                     document.getElementById("solicitudesFuncionarios").style.display = "none";
+                    document.getElementById("ordenesPendientes").style.display = "none";
                 }
                 if (#{beanUsuario.consultarPerfilUsuario(beanObtenerDatosSesion.datos)} == 3) {
                     document.getElementById("registroActivos").style.display = "block";
@@ -53,6 +55,7 @@
                     document.getElementById("funcionarios").style.display = "block";
                     document.getElementById("mantenimientoFuncionarios").style.display = "block";
                     document.getElementById("solicitudesFuncionarios").style.display = "block";
+                    document.getElementById("ordenesPendientes").style.display = "block";
                 }
             }
         </script>
@@ -74,6 +77,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="pagSolicitarOrden.xhtml" id="solicitarOrden">Solicitar orden</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pagOrdenesPendientes.xhtml" id="ordenesPendientes">Órdenes pendientes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="pagActivosAsignados.xhtml" id="activosRegistrados">Activos asignados</a>

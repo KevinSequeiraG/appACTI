@@ -16,6 +16,7 @@ import Model.UsuarioDB;
 import java.util.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import javax.faces.model.SelectItem;
@@ -40,6 +41,7 @@ public class beanOrdenEncabezadoActivo {
     String descSede;
     LinkedList<SelectItem> listaTipoOrden = new LinkedList();
     LinkedList<OrdenDetalle> carrito = new LinkedList<OrdenDetalle>();
+    ArrayList<EncOrden> listaOrdenesPendientes = new ArrayList<EncOrden>();
     String pattern = "yyyy/MM/dd";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
@@ -148,7 +150,7 @@ public class beanOrdenEncabezadoActivo {
         this.listaTipoOrden = listaTipoOrden;
     }
 
-        public void InsertarOrden(String idSedeD, String idUsuarioEntrega, String idActivo, int cantidad) throws SNMPExceptions, SQLException {
+    public void InsertarOrden(String idSedeD, String idUsuarioEntrega, String idActivo, int cantidad) throws SNMPExceptions, SQLException {
         mensaje = "";
         mensaje2 = "";
         EncOrdenDB encOrden = new EncOrdenDB();
@@ -177,7 +179,7 @@ public class beanOrdenEncabezadoActivo {
 
     }
 
-    public boolean Validar(String idActivo, int cantidad,String idSedeD) throws SNMPExceptions, SQLException {
+    public boolean Validar(String idActivo, int cantidad, String idSedeD) throws SNMPExceptions, SQLException {
         boolean resp = true;
         UsuarioDB userDB = new UsuarioDB();
         ActivoDB activoDB = new ActivoDB();
@@ -225,7 +227,7 @@ public class beanOrdenEncabezadoActivo {
 
     public void GenerarLineaDetalle(String idActivo, int cantidad, String idSedeD) throws SNMPExceptions, SQLException {
 
-        if (Validar(idActivo, cantidad,idSedeD)) {
+        if (Validar(idActivo, cantidad, idSedeD)) {
             for (OrdenDetalle ordenDetalle : carrito) {
                 if (ordenDetalle.getIdActivo().equals(idActivo)) {
                     mensaje = "El activo ya está agregado en la lista";
@@ -244,6 +246,20 @@ public class beanOrdenEncabezadoActivo {
                 this.carrito.remove(ordenDetalle);
             }
         }
+    }
+
+    public ArrayList<EncOrden> getListaOrdenesPendientes(String tipoOrden) throws SNMPExceptions, SQLException {
+        EncOrdenDB encOrdenDB = new EncOrdenDB();
+        if (tipoOrden.equals("Préstamo")) {
+            return encOrdenDB.ListaPrestamosPendientes();
+        } else if (tipoOrden.equals("Traslado")) {
+            return encOrdenDB.ListaTrasladosPendientes();
+        }
+        return encOrdenDB.ListaOrdenesPendientes();
+    }
+
+    public void setListaOrdenesPendientes(ArrayList<EncOrden> listaOrdenesPendientes) {
+        this.listaOrdenesPendientes = listaOrdenesPendientes;
     }
 
     public String getSFechaOrden() {
