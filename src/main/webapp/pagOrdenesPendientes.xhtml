@@ -89,11 +89,13 @@
 
                                 <h:column>
                                     <f:facet name = "header">Acciones</f:facet>
-                                    <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 1rem" class="btn btn-primary btnCRUD" value="Aprobar" actionListener="#{beanUsuario.eliminarFuncionario(funcionario.ID)}"></h:commandButton>
+                                    <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 1rem" class="btn btn-primary btnCRUD" value="Aprobar" actionListener="#{beanEncOrden.Aprobar(orden.ID)}"></h:commandButton>
                                     <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 1rem; margin-bottom: 1rem" class="btn btn-danger btnCRUD" value="Denegar" action="#{beanUsuario.AsignaDatosEdit(funcionario)}"></h:commandButton>
                                 </h:column>
                             </h:dataTable>
-                            <button class="w-10 btn btn-primary botones" style="margin-top: .5rem; margin-bottom: .5rem; width: 50%"><a href="PagPrincipal.xhtml">Volver</a></button>
+                            <h:outputLabel value="#{beanEncOrden.mensaje}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
+                            <h:outputLabel value="#{beanEncOrden.mensaje2}" style="color: red; font-size: 1rem"></h:outputLabel>
+                            <button class="w-10 btn btn-primary botones" style="margin-top: .5rem; margin-bottom: .5rem; width: 50%; display: inline-block"><a href="PagPrincipal.xhtml">Volver</a></button>
                         </h:form>
                     </div>
                 </div>

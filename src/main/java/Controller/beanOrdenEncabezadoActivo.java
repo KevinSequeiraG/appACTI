@@ -263,7 +263,14 @@ public class beanOrdenEncabezadoActivo {
         return detalleDB.ListaLineaDPorOrden(IdOrden);
     }
 
-    public void Aprobar(int idOrden){
+    public void Aprobar(int idOrden) throws SNMPExceptions, SQLException{
+        
+        EncOrdenDB encOrdenDB = new EncOrdenDB();
+        if (encOrdenDB.AprobarOrden(idOrden, this.getListaLineaDPorOrden(idOrden))) {
+            mensaje = "Orden aprobada satifactoriamente.";
+        } else{
+            mensaje2 = "No queda suficiente cantidad del activo, la orden " + idOrden +" debe ser denegada.";
+        }
         
     }
     
