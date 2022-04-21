@@ -34,7 +34,7 @@ body {
     margin: auto;
     margin-top: 3rem;
     margin-bottom: 3rem;
-    height: 100%!important;
+    height: auto!important;
     display: block;
     position: relative;
     z-index: 0;
