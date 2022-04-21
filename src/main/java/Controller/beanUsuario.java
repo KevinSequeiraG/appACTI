@@ -47,6 +47,7 @@ public class beanUsuario {
     int CodSeg;
     String Password;
     int idPerfil;
+    int idPerfilEdit;
     char EstadoSolicitud;
     Date FechaSolicitud;
     String SFechaSolicitud;
@@ -77,6 +78,14 @@ public class beanUsuario {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public int getIdPerfilEdit() {
+        return idPerfilEdit;
+    }
+
+    public void setIdPerfilEdit(int idPerfilEdit) {
+        this.idPerfilEdit = idPerfilEdit;
     }
 
     public int getIdTipoID() {
@@ -558,7 +567,7 @@ public class beanUsuario {
     public ArrayList<Usuario> getListaFuncionarios() throws SNMPExceptions, SQLException {
         UsuarioDB logica = new UsuarioDB();
 
-        return logica.ListaFuncionarios();
+        return logica.ListaFuncionarios(idPerfil);
     }
 
     public void setListaFuncionarios(ArrayList<Usuario> ListaFuncionarios) {
@@ -581,7 +590,7 @@ public class beanUsuario {
             mensaje2 = "";
         } else {
             UsuarioDB logica = new UsuarioDB();
-            logica.editarFuncionario(ID, idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede, idProvincia, idCanton, idDistrito, idBarrio, OtrasSennas,EstadoSolicitud);
+            logica.editarFuncionario(ID, idPerfilEdit ,idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede, idProvincia, idCanton, idDistrito, idBarrio, OtrasSennas,EstadoSolicitud);
             mensaje2 = "Funcionario Editado Correctamente.";
             mensaje = "";
             this.Nombre = "";
@@ -616,12 +625,11 @@ public class beanUsuario {
         this.OtrasSennas = usuarioCompleto.getOtrasSennas();
         this.Email = usuarioCompleto.getEmail();
         this.idSede = usuarioCompleto.getIdSede();
-        System.out.println("yesssssssssssssssssss " + usuarioCompleto.getIdSede());
        /* this.CodSeg;
         this.Password;*/
         this.EstadoSolicitud = usuarioCompleto.getEstadoSolicitud();
         this.edad = "0";
-
+        this.idPerfilEdit = idPerfil;
     }
 
     public boolean isEditFunc() {
