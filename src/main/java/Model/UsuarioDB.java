@@ -129,7 +129,7 @@ public class UsuarioDB {
      * @throws SNMPExceptions
      * @throws SQLException
      */
-    public ArrayList<Usuario> ListaFuncionarios() throws SNMPExceptions, SQLException {
+    public ArrayList<Usuario> ListaFuncionarios(int tipoPerfil) throws SNMPExceptions, SQLException {
         String select = "";
         Usuario user;
         ArrayList<Usuario> lista = new ArrayList<>();
@@ -138,7 +138,7 @@ public class UsuarioDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
-            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where idPerfil=2";
+            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where idPerfil="+tipoPerfil;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los proyectos   
@@ -199,7 +199,7 @@ public class UsuarioDB {
         }
     }
     
-    public void editarFuncionario(String ID, int idTipoPerfil,String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede, int idProvincia, int idCanton, int idDistrito, int idBarrio, String otrasSennas, char estadoSoli)throws SNMPExceptions, SQLException{
+    public void editarFuncionario(String ID,int idPerfil, int idTipoID,String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede, int idProvincia, int idCanton, int idDistrito, int idBarrio, String otrasSennas, char estadoSoli)throws SNMPExceptions, SQLException{
         String select = "";
         
         try {
@@ -208,7 +208,7 @@ public class UsuarioDB {
                 AccesoDatos accesoDatos = new AccesoDatos();
                 
                 //Se borran primero los numeros pertenecientes al user
-                select = "update usuario set idTipoID="+idTipoPerfil+", nombre='"+nombre+"', apellido1='"+apellido1+"', apellido2='"+apellido2+"', fechnac='"+fechaNac+"',"+"Email='"+ email +"', idSede='"+Sede+"', idProvincia="+idProvincia+", idCanton="+idCanton+",idDistrito="+idDistrito+",idBarrio="+idBarrio+",OtraSennas='"+otrasSennas+"', estadoSolicitud='"+estadoSoli+"' where id='"+ID+"'";
+                select = "update usuario set idTipoID="+idTipoID+", idPerfil="+idPerfil+", nombre='"+nombre+"', apellido1='"+apellido1+"', apellido2='"+apellido2+"', fechnac='"+fechaNac+"',"+"Email='"+ email +"', idSede='"+Sede+"', idProvincia="+idProvincia+", idCanton="+idCanton+",idDistrito="+idDistrito+",idBarrio="+idBarrio+",OtraSennas='"+otrasSennas+"', estadoSolicitud='"+estadoSoli+"' where id='"+ID+"'";
                 System.out.println(select);
                 accesoDatos.ejecutaSQL(select);
                 
