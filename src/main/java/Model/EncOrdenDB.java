@@ -164,17 +164,56 @@ public class EncOrdenDB {
 
         }
     }
-    
+
     /**
      * Lista de órdenes estado 'P'
+     *
      * @return ArrayList
      * @throws SNMPExceptions
-     * @throws SQLException 
+     * @throws SQLException
+     */
+    public EncOrden DatosOrden(int ID) throws SNMPExceptions, SQLException {
+        String select = "";
+        EncOrden ordenP = new EncOrden();
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "SELECT [ID], [idUserRecibe],[idSedeDestino] FROM [dbo].[OrdenEncabezadoActivo] WHERE [ID] = " + ID;
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+                ordenP = new EncOrden();
+                ordenP.ID = rsPA.getInt("ID");
+                ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
+                ordenP.idSedeDestino = rsPA.getString("idSedeDestino");
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return ordenP;
+    }
+
+    /**
+     * Lista de órdenes estado 'P'
+     *
+     * @return ArrayList
+     * @throws SNMPExceptions
+     * @throws SQLException
      */
     public ArrayList<EncOrden> ListaOrdenesPendientes() throws SNMPExceptions, SQLException {
         SedeDB sedeDB = new SedeDB();
         String select = "";
-        EncOrden ordenP;        
+        EncOrden ordenP;
         ArrayList<EncOrden> lista = new ArrayList<EncOrden>();
         try {
             //Se instancia la clase de acceso a datos
@@ -193,7 +232,7 @@ public class EncOrdenDB {
                 ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
                 ordenP.FechaOrdenD = rsPA.getDate("FechaOrden");
                 ordenP.idSedeDestino = sedeDB.sedePorIdD(rsPA.getString("idSedeDestino"));
-                
+
                 lista.add(ordenP);
             }
             rsPA.close();
@@ -211,9 +250,10 @@ public class EncOrdenDB {
 
     /**
      * Lista de órdenes (Préstamos)
+     *
      * @return ArrayList
      * @throws SNMPExceptions
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<EncOrden> ListaPrestamosPendientes() throws SNMPExceptions, SQLException {
         SedeDB sedeDB = new SedeDB();
@@ -237,7 +277,7 @@ public class EncOrdenDB {
                 ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
                 ordenP.FechaOrdenD = rsPA.getDate("FechaOrden");
                 ordenP.idSedeDestino = sedeDB.sedePorIdD(rsPA.getString("idSedeDestino"));
-                
+
                 lista.add(ordenP);
             }
             rsPA.close();
@@ -252,12 +292,13 @@ public class EncOrdenDB {
         }
         return lista;
     }
-    
+
     /**
      * Lista de órdenes (Préstamos)
+     *
      * @return ArrayList
      * @throws SNMPExceptions
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<EncOrden> ListaTrasladosPendientes() throws SNMPExceptions, SQLException {
         SedeDB sedeDB = new SedeDB();
@@ -281,7 +322,7 @@ public class EncOrdenDB {
                 ordenP.idUserRecibe = rsPA.getString("idUserRecibe");
                 ordenP.FechaOrdenD = rsPA.getDate("FechaOrden");
                 ordenP.idSedeDestino = sedeDB.sedePorIdD(rsPA.getString("idSedeDestino"));
-                
+
                 lista.add(ordenP);
             }
             rsPA.close();
@@ -297,6 +338,66 @@ public class EncOrdenDB {
         return lista;
     }
 
+    /**
+     * Aprobar EncabezadoOrden
+     *
+     * @param ID
+     * @param orden
+     * @throws SNMPExceptions
+     * @throws SQLException return void
+     */
+    public boolean AprobarOrden(int ID, ArrayList<OrdenDetalle> listaD) throws SNMPExceptions,
+            SQLException {
+        String strSQL = "";
+        ActivoDB activo = new ActivoDB();
+        EncOrden orden = this.DatosOrden(ID);
+
+        try {
+            //Se cambia el valor del Estado a A de Aprobado
+            //La fecha se agarra del sistema
+            
+            for (OrdenDetalle ordenDetalle : listaD) {
+                //Por cada activo de la lineaDetalle se cambia la sede, el funcionario dueño y se cambia la cantidad
+                if (activo.consultarCantidad(ordenDetalle.idActivo) >= ordenDetalle.cant) {
+                    strSQL = "Update Activo set idSede = '" + orden.idSedeDestino + "' , idUsuario= '" + orden.idUserRecibe + "', Cantidad = (Select Cantidad from Activo where ID = '" + ordenDetalle.idActivo + "') - " + ordenDetalle.cant + " where ID = '" + ordenDetalle.idActivo + "'";
+                    accesoDatos.ejecutaSQL(strSQL);
+                }
+                else{
+                    return false;
+                }
+
+            }
+            strSQL = "Update OrdenEncabezadoActivo set Estado = 'A', FechaRecepcion = GETDATE() WHERE ID = " + orden.ID;
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+            return true;
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+    
+    public boolean RechazarOrden(int ID) throws SNMPExceptions,
+            SQLException {
+        String strSQL = "";
+        ActivoDB activo = new ActivoDB();
+
+        try {           
+            strSQL = "Update OrdenEncabezadoActivo set Estado = 'R', FechaRecepcion = GETDATE() WHERE ID = " + ID;
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+            return true;
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
 
     public LinkedList<SelectItem> listaTipoOrden() {
         LinkedList ListaConsulta = new LinkedList();
