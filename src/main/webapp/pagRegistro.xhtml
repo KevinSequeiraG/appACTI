@@ -3,7 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <h:head>
         <title>Registro</title>
         <h:outputStylesheet library="css" name="Registro.css"/>
@@ -18,13 +18,13 @@
 
     </h:head>
     <h:body style="overflow-x: hidden">
-
         <div class="PrincipalContainer" style="width: 100vw; overflow-x: hidden">
 
+        <div id='stars'></div>
+        <div id='stars2'></div>
             <div class ="RegistroContent">
 
-                <div id='stars'></div>
-                <div id='stars2'></div>
+
                 <div class="col-md-12 col-lg-8 centrarRegistro">
                     <h4 class="mb-3">Datos de registro</h4>
                     <hr class="my-4"></hr>
@@ -140,7 +140,7 @@
                             <h:outputLabel value="#{beanUsuario.mensaje}" style="color: red; font-size: 1rem"></h:outputLabel>
                             <h:outputLabel value="#{beanUsuario.mensaje2}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
                             <hr class="my-4"></hr>
-                            
+
                             <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" actionListener="#{beanUsuario.RegistrarFuncionario(beanTipoID.ID, beanProvincia.ID, beanCanton.ID, beanDistrito.ID, beanBarrio.ID, beanTelefono.numTelefono, beanTelefono.tipoTelefono, beanTelefono.numTelefonoOpc, beanSede.ID, beanPerfil.ID)}"></h:commandButton>
 
 
@@ -149,6 +149,9 @@
                     </h:form>
                 </div>
             </div>
+        
+        <div id='stars'></div>
+        <div id='stars2'></div>
         </div>
 
     </h:body>
