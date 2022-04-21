@@ -257,7 +257,16 @@ public class beanOrdenEncabezadoActivo {
         }
         return encOrdenDB.ListaOrdenesPendientes();
     }
+    
+    public ArrayList<OrdenDetalle> getListaLineaDPorOrden(int IdOrden) throws SNMPExceptions, SQLException {
+        OrdenDetalleDB detalleDB = new OrdenDetalleDB();        
+        return detalleDB.ListaLineaDPorOrden(IdOrden);
+    }
 
+    public void Aprobar(int idOrden){
+        
+    }
+    
     public void setListaOrdenesPendientes(ArrayList<EncOrden> listaOrdenesPendientes) {
         this.listaOrdenesPendientes = listaOrdenesPendientes;
     }

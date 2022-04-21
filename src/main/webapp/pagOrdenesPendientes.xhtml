@@ -27,7 +27,6 @@
             <h1>Aprobar o denegar órdenes pendientes</h1>
             <div class="centrarReporte" style="width: 80% !important">
                 <div class="">
-
                     <div class="text-center">
                         <h:form>
                             <div>
@@ -62,16 +61,16 @@
                                     <f:facet name = "header">Activos</f:facet>
 
 
-                                    <h:dataTable value="#{beanUsuario.listaFuncionarios}" var = "funcionario"
+                                    <h:dataTable value="#{beanEncOrden.getListaLineaDPorOrden(orden.ID)}" var = "linea"
                                                  class="table table-sm" style="padding: 0 !important; color: white; width: 10% !important; margin: auto">
                                         <h:column>
                                             <f:facet name = "header" class="tablaInterna">Código</f:facet>
-                                            hoal                                    
+                                            #{linea.idActivo}                                 
                                         </h:column>
 
                                         <h:column>    				
                                             <f:facet name = "header" class="tablaInterna">Cantidad</f:facet>  
-                                            hola
+                                            #{linea.cant}
                                         </h:column>                                        
                                     </h:dataTable>
 
@@ -90,15 +89,14 @@
 
                                 <h:column>
                                     <f:facet name = "header">Acciones</f:facet>
-                                    <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 3rem" class="btn btn-primary btnCRUD" value="Aprobar" actionListener="#{beanUsuario.eliminarFuncionario(funcionario.ID)}"></h:commandButton>
-                                    <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 1rem" class="btn btn-danger btnCRUD" value="Denegar" action="#{beanUsuario.AsignaDatosEdit(funcionario)}"></h:commandButton>
+                                    <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 1rem" class="btn btn-primary btnCRUD" value="Aprobar" actionListener="#{beanUsuario.eliminarFuncionario(funcionario.ID)}"></h:commandButton>
+                                    <h:commandButton style="width: 5rem; display: block; margin: auto; margin-top: 1rem; margin-bottom: 1rem" class="btn btn-danger btnCRUD" value="Denegar" action="#{beanUsuario.AsignaDatosEdit(funcionario)}"></h:commandButton>
                                 </h:column>
                             </h:dataTable>
                             <button class="w-10 btn btn-primary botones" style="margin-top: .5rem; margin-bottom: .5rem; width: 50%"><a href="PagPrincipal.xhtml">Volver</a></button>
                         </h:form>
                     </div>
                 </div>
-
             </div>
         </div>
     </h:body>
