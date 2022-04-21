@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Registro</title>
+        <h:outputStylesheet library="css" name="Registro.css"/>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+        <h:outputStylesheet library="css" name="Login.css"/>
+        <h:outputStylesheet library="css" name="soliOrden.css"/>
+        <h:outputScript library="js" name="Logica.js" />
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"></link>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    </h:head>
+    <h:body style="overflow-x: hidden">
+
+        <div class="PrincipalContainer" style="width: 100vw; overflow-x: hidden">
+
+            <div class ="RegistroContent">
+
+                <div id='stars'></div>
+                <div id='stars2'></div>
+                <div class="col-md-12 col-lg-8 centrarRegistro">
+                    <h4 class="mb-3">Datos de registro</h4>
+                    <hr class="my-4"></hr>
+                    <h:form>
+                        <div class="row g-3" style="text-align: center !important">
+                            <div class="col-md-6">
+                                <label class="form-label">Tipo de identificación</label>
+                                <h:selectOneMenu id="listaTipoID" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanTipoID.ID}">
+                                    <f:selectItems value="#{beanTipoID.listaTipoID}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Identificación</label>
+                                <h:inputText id="Identificacion" style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.ID}" ></h:inputText>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Nombre</label>
+                                <h:inputText id="Nombre" style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.nombre}" ></h:inputText>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Primer apellido</label>
+                                <h:inputText id="Apellido1" style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.apellido1}"></h:inputText>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Seguno apellido</label>
+                                <h:inputText id="Apellido2" style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.apellido2}" ></h:inputText>
+
+                            </div>
+
+                            <div class="col-sm-8" >
+                                <label class="form-label">Fecha de nacimiento</label>
+                                <p:datePicker onchange="submit()" id="FechaNac" style="text-align: center !important; padding: 0 !important;" class="form-control login__input fechaSol" monthNavigator="true" yearNavigator="true" yearRange="1950:2004" value="#{beanUsuario.fechNac}"></p:datePicker>
+
+                            </div>
+                            <div class="col-sm-4 espacioRegistro">
+                                <label class="form-label">Edad</label>
+                                <h:outputText id="Edad" class="form-control login__input" value="#{beanUsuario.edad}"></h:outputText>                   
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Provincia</label>
+                                <h:selectOneMenu id="ListaProvincia" onchange="submit()" style="text-align: center !important" class="form-select login__input" value="#{beanProvincia.ID}"  label="pro">
+                                    <f:selectItems value="#{beanProvincia.listaPro}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Cantón</label>
+                                <h:selectOneMenu id="ListaCanton" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanCanton.ID}" label="can">
+                                    <f:selectItems value="#{beanCanton.getListaCan(beanProvincia.ID)}"/>
+                                </h:selectOneMenu>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Distrito</label>
+                                <h:selectOneMenu id="ListaDistrito" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanDistrito.ID}" >
+                                    <f:selectItems value="#{beanDistrito.getListaDis(beanProvincia.ID, beanCanton.ID)}"/>
+                                </h:selectOneMenu>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Barrio</label>
+                                <h:selectOneMenu id="ListaBarrio" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanBarrio.ID}" >
+                                    <f:selectItems value="#{beanBarrio.getListaBar(beanProvincia.ID, beanCanton.ID, beanDistrito.ID)}"/>
+                                </h:selectOneMenu>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Otras señas</label>
+                                <h:inputText id="OtrasSennas" style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.otrasSennas}" ></h:inputText>
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label class="form-label">Tipo teléfono</label>
+                                <h:selectOneMenu id="TipoTelefono" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanTelefono.tipoTelefono}" >
+                                    <f:selectItems value="#{beanTelefono.listaTiposTelefono}"/>
+                                </h:selectOneMenu>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Teléfono</label>
+                                <h:inputText id="Telefono1" style="text-align: center !important" class="form-control login__input" value="#{beanTelefono.numTelefono}" ></h:inputText>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label">Otro teléfono(opcional)</label>
+                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanTelefono.numTelefonoOpc}" ></h:inputText>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label">Correo</label>
+                                <h:inputText id="Correo" style="text-align: center !important" class="form-control login__input" value="#{beanUsuario.email}" ></h:inputText>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Sede</label>
+                                <h:selectOneMenu id="ListaSede" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanSede.ID}">
+                                    <f:selectItems value="#{beanSede.listaSedes}"/>
+                                </h:selectOneMenu>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label">Tipo de perfil</label>
+                                <h:selectOneMenu id="ListaPerfil" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanPerfil.ID}" >
+                                    <f:selectItems value="#{beanPerfil.listaPerfiles}"/>
+                                </h:selectOneMenu>
+
+                            </div>     
+                            <h:outputLabel value="#{beanUsuario.mensaje}" style="color: red; font-size: 1rem"></h:outputLabel>
+                            <h:outputLabel value="#{beanUsuario.mensaje2}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
+                            <hr class="my-4"></hr>
+                            
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" actionListener="#{beanUsuario.RegistrarFuncionario(beanTipoID.ID, beanProvincia.ID, beanCanton.ID, beanDistrito.ID, beanBarrio.ID, beanTelefono.numTelefono, beanTelefono.tipoTelefono, beanTelefono.numTelefonoOpc, beanSede.ID, beanPerfil.ID)}"></h:commandButton>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Regresar" action="pagCRUDFuncionarios"></h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+
