@@ -175,6 +175,7 @@ public class beanOrdenEncabezadoActivo {
                 lineaD.InsertarLineaDetalle(ordenDetalle);
             }
             this.mensaje2 = "Orden efectuada satisfactoriamente";
+            Limpiar();
         }
 
     }
@@ -194,6 +195,10 @@ public class beanOrdenEncabezadoActivo {
             return resp;
         } else if (!userDB.consultarUsuario(this.getIdUserRecibe())) {
             mensaje = "El usuario digitado no existe.";
+            resp = false;
+            return resp;
+        } else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
+            mensaje = "El usuario digitado no se encuentra asociado a esa sede.";
             resp = false;
             return resp;
         } else if (this.getDescripcion().equals("")) {
@@ -267,11 +272,26 @@ public class beanOrdenEncabezadoActivo {
         
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.AprobarOrden(idOrden, this.getListaLineaDPorOrden(idOrden))) {
-            mensaje = "Orden aprobada satifactoriamente.";
+            mensaje = "La orden " + idOrden +" aprobada satifactoriamente.";
         } else{
             mensaje2 = "No queda suficiente cantidad del activo, la orden " + idOrden +" debe ser denegada.";
         }
         
+    }
+    
+    public void Rechazar(int idOrden) throws SNMPExceptions, SQLException{
+        
+        EncOrdenDB encOrdenDB = new EncOrdenDB();
+        if (encOrdenDB.RechazarOrden(idOrden)) {
+            mensaje = "La orden " + idOrden +" fue denegada.";
+        }
+        
+    }
+    
+    public void Limpiar(){
+        this.setIdUserRecibe("");
+        this.setDescripcion("");
+        this.setCarrito(null);
     }
     
     public void setListaOrdenesPendientes(ArrayList<EncOrden> listaOrdenesPendientes) {

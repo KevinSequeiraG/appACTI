@@ -43,6 +43,10 @@ public class beanActivo {
     public beanActivo() {
     }
 
+    public void Limpiar(){
+        this.setID("");        
+    }
+    
     public String getID() {
         return ID;
     }

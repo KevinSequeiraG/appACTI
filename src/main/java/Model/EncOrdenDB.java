@@ -359,7 +359,7 @@ public class EncOrdenDB {
             for (OrdenDetalle ordenDetalle : listaD) {
                 //Por cada activo de la lineaDetalle se cambia la sede, el funcionario dueño y se cambia la cantidad
                 if (activo.consultarCantidad(ordenDetalle.idActivo) >= ordenDetalle.cant) {
-                    strSQL = "Update Activo set idSede = '" + orden.idSedeDestino + "' , idUsuario= '" + orden.idUserRecibe + "', where ID = '" + ordenDetalle.idActivo + "'";
+                    strSQL = "Update Activo set idSede = '" + orden.idSedeDestino + "' , idUsuario= '" + orden.idUserRecibe + "' where ID = '" + ordenDetalle.idActivo + "'";
                     accesoDatos.ejecutaSQL(strSQL);
                 }
                 else{
