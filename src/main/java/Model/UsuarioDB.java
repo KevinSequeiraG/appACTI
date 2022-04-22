@@ -138,7 +138,7 @@ public class UsuarioDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
-            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where idPerfil="+tipoPerfil;
+            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where idPerfil=" + tipoPerfil;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los proyectos   
@@ -152,7 +152,7 @@ public class UsuarioDB {
                 Date fechaNac = rsPA.getDate("FechNac");
                 String email = rsPA.getString("Email");
                 String sede = rsPA.getString("Sede");
-                
+
                 user = new Usuario(ID, idTipoID, nombre, apellido1, apellido2, fechaNac, email, sede);
                 lista.add(user);
             }
@@ -175,10 +175,10 @@ public class UsuarioDB {
             if (consultarUsuario(ID)) {
                 //Se intancia la clase de acceso a datos
                 AccesoDatos accesoDatos = new AccesoDatos();
-                
+
                 //Se borran primero los numeros pertenecientes al user
-                select = "delete from telefono where idUsuario = "+ "'" + ID + "'";
-                
+                select = "delete from telefono where idUsuario = " + "'" + ID + "'";
+
                 accesoDatos.ejecutaSQL(select);
 
                 //Se crea la sentencia de Busqueda
@@ -186,7 +186,7 @@ public class UsuarioDB {
 
                 //se ejecuta la sentencia sql
                 accesoDatos.ejecutaSQL(select);
-                
+
             }
 
         } catch (SQLException e) {
@@ -198,20 +198,20 @@ public class UsuarioDB {
 
         }
     }
-    
-    public void editarFuncionario(String ID,int idPerfil, int idTipoID,String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede, int idProvincia, int idCanton, int idDistrito, int idBarrio, String otrasSennas, char estadoSoli)throws SNMPExceptions, SQLException{
+
+    public void editarFuncionario(String ID, int idPerfil, int idTipoID, String nombre, String apellido1, String apellido2, String fechaNac, String email, String Sede, int idProvincia, int idCanton, int idDistrito, int idBarrio, String otrasSennas, char estadoSoli) throws SNMPExceptions, SQLException {
         String select = "";
-        
+
         try {
             if (consultarUsuario(ID)) {
                 //Se intancia la clase de acceso a datos
                 AccesoDatos accesoDatos = new AccesoDatos();
-                
+
                 //Se borran primero los numeros pertenecientes al user
-                select = "update usuario set idTipoID="+idTipoID+", idPerfil="+idPerfil+", nombre='"+nombre+"', apellido1='"+apellido1+"', apellido2='"+apellido2+"', fechnac='"+fechaNac+"',"+"Email='"+ email +"', idSede='"+Sede+"', idProvincia="+idProvincia+", idCanton="+idCanton+",idDistrito="+idDistrito+",idBarrio="+idBarrio+",OtraSennas='"+otrasSennas+"', estadoSolicitud='"+estadoSoli+"' where id='"+ID+"'";
+                select = "update usuario set idTipoID=" + idTipoID + ", idPerfil=" + idPerfil + ", nombre='" + nombre + "', apellido1='" + apellido1 + "', apellido2='" + apellido2 + "', fechnac='" + fechaNac + "'," + "Email='" + email + "', idSede='" + Sede + "', idProvincia=" + idProvincia + ", idCanton=" + idCanton + ",idDistrito=" + idDistrito + ",idBarrio=" + idBarrio + ",OtraSennas='" + otrasSennas + "', estadoSolicitud='" + estadoSoli + "' where id='" + ID + "'";
                 System.out.println(select);
                 accesoDatos.ejecutaSQL(select);
-                
+
             }
 
         } catch (SQLException e) {
@@ -258,10 +258,10 @@ public class UsuarioDB {
         }
 
     }
-    
-    public Usuario retornarUsuario(String ID)throws SNMPExceptions, SQLException{
+
+    public Usuario retornarUsuario(String ID) throws SNMPExceptions, SQLException {
         Usuario user = new Usuario();
-        
+
         String select = "";
         try {
             //Se intancia la clase de acceso a datos
@@ -274,7 +274,7 @@ public class UsuarioDB {
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
             if (rsPA.next()) {
-                
+
                 String IDu = rsPA.getString("ID");
                 int idTipoID = rsPA.getInt("idTipoID");
                 String nombre = rsPA.getString("Nombre");
@@ -287,11 +287,10 @@ public class UsuarioDB {
                 String otrasSennas = rsPA.getString("OtraSennas");
                 String email = rsPA.getString("Email");
                 String sede = rsPA.getString("idSede");
+                int codSeg = rsPA.getInt("CodSec");
+                String password = rsPA.getString("Password");
                 int idBarrio = rsPA.getInt("idBarrio");
                 char EstadoSoli = rsPA.getString("EstadoSolicitud").charAt(0);
-                
-                
-                
 
                 user.setID(IDu);
                 user.setIdTipoID(idTipoID);
@@ -305,6 +304,8 @@ public class UsuarioDB {
                 user.setOtrasSennas(otrasSennas);
                 user.setEmail(email);
                 user.setIdSede(sede);
+                user.setCodSeg(codSeg);
+                user.setPassword(password);
                 user.setIdBarrio(idBarrio);
                 user.setEstadoSolicitud(EstadoSoli);
             }
@@ -322,6 +323,7 @@ public class UsuarioDB {
 
         }
     }
+
     public int consultarPerfil(String Login) throws SNMPExceptions,
             SQLException {
         String select = "";
@@ -405,7 +407,7 @@ public class UsuarioDB {
         }
         return null;
     }
-    
+
     public ArrayList<Usuario> ListaAprobacionFunc() throws SNMPExceptions, SQLException {
         String select = "";
         Usuario user;
@@ -429,7 +431,7 @@ public class UsuarioDB {
                 Date fechaNac = rsPA.getDate("FechNac");
                 String email = rsPA.getString("Email");
                 String sede = rsPA.getString("Sede");
-                
+
                 user = new Usuario(ID, idTipoID, nombre, apellido1, apellido2, fechaNac, email, sede);
                 lista.add(user);
             }
@@ -445,18 +447,43 @@ public class UsuarioDB {
         }
         return lista;
     }
-    public void aceptarFuncionarios(String ID)throws SNMPExceptions, SQLException{
+
+    public void aceptarFuncionarios(String ID) throws SNMPExceptions, SQLException {
         String select = "";
-        
+
         try {
             if (consultarUsuario(ID)) {
                 //Se intancia la clase de acceso a datos
                 AccesoDatos accesoDatos = new AccesoDatos();
-                
-                select = "update usuario set estadoSolicitud='A' where id='"+ID+"'";
+
+                select = "update usuario set estadoSolicitud='A' where id='" + ID + "'";
                 System.out.println(select);
                 accesoDatos.ejecutaSQL(select);
-                
+
+            }
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+
+    public void contraPorPrimeraVez(String ID, String password) throws SNMPExceptions, SQLException {
+        String select = "";
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+            if (consultarUsuario(ID)) {
+                //Se crea la sentencia de Busqueda
+                select = "Update Usuario set Password = '" + password + "' where ID = " + "'" + ID + "'";
+
+                //se ejecuta la sentencia sql
+                accesoDatos.ejecutaSQL(select);
+                //se llama el array con los proyectos
             }
 
         } catch (SQLException e) {

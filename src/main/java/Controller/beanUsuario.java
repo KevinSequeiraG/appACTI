@@ -46,6 +46,7 @@ public class beanUsuario {
     String idSede;
     int CodSeg;
     String Password;
+    String Password2;
     int idPerfil;
     int idPerfilEdit;
     char EstadoSolicitud;
@@ -62,7 +63,9 @@ public class beanUsuario {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
     String mensaje2 = "";
-    
+    String mensajeContras = "";
+    String mensajeContras2 = "";
+
     //Lista para el crud de Funcionarios
     ArrayList<Usuario> listaFuncionarios = new ArrayList<>();
     ArrayList<Usuario> listaAprobacionFuncionarios = new ArrayList<>();
@@ -84,6 +87,24 @@ public class beanUsuario {
         return idPerfilEdit;
     }
 
+    public String getMensajeContras() {
+        return mensajeContras;
+    }
+
+    public void setMensajeContras(String mensajeContras) {
+        this.mensajeContras = mensajeContras;
+    }
+
+    public String getMensajeContras2() {
+        return mensajeContras2;
+    }
+
+    public void setMensajeContras2(String mensajeContras2) {
+        this.mensajeContras2 = mensajeContras2;
+    }
+
+    
+    
     public void setIdPerfilEdit(int idPerfilEdit) {
         this.idPerfilEdit = idPerfilEdit;
     }
@@ -228,14 +249,14 @@ public class beanUsuario {
      * Limpia los campos
      */
     public void Limpiar() {
-        ID= "";
-        Nombre= "";
-        Apellido1= "";
-        Apellido2= "";
-        FechNac= null;
-        SFechaNac= "";
-        OtrasSennas= "";
-        Email= "";
+        ID = "";
+        Nombre = "";
+        Apellido1 = "";
+        Apellido2 = "";
+        FechNac = null;
+        SFechaNac = "";
+        OtrasSennas = "";
+        Email = "";
     }
 
     /**
@@ -386,8 +407,8 @@ public class beanUsuario {
     public boolean ExisteUsuario(String id) throws SNMPExceptions, SQLException {
         return userDB.consultarUsuario(id); //consulta si el usuario ya existe
     }
-    
-    public int consultarPerfilUsuario(String ID) throws SNMPExceptions, SQLException{
+
+    public int consultarPerfilUsuario(String ID) throws SNMPExceptions, SQLException {
         UsuarioDB userDB = new UsuarioDB();
         return userDB.consultarPerfil(ID);
     }
@@ -531,10 +552,10 @@ public class beanUsuario {
             mensaje = "Debe ingresar números en el espacio de teléfono.";
             resp = false;
             return resp;
-        } else if(numTelefono.length()!=8){
+        } else if (numTelefono.length() != 8) {
             mensaje = "La cantidad de digitos en teléfono es incorrecta.";
             resp = false;
-            return resp;            
+            return resp;
         } else if ((!numTelefono2.equals("")) & !numTelefono2.matches("[+-]?\\d*(\\.\\d+)?")) {
             mensaje = "Debe ingresar números en el espacio de teléfono.";
             resp = false;
@@ -543,7 +564,7 @@ public class beanUsuario {
             mensaje = "La cantidad de digitos en teléfono es incorrecta.";
             resp = false;
             return resp;
-        } else if(numTelefono.equals(numTelefono2)){
+        } else if (numTelefono.equals(numTelefono2)) {
             mensaje = "Los números de teléfono no pueden ser iguales.";
             resp = false;
             return resp;
@@ -594,7 +615,7 @@ public class beanUsuario {
             mensaje2 = "";
         } else {
             UsuarioDB logica = new UsuarioDB();
-            logica.editarFuncionario(ID, idPerfilEdit ,idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede, idProvincia, idCanton, idDistrito, idBarrio, OtrasSennas,EstadoSolicitud);
+            logica.editarFuncionario(ID, idPerfilEdit, idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede, idProvincia, idCanton, idDistrito, idBarrio, OtrasSennas, EstadoSolicitud);
             mensaje2 = "Funcionario Editado Correctamente.";
             mensaje = "";
             this.Nombre = "";
@@ -607,8 +628,8 @@ public class beanUsuario {
             this.idCanton = 0;
             this.idDistrito = 0;
             this.idBarrio = 0;
-            this.OtrasSennas= "";
-            this.EstadoSolicitud=' ';
+            this.OtrasSennas = "";
+            this.EstadoSolicitud = ' ';
         }
     }
 
@@ -620,7 +641,7 @@ public class beanUsuario {
         this.Apellido2 = user.getApellido2();
         this.FechNac = user.getFecNacDate();
         this.idSede = user.getIdSede();
-        
+
         Usuario usuarioCompleto = retornarUsuario(user.getID());
         this.idProvincia = usuarioCompleto.getIdProvincia();
         this.idCanton = usuarioCompleto.getIdCanton();
@@ -629,7 +650,7 @@ public class beanUsuario {
         this.OtrasSennas = usuarioCompleto.getOtrasSennas();
         this.Email = usuarioCompleto.getEmail();
         this.idSede = usuarioCompleto.getIdSede();
-       /* this.CodSeg;
+        /* this.CodSeg;
         this.Password;*/
         this.EstadoSolicitud = usuarioCompleto.getEstadoSolicitud();
         this.edad = "0";
@@ -644,7 +665,58 @@ public class beanUsuario {
         this.editFunc = editFunc;
     }
 
-    public ArrayList<Usuario> getListaAprobacionFuncionarios() throws SNMPExceptions, SQLException{
+    public String getPassword2() {
+        return Password2;
+    }
+
+    public void setPassword2(String Password2) {
+        this.Password2 = Password2;
+    }
+
+    public void contraPorPrimeraVez(String ID) throws SNMPExceptions, SQLException {
+        Usuario user = new Usuario();
+        UsuarioDB udb = new UsuarioDB();
+        user = this.retornarUsuario(ID);
+        if (user.getCodSeg() == this.getCodSeg()) {
+            if (validarContras()) {
+                udb.contraPorPrimeraVez(ID, this.getPassword());
+                this.mensajeContras2 = "Contraseña establecida satisfactoriamente.";
+                this.mensajeContras = "";
+            }
+        } else{
+            this.mensajeContras = "Código de seguridad inválido.";
+            this.mensajeContras2 = "";
+        }
+        
+
+    }
+
+    public boolean validarContras() {
+        this.mensajeContras = "";
+        this.mensajeContras2 = "";
+        boolean result = true;
+        if(this.getPassword().length()<8){
+            result = false;
+            this.mensajeContras = "Las contraseña es muy corta.";
+            return result;
+        } else if(this.getPassword().length()>12){
+            result = false;
+            this.mensajeContras = "Las contraseña es muy larga.";
+            return result;
+        } else if(!this.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")){
+            result = false;
+            this.mensajeContras = "Las contraseña debe contener números, mayúsculas y minúsculas.";
+            return result;
+        } else if (!this.getPassword().equals(this.getPassword2())) {
+            result = false;
+            this.mensajeContras = "Las contraseñas no coinciden.";
+            return result;
+        } 
+        
+        return result;
+    }
+
+    public ArrayList<Usuario> getListaAprobacionFuncionarios() throws SNMPExceptions, SQLException {
         UsuarioDB logica = new UsuarioDB();
 
         return logica.ListaAprobacionFunc();
@@ -655,7 +727,7 @@ public class beanUsuario {
     }
 
     public void aprobarFuncionario(String Id) throws SNMPExceptions, SQLException {
-            UsuarioDB logica = new UsuarioDB();
-            logica.aceptarFuncionarios(Id);
+        UsuarioDB logica = new UsuarioDB();
+        logica.aceptarFuncionarios(Id);
     }
 }

@@ -13,7 +13,7 @@
         <div id ="stars"></div>
         <div id ="stars2"></div>
         <div class="login-container">
-            <form action="" class="form-login">
+            <h:form class="form-login">
                 <ul class="login-nav">
                     <li class="login-nav__item active">
                         <a href="#">Cambiar contraseña</a>
@@ -22,25 +22,27 @@
                 <label for="login-input-user" class="login__label">
                     Identificación
                 </label>
-                <input id="login-input-user" class="login__input" type="text" />
+                <h:inputText readonly="true" value="#{beanObtenerDatosSesion.datos}" class="login__input"></h:inputText>
                 <label for="login-input-password" class="login__label">
-                    Contraseña actual
+                    Código de seguridad
                 </label>
-                <input id="login-input-user" class="login__input" type="text" />
+                <h:inputText value="#{beanUsuario.codSeg}" class="login__input"></h:inputText>
                 <label for="login-input-password" class="login__label">
                     Nueva Contraseña
                 </label>
-                <input id="login-input-password" class="login__input" type="password" />
+                <h:inputSecret value="#{beanUsuario.password}" class="login__input"></h:inputSecret>
                 <label for="login-input-user" class="login__label">
                     Repetir Contraseña
                 </label>
-                <input id="login-input-user" class="login__input" type="text" />
+                <h:inputSecret value="#{beanUsuario.password2}" class="login__input"></h:inputSecret>
                 <br></br><br></br>
-                <h:form>
-                    <h:commandButton class="login__submit" value="Aceptar" action="PagPrincipal"></h:commandButton>
+                <h:outputLabel value="#{beanUsuario.mensajeContras}" style="color: red; font-size: 1rem"></h:outputLabel>
+                <h:outputLabel value="#{beanUsuario.mensajeContras2}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
+                <div>
+                    <h:commandButton class="login__submit" value="Aceptar" actionListener="#{beanUsuario.contraPorPrimeraVez(beanObtenerDatosSesion.datos)}"></h:commandButton>
                     <h:commandButton class="login__submit" value="Regresar" action="PagPrincipal"></h:commandButton>
-                </h:form>
-            </form>
+                </div>
+            </h:form>
         </div>
     </h:body>
 </html>
