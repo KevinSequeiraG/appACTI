@@ -543,7 +543,11 @@ public class beanUsuario {
             mensaje = "La cantidad de digitos en teléfono es incorrecta.";
             resp = false;
             return resp;
-        }else if (this.getEmail().equals("")) {
+        } else if(numTelefono.equals(numTelefono2)){
+            mensaje = "Los números de teléfono no pueden ser iguales.";
+            resp = false;
+            return resp;
+        } else if (this.getEmail().equals("")) {
             mensaje = "Debe agregar su correo en el campo definido.";
             resp = false;
             return resp;
