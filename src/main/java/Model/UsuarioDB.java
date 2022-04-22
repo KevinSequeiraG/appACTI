@@ -405,4 +405,67 @@ public class UsuarioDB {
         }
         return null;
     }
+    
+    public ArrayList<Usuario> ListaAprobacionFunc() throws SNMPExceptions, SQLException {
+        String select = "";
+        Usuario user;
+        ArrayList<Usuario> lista = new ArrayList<>();
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where estadoSolicitud = 'P' ";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+
+                String ID = rsPA.getString("ID");
+                int idTipoID = rsPA.getInt("idTipoID");
+                String nombre = rsPA.getString("Nombre");
+                String apellido1 = rsPA.getString("Apellido1");
+                String apellido2 = rsPA.getString("Apellido2");
+                Date fechaNac = rsPA.getDate("FechNac");
+                String email = rsPA.getString("Email");
+                String sede = rsPA.getString("Sede");
+                
+                user = new Usuario(ID, idTipoID, nombre, apellido1, apellido2, fechaNac, email, sede);
+                lista.add(user);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return lista;
+    }
+    public void aceptarFuncionarios(String ID)throws SNMPExceptions, SQLException{
+        String select = "";
+        
+        try {
+            if (consultarUsuario(ID)) {
+                //Se intancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                
+                select = "update usuario set estadoSolicitud='A' where id='"+ID+"'";
+                System.out.println(select);
+                accesoDatos.ejecutaSQL(select);
+                
+            }
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
 }

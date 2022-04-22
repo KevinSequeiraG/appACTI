@@ -62,10 +62,10 @@ public class beanUsuario {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
     String mensaje2 = "";
-
+    
     //Lista para el crud de Funcionarios
     ArrayList<Usuario> listaFuncionarios = new ArrayList<>();
-
+    ArrayList<Usuario> listaAprobacionFuncionarios = new ArrayList<>();
     //pruebas
     boolean editFunc = false;
 
@@ -640,4 +640,18 @@ public class beanUsuario {
         this.editFunc = editFunc;
     }
 
+    public ArrayList<Usuario> getListaAprobacionFuncionarios() throws SNMPExceptions, SQLException{
+        UsuarioDB logica = new UsuarioDB();
+
+        return logica.ListaAprobacionFunc();
+    }
+
+    public void setListaAprobacionFuncionarios(ArrayList<Usuario> listaAprobacionFuncionarios) {
+        this.listaAprobacionFuncionarios = listaAprobacionFuncionarios;
+    }
+
+    public void aprobarFuncionario(String Id) throws SNMPExceptions, SQLException {
+            UsuarioDB logica = new UsuarioDB();
+            logica.aceptarFuncionarios(Id);
+    }
 }
