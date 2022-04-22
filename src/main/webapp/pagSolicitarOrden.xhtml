@@ -7,7 +7,7 @@
         <title>Solicitar orden</title>
         <h:outputStylesheet library="css" name="Registro.css"/>
         <h:outputStylesheet library="css" name="estilos.css"/>
-        
+
         <h:outputStylesheet library="css" name="Login.css"/>
         <h:outputStylesheet library="css" name="soliOrden.css"/>
         <!-- CSS only -->
@@ -67,11 +67,9 @@
                                 <label class="form-label">Identificador del activo</label>
                                 <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanLineaD.idActivo}"></h:inputText>
                             </div>
-                            <div class="col-sm-4">
-                                <label class="form-label">Cantidad</label>
-                                <h:inputText style="text-align: center !important" class="form-control login__input" value="#{beanLineaD.cant}"></h:inputText>
-                            </div>                            
-                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease; width: 20%; margin: auto; margin-top: 1rem" value="Agregar" actionListener="#{beanEncOrden.GenerarLineaDetalle(beanLineaD.idActivo, beanLineaD.cant,beanSede.ID)}"></h:commandButton>
+                            <div>
+                                <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease; width: 20%; margin: auto; margin-top: 1rem" value="Agregar" actionListener="#{beanEncOrden.GenerarLineaDetalle(beanLineaD.idActivo, 1, beanSede.ID)}"></h:commandButton>
+                            </div>
                             <hr class="my-6"></hr>
                             <div class="col-sm-12">
                                 <label class="form-label">Lista de activos</label>
@@ -83,29 +81,21 @@
                                             </f:facet>
                                             #{beanEncOrden.ID}
                                         </h:column>
-                                        
+
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Activo"></h:outputText>
                                             </f:facet>
                                             #{linea.idActivo}
                                         </h:column>
-                                        
 
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Cantidad"></h:outputText>
-                                            </f:facet>
-                                            #{linea.cant}
-                                        </h:column>
-                                        
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Sede destino"></h:outputText>
                                             </f:facet>
                                             #{beanEncOrden.getDescSede(beanSede.ID)}
                                         </h:column>
-                                        
+
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Eliminar orden"></h:outputText>
@@ -118,7 +108,7 @@
                             <hr class="my-4"></hr>
                             <h:outputLabel value="#{beanEncOrden.mensaje}" style="color: red; font-size: 1rem"></h:outputLabel>
                             <h:outputLabel value="#{beanEncOrden.mensaje2}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
-                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Confirmar" action="#{beanEncOrden.InsertarOrden(beanSede.ID, beanObtenerDatosSesion.datos,beanLineaD.idActivo, beanLineaD.cant)}"></h:commandButton>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Confirmar" action="#{beanEncOrden.InsertarOrden(beanSede.ID, beanObtenerDatosSesion.datos,beanLineaD.idActivo, 1)}"></h:commandButton>
                             <button class="w-10 btn btn-primary botones"><a href="PagPrincipal.xhtml">Cancelar</a></button>
                         </div>
                     </h:form>

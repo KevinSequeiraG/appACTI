@@ -19,7 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </h:head>
     <h:body style="background: linear-gradient(135deg, black 15%, midnightblue 100%)!important; ">
-        <div class="background" style="min-height: 1600px !important">
+        <div class="background">
             <div id='stars'></div>
             <div id='stars2'></div>            
         </div>
@@ -62,16 +62,10 @@
 
 
                                     <h:dataTable value="#{beanEncOrden.getListaLineaDPorOrden(orden.ID)}" var = "linea"
-                                                 class="table table-sm" style="padding: 0 !important; color: white; width: 10% !important; margin: auto">
+                                                 class="table table-sm" style="padding: 0 !important; color: white; width: 50% !important; margin: auto">
                                         <h:column>
-                                            <f:facet name = "header" class="tablaInterna">Código</f:facet>
                                             #{linea.idActivo}                                 
-                                        </h:column>
-
-                                        <h:column>    				
-                                            <f:facet name = "header" class="tablaInterna">Cantidad</f:facet>  
-                                            #{linea.cant}
-                                        </h:column>                                        
+                                        </h:column>                                       
                                     </h:dataTable>
 
 
