@@ -62,7 +62,7 @@ public class OrdenDetalleDB {
                     + " VALUES"
                     + "(" + "'" + lineaD.getIdActivo()+ "'" + ","
                     + lineaD.getIdOrdenEncabezadoActivo()+ ","
-                    + lineaD.getCant() + ")";
+                    + 1 + ")";
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
 

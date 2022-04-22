@@ -197,11 +197,13 @@ public class beanOrdenEncabezadoActivo {
             mensaje = "El usuario digitado no existe.";
             resp = false;
             return resp;
-        } else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
+        } 
+        /*else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
             mensaje = "El usuario digitado no se encuentra asociado a esa sede.";
             resp = false;
             return resp;
-        } else if (this.getDescripcion().equals("")) {
+        }*/
+        else if (this.getDescripcion().equals("")) {
             mensaje = "Debe digitar la justificación de la Orden.";
             resp = false;
             return resp;
