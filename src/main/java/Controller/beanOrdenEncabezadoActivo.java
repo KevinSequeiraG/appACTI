@@ -289,7 +289,7 @@ public class beanOrdenEncabezadoActivo {
     }
 
     public void Aprobar(int idOrden) throws SNMPExceptions, SQLException {
-
+        mensajeAprov="";
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.AprobarOrden(idOrden, this.getListaLineaDPorOrden(idOrden))) {
             mensajeAprov = "La orden " + idOrden + " fue aprobada satifactoriamente.";
@@ -300,7 +300,7 @@ public class beanOrdenEncabezadoActivo {
     }
 
     public void Rechazar(int idOrden) throws SNMPExceptions, SQLException {
-
+        mensajeAprov="";
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.RechazarOrden(idOrden)) {
             mensajeAprov = "La orden " + idOrden + " fue denegada.";
