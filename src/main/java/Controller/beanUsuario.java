@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.SNMPExceptions;
+import Model.EnviarCorreo;
 import Model.Provincia;
 import Model.Telefono;
 import Model.TelefonoDB;
@@ -20,6 +21,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.context.FacesContext;
@@ -277,9 +279,19 @@ public class beanUsuario {
      * @throws SQLException
      * @throws IOException
      */
+    public int generarCod(){
+        int numero = (int)(Math.random()*(9999-1000))+1000;
+        return numero;
+    }
     public void RegistrarFuncionario(int TipoId, int proId, int canId, int disId, int barId, String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException, IOException {
         setMensaje("");
         setMensaje2("");
+        this.setCodSeg(generarCod());
+        // aqui es donde yo le digo que apenas la persona regsitre le mandemos el parametro del cod y email a esa clase
+        // la funcion generar cod es la del codigo logic xd
+        
+        EnviarCorreo envio = new EnviarCorreo(user);
+        envio.
         this.setIdTipoID(TipoId);
         this.setIdProvincia(proId);
         this.setIdCanton(canId);
