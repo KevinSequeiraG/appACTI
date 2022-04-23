@@ -280,7 +280,7 @@ public class beanUsuario {
      * @throws IOException
      */
     public int generarCod(){
-        int numero = (int)(Math.random()*(9999-1000))+1000;
+        int numero = (int)(Math.random()*(999999-100000))+100000;
         return numero;
     }
     public void RegistrarFuncionario(int TipoId, int proId, int canId, int disId, int barId, String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException, IOException {
@@ -290,8 +290,7 @@ public class beanUsuario {
         // aqui es donde yo le digo que apenas la persona regsitre le mandemos el parametro del cod y email a esa clase
         // la funcion generar cod es la del codigo logic xd
         
-        EnviarCorreo envio = new EnviarCorreo(user);
-        envio.
+        
         this.setIdTipoID(TipoId);
         this.setIdProvincia(proId);
         this.setIdCanton(canId);
@@ -304,7 +303,9 @@ public class beanUsuario {
             if (InsertarUsuario()) {
                 mensaje2 = "Usuario registrado exitosamente";
                 Telefonos(numTelefono, tipoTelefono, numTelefono2);
+                this.run();
                 Limpiar();
+                
             }
         }
 
@@ -742,4 +743,8 @@ public class beanUsuario {
         UsuarioDB logica = new UsuarioDB();
         logica.aceptarFuncionarios(Id);
     }
+    public void run() {
+        EnviarCorreo enviar = new EnviarCorreo();
+	enviar.sendEmail(this.getEmail(), this.getNombre(), this.getCodSeg());
+}
 }

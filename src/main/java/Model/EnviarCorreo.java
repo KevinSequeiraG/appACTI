@@ -5,10 +5,8 @@
  */
 package Model;
 
-import Controller.beanUsuario;
 import java.io.Serializable;
 import java.util.Properties;
-import java.util.stream.Collectors;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -22,17 +20,17 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+
+
 /**
  *
  * @author Oscar
  */
 public class EnviarCorreo extends Thread implements Serializable {
 
-    Usuario user = new Usuario();
 
-    public EnviarCorreo(Usuario usuario) {
+    public EnviarCorreo() {
         super("procesoEnvioEmail");
-        user = usuario;
     }
 
     private Session connectServer() {
@@ -48,19 +46,18 @@ public class EnviarCorreo extends Thread implements Serializable {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("kevinsgdeveloper@gmail.com", "Developer123.");
+                return new PasswordAuthentication("asistenteproyectosprogra@gmail.com", "Developer123");
             }
         });
     }
 
-    private String getDirecciones(Usuario user) {
-        String email = user.getEmail();
+    private String getDirecciones(String email) {
         return email;
     }
 
-    private void sendEmail(Usuario user) {
+    public void sendEmail(String email, String nombre, int codigo) {
 	// Obtenemos las direcciones/destinatarios
-	String direcciones = getDirecciones(user);
+	String direcciones = getDirecciones(email);
 	// Obtenemos la conexion al servidor de correos
 	Session session = connectServer();
 	try {
@@ -77,11 +74,12 @@ public class EnviarCorreo extends Thread implements Serializable {
 		//Creamos el cuerpo del mensaje
 		BodyPart cuerpoMensaje = new MimeBodyPart();
                 // en ese get contenido va el codigo que le tenemos que enviar
-		cuerpoMensaje.setContent(user.getContenido(), "text/html");
+		cuerpoMensaje.setContent("<h1>Hola, "+nombre+".</h1> <h2>Felicitaciones por completar su autoregistro, su código de ingreso por primera vez es: "+codigo+".</h2><h2>Recuerde que no podrá ingresar hasta que un administrador le apruebe su solicitud, además deberá cambiar la contraseña lo antes posible.</h2><br></br>ProjectACTI", "text/html");
 		multiparte.addBodyPart(cuerpoMensaje);
-		
+		msg.setContent(multiparte);
+		msg.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(direcciones));
 		//Agregamos el origen del mensaje (nuestro email)
-		msg.setFrom(new InternetAddress("kevinsgdeveloper@gmail.com"));
+		msg.setFrom(new InternetAddress("asistenteproyectosprogra@gmail.com"));
 		
 		//Enviamos el mensaje
 		Transport.send(msg);
