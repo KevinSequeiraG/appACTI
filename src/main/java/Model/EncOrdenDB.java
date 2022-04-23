@@ -407,4 +407,48 @@ public class EncOrdenDB {
         return ListaConsulta;
     }
 
+    public ArrayList<EncOrden> ReporteEstado(int Estado) throws SNMPExceptions, SQLException {
+        String select = "";
+        Usuario user;
+        ArrayList<EncOrden> lista = new ArrayList<>();
+        char Tipo=' ';
+        try {
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+            
+            if (Estado==1) {
+                Tipo='P';
+            }else if (Estado==2) {
+                Tipo='A';
+            }else if (Estado==3) {
+                Tipo='R';
+            }
+
+            //Se crea la sentencia de búsqueda
+            select = "select TipoOrden, COUNT(id) AS Total  from OrdenEncabezadoActivo where Estado='"+Tipo+"' GROUP BY TipoOrden;";
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los proyectos   
+            while (rsPA.next()) {
+
+                String tipo = rsPA.getString("TipoOrden");
+                int total = rsPA.getInt("Total");
+
+                EncOrden orden = new EncOrden();
+                orden.setTipoOrden(tipo);
+                orden.setTotalPorEstado(total);
+                lista.add(orden);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return lista;
+    }
 }
