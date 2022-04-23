@@ -46,6 +46,8 @@ public class beanOrdenEncabezadoActivo {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String mensaje = "";
     String mensaje2 = "";
+    String mensajeAprov = "";
+    String mensajeAprov2 = "";
 
     public beanOrdenEncabezadoActivo() {
     }
@@ -70,6 +72,22 @@ public class beanOrdenEncabezadoActivo {
 
     public String getIdUserEntrega() {
         return idUserEntrega;
+    }
+
+    public String getMensajeAprov() {
+        return mensajeAprov;
+    }
+
+    public void setMensajeAprov(String mensajeAprov) {
+        this.mensajeAprov = mensajeAprov;
+    }
+
+    public String getMensajeAprov2() {
+        return mensajeAprov2;
+    }
+
+    public void setMensajeAprov2(String mensajeAprov2) {
+        this.mensajeAprov2 = mensajeAprov2;
     }
 
     public void setIdUserEntrega(String idUserEntrega) {
@@ -181,6 +199,8 @@ public class beanOrdenEncabezadoActivo {
     }
 
     public boolean Validar(String idActivo, int cantidad, String idSedeD) throws SNMPExceptions, SQLException {
+        mensaje = "";
+        mensaje2 = "";
         boolean resp = true;
         UsuarioDB userDB = new UsuarioDB();
         ActivoDB activoDB = new ActivoDB();
@@ -197,13 +217,11 @@ public class beanOrdenEncabezadoActivo {
             mensaje = "El usuario digitado no existe.";
             resp = false;
             return resp;
-        } 
-        /*else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
+        } /*else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
             mensaje = "El usuario digitado no se encuentra asociado a esa sede.";
             resp = false;
             return resp;
-        }*/
-        else if (this.getDescripcion().equals("")) {
+        }*/ else if (this.getDescripcion().equals("")) {
             mensaje = "Debe digitar la justificación de la Orden.";
             resp = false;
             return resp;
@@ -264,38 +282,38 @@ public class beanOrdenEncabezadoActivo {
         }
         return encOrdenDB.ListaOrdenesPendientes();
     }
-    
+
     public ArrayList<OrdenDetalle> getListaLineaDPorOrden(int IdOrden) throws SNMPExceptions, SQLException {
-        OrdenDetalleDB detalleDB = new OrdenDetalleDB();        
+        OrdenDetalleDB detalleDB = new OrdenDetalleDB();
         return detalleDB.ListaLineaDPorOrden(IdOrden);
     }
 
-    public void Aprobar(int idOrden) throws SNMPExceptions, SQLException{
-        
+    public void Aprobar(int idOrden) throws SNMPExceptions, SQLException {
+
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.AprobarOrden(idOrden, this.getListaLineaDPorOrden(idOrden))) {
-            mensaje = "La orden " + idOrden +" aprobada satifactoriamente.";
-        } else{
-            mensaje2 = "No queda suficiente cantidad del activo, la orden " + idOrden +" debe ser denegada.";
+            mensajeAprov = "La orden " + idOrden + " fue aprobada satifactoriamente.";
+        } else {
+            mensajeAprov2 = "No queda suficiente cantidad del activo, la orden " + idOrden + " debe ser denegada.";
         }
-        
+
     }
-    
-    public void Rechazar(int idOrden) throws SNMPExceptions, SQLException{
-        
+
+    public void Rechazar(int idOrden) throws SNMPExceptions, SQLException {
+
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.RechazarOrden(idOrden)) {
-            mensaje = "La orden " + idOrden +" fue denegada.";
+            mensajeAprov = "La orden " + idOrden + " fue denegada.";
         }
-        
+
     }
-    
-    public void Limpiar(){
+
+    public void Limpiar() {
         this.setIdUserRecibe("");
         this.setDescripcion("");
-        this.setCarrito(null);
+        this.carrito.clear();
     }
-    
+
     public void setListaOrdenesPendientes(ArrayList<EncOrden> listaOrdenesPendientes) {
         this.listaOrdenesPendientes = listaOrdenesPendientes;
     }
