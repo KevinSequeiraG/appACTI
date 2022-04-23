@@ -22,6 +22,7 @@ public class EncOrden {
     String FechaOrden;
     String FechaRecepcion;
     String idSedeDestino;
+    int totalPorEstado;
 
     public EncOrden() {
     }
@@ -104,5 +105,13 @@ public class EncOrden {
 
     public void setIdSedeDestino(String idSedeDestino) {
         this.idSedeDestino = idSedeDestino;
+    }
+
+    public int getTotalPorEstado() {
+        return totalPorEstado;
+    }
+
+    public void setTotalPorEstado(int totalPorEstado) {
+        this.totalPorEstado = totalPorEstado;
     }
 }
