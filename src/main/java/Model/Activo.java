@@ -19,6 +19,7 @@ public class Activo {
     String FechaRegistro;
     String idUsuario;
     int Cantidad;
+    String TipoMovimiento;
 
     public Activo() {
     }
@@ -86,6 +87,14 @@ public class Activo {
 
     public void setCantidad(int Cantidad) {
         this.Cantidad = Cantidad;
+    }
+
+    public String getTipoMovimiento() {
+        return TipoMovimiento;
+    }
+
+    public void setTipoMovimiento(String TipoMovimiento) {
+        this.TipoMovimiento = TipoMovimiento;
     }
     
     
