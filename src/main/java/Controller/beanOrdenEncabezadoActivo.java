@@ -222,6 +222,10 @@ public class beanOrdenEncabezadoActivo {
             mensaje = "El usuario digitado no existe.";
             resp = false;
             return resp;
+        } else if (userDB.consultarPerfil(this.getIdUserRecibe()) != 2) {
+            mensaje = "El usuario digitado no es un funcionario.";
+            resp = false;
+            return resp;
         } /*else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
             mensaje = "El usuario digitado no se encuentra asociado a esa sede.";
             resp = false;

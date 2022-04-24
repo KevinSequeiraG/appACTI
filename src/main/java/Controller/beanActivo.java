@@ -8,6 +8,7 @@ package Controller;
 import DAO.SNMPExceptions;
 import Model.Activo;
 import Model.ActivoDB;
+import Model.UsuarioDB;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class beanActivo {
     Date FechaRegistro;
     String SFechaRegistro;
     String idUsuario;
-    int Cantidad;
+    
+    int Cantidad = 1;
     ArrayList<Activo> listaAct = new ArrayList<>();
     //BD
     Activo activo;
@@ -95,6 +97,8 @@ public class beanActivo {
         this.idUsuario = idUsuario;
     }
 
+
+
     /**
      * Convertir Date a String
      *
@@ -158,15 +162,17 @@ public class beanActivo {
         activo.setIdSede(this.getIdSede());
         activo.setFechaRegistro(this.getSFechaRegistro());
         activo.setIdUsuario(this.getIdUsuario());
-        activo.setCantidad(this.getCantidad());
+        activo.setCantidad(1);
 
         if (Validacion()) {
             //consulta si el activo ya existe
             if (!ExisteActivo(this.getID())) {
                 activoDB.InsertarActivo(activo); //lo inserta
+                this.limpiar2();
                 return true;
             } else {
                 mensaje = "El activo ya se encuentra registrado";//el activo ya existe (hacer mensaje con validaciones)
+                
                 return false;
             }
         }
@@ -186,23 +192,60 @@ public class beanActivo {
         return activoDB.consultarActivo(id); //consulta si el activo ya existe
     }
     
-    public boolean Validacion() {
+    public boolean Validacion() throws SNMPExceptions, SQLException {
+        UsuarioDB userDB = new UsuarioDB();
+        ActivoDB activoDB = new ActivoDB();
         boolean resp = true;
         //Date date = new Date();
 
         if (this.getID().equals("")) {
             mensaje = "Debe llenar el campo Codigo del Activo.";
             resp = false;
+            return resp;
         } else if (this.getDescripcion().equals("")) {
             mensaje = "Debe llenar la descripción.";
             resp = false;
+            return resp;
         } else if (String.valueOf(this.getValor()).equals("")) {
             mensaje = "Debe llenar el campo Valor.";
             resp = false;
-        }else if (String.valueOf(this.getCantidad()).equals("")) {
+            return resp;
+        }else if (!String.valueOf(this.getValor()).matches("[+-]?\\d*(\\.\\d+)?")) {
+            mensaje = "Debe ingresar números en el espacio de Valor.";
             resp = false;
+            return resp;
         }
+        else if(this.getValor() <= 0.0){
+            mensaje = "El valor debe ser un número mayor a 0.";
+            resp = false;
+            return resp;
+        } 
+        else if(this.getIdUsuario().equals("")){
+            mensaje = "Debe llenar el campo Identificación del funcionario.";
+            resp = false;
+            return resp;
+        } 
+        else if (!userDB.consultarUsuario(this.getIdUsuario())) {
+            mensaje = "El usuario digitado no existe.";
+            resp = false;
+            return resp;
+        } else if (userDB.consultarPerfil(this.getIdUsuario()) != 2) {
+            mensaje = "El usuario digitado no es un funcionario.";
+            resp = false;
+            return resp;
+        } else if (String.valueOf(this.getIdSede()).equals("0")) {
+            mensaje = "Debe elegir una sede.";
+            resp = false;
+            return resp;
+        } 
         return resp;
+    }
+    
+    public void limpiar2(){
+        this.ID = "";
+        this.Descripcion = "";
+        this.Valor =0;
+        this.idUsuario = "";
     }
 
     public ArrayList<Activo> getListaAct(String idUsuario) throws SNMPExceptions, SQLException {

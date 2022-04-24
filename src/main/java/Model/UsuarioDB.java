@@ -138,7 +138,7 @@ public class UsuarioDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
-            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede from Usuario where idPerfil=" + tipoPerfil;
+            select = "select ID, idTipoID, Nombre,Apellido1, Apellido2, FechNac, Email, (select Descripcion from Sede where id = idSede) as Sede, EstadoSolicitud from Usuario where idPerfil=" + tipoPerfil;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los proyectos   
@@ -152,8 +152,9 @@ public class UsuarioDB {
                 Date fechaNac = rsPA.getDate("FechNac");
                 String email = rsPA.getString("Email");
                 String sede = rsPA.getString("Sede");
+                char EstadoSoli = rsPA.getString("EstadoSolicitud").charAt(0);
 
-                user = new Usuario(ID, idTipoID, nombre, apellido1, apellido2, fechaNac, email, sede);
+                user = new Usuario(ID, idTipoID, nombre, apellido1, apellido2, fechaNac, email, sede, EstadoSoli);
                 lista.add(user);
             }
             rsPA.close();
@@ -178,16 +179,52 @@ public class UsuarioDB {
 
                 //Se borran primero los numeros pertenecientes al user
                 select = "delete from telefono where idUsuario = " + "'" + ID + "'";
-
                 accesoDatos.ejecutaSQL(select);
 
-                //Se crea la sentencia de Busqueda
+                //Se borran primero las lineasDetalle pertenecientes al user
+                select = "Select ID FROM OrdenEncabezadoActivo where idUserEntrega = " + "'" + ID + "' or idUserRecibe= " + "'" + ID + "'";
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                while (rsPA.next()) {
+                    String orden = rsPA.getString("ID");
+                    select = "delete from OrdenDetalleActivo where idOrdenEncabezadoActivo = " + "'" + orden + "'";
+                    accesoDatos.ejecutaSQL(select);
+                }
+                
+//                select = "Select ID FROM OrdenEncabezadoActivo where idUserRecibe= " + "'" + ID + "'";
+//                ResultSet rsPA2 = accesoDatos.ejecutaSQLRetornaRS(select);
+//                while (rsPA2.next()) {
+//                    String orden = rsPA2.getString("ID");
+//                    select = "delete from OrdenDetalleActivo where idOrdenEncabezadoActivo = " + "'" + orden + "')";
+//                    accesoDatos.ejecutaSQL(select);
+//                }
+                
+                select = "Select ID FROM Activo where idUsuario = " + "'" + ID + "'";
+                ResultSet rsPA3 = accesoDatos.ejecutaSQLRetornaRS(select);
+                while (rsPA3.next()) {
+                    String orden = rsPA3.getString("ID");
+                    select = "delete from OrdenDetalleActivo where idActivo = " + "'" + orden + "'";
+                    accesoDatos.ejecutaSQL(select);
+                }
+                
+
+                //Se borran primero los activos pertenecientes al user
+                select = "Update Activo set idUsuario = null where idUsuario = " + "'" + ID + "'";
+                accesoDatos.ejecutaSQL(select);
+
+                //Se borran primero las ordenes pertenecientes al user
+                select = "delete from OrdenEncabezadoActivo where idUserEntrega = " + "'" + ID + "'";
+                accesoDatos.ejecutaSQL(select);
+                select = "delete from OrdenEncabezadoActivo where idUserRecibe = " + "'" + ID + "'";
+                accesoDatos.ejecutaSQL(select);
+
                 select = "delete from Usuario where ID = " + "'" + ID + "'";
-
-                //se ejecuta la sentencia sql
                 accesoDatos.ejecutaSQL(select);
 
+                rsPA.close();
+                //rsPA2.close();
+                rsPA3.close();
             }
+            
 
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,

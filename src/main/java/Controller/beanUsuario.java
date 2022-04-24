@@ -55,7 +55,7 @@ public class beanUsuario {
     Date FechaSolicitud;
     String SFechaSolicitud;
     String edad = "0";
-
+    String ayuda;
     //BD
     Usuario user;
     UsuarioDB userDB = new UsuarioDB();
@@ -76,6 +76,10 @@ public class beanUsuario {
 
     public beanUsuario() {
     }
+    
+    public void ayuda(){
+        this.ayuda = "Página de mantenimiento de funcionarios por rol\n. Puede crear nuevos usuarios, elegir el rol en el combo de opciones y editar o eliminar los miembros de la tabla.";
+    }
 
     public String getID() {
         return ID;
@@ -84,6 +88,15 @@ public class beanUsuario {
     public void setID(String ID) {
         this.ID = ID;
     }
+
+    public String getAyuda() {
+        return ayuda;
+    }
+
+    public void setAyuda(String ayuda) {
+        this.ayuda = ayuda;
+    }
+    
 
     public int getIdPerfilEdit() {
         return idPerfilEdit;
@@ -623,8 +636,13 @@ public class beanUsuario {
     }
 
     public void editarFuncionario() throws SNMPExceptions, SQLException {
+        mensaje2 = "";
+            mensaje = "";
         if (Nombre.equals("") || Apellido1.equals("") || Apellido2.equals("") || idTipoID == 0 || Email.equals("") || idSede.equals("")) {
             mensaje = "Debe presionar el botón editar del funcionario que desea modificar.";
+            mensaje2 = "";
+        } else if(this.EstadoSolicitud != 'A' && this.EstadoSolicitud != 'R' && this.EstadoSolicitud != 'P'){
+            mensaje = "El estado de solicitud debe ser A = Aprobado, R = Rechazado o P = Pendiente.";
             mensaje2 = "";
         } else {
             UsuarioDB logica = new UsuarioDB();

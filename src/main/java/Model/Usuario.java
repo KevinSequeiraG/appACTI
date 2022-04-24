@@ -44,6 +44,19 @@ public class Usuario {
         this.EstadoSolicitud = EstadoSolicitud;
     }
     
+    public Usuario(String ID, int idTipoID, String nombre,String apellido1, String apellido2, Date fechaNac, String email, String Sede, char EstadoSoli){
+        this.ID = ID;
+        this.idTipoID = idTipoID;
+        this.Nombre = nombre;
+        this.Apellido1 = apellido1;
+        this.Apellido2 = apellido2;
+        this.FechNac = String.valueOf(fechaNac);
+        this.Email = email;
+        this.idSede = Sede;
+        this.fecNacDate =fechaNac;
+        this.EstadoSolicitud = EstadoSoli;
+        editFunc = true;
+    }
     public Usuario(String ID, int idTipoID, String nombre,String apellido1, String apellido2, Date fechaNac, String email, String Sede){
         this.ID = ID;
         this.idTipoID = idTipoID;

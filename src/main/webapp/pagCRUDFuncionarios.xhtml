@@ -28,9 +28,12 @@
                     <div class="text-center">
                         <h:form>
                             <h:commandButton class="btn btn-secondary btnCRUD" value="Crear" action="pagAddFunc"></h:commandButton>
-                            <h:commandButton class="btn btn-secondary btnCRUD" value="Ayuda" action="PagPrincipal"></h:commandButton>
+                            <h:commandButton class="btn btn-secondary btnCRUD" value="Ayuda" action="#{beanUsuario.ayuda()}"></h:commandButton>
                             <h:commandButton class="btn btn-secondary btnCRUD" value="Volver" action="PagPrincipal"></h:commandButton>
                             <br/>
+                            <div>
+                                <h:outputText style="color: lime" value="#{beanUsuario.ayuda}"></h:outputText>
+                            </div>
                             <h:selectOneMenu id="ListaPerfil" style="margin-bottom: 10px; text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanUsuario.idPerfil}" >
                                 <f:selectItems value="#{beanPerfil.listaPerfiles}"/>
                             </h:selectOneMenu>
@@ -42,8 +45,8 @@
                                 </h:column>
 
                                 <h:column>    				
-                                    <f:facet name = "header">Tipo de Identificación</f:facet>  
-                                        #{funcionario.idTipoID}
+                                    <f:facet name = "header">Estado de solicitud</f:facet>  
+                                        #{funcionario.estadoSolicitud}
                                 </h:column>
 
                                 <h:column>
