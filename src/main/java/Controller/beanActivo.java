@@ -42,6 +42,12 @@ public class beanActivo {
     String mensaje = "";
     String mensaje2 = "";
     
+    Date Fech1;
+    String SFech1;
+    Date Fech2;
+    String SFech2;
+    ArrayList<Activo> listaActivosRepo = new ArrayList<>();
+    
     public beanActivo() {
     }
 
@@ -256,9 +262,52 @@ public class beanActivo {
         this.listaAct = listaAct;
     }
 
+    public Date getFech1() {
+        return Fech1;
+    }
+
+    public void setFech1(Date Fech1) {
+        this.Fech1 = Fech1;
+    }
+
+    public String getSFech1() {
+        return simpleDateFormat.format(this.getFech1());
+    }
+
+    public void setSFech1(String SFech1) {
+        this.SFech1 = SFech1;
+    }
+
+    public Date getFech2() {
+        return Fech2;
+    }
+
+    public void setFech2(Date Fech2) {
+        this.Fech2 = Fech2;
+    }
+
+    public String getSFech2() {
+        return simpleDateFormat.format(this.getFech2());
+    }
+
+    public void setSFech2(String SFech2) {
+        this.SFech2 = SFech2;
+    }
     
     
-    
-    
+
+    public ArrayList<Activo> getListaActivosRepo() throws SNMPExceptions, SQLException {
+        if (Fech1==null || Fech2==null) {
+            return listaActivosRepo;
+        }else {
+            ActivoDB logica = new ActivoDB();
+            return logica.ReportePorFechas(this.getSFech1(), this.getSFech2());
+        }
+        
+    }
+
+    public void setListaActivosRepo(ArrayList<Activo> listaActivosRepo) {
+        this.listaActivosRepo = listaActivosRepo;
+    }
     
 }
