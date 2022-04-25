@@ -47,6 +47,7 @@ public class beanUsuario {
     String Email;
     String idSede;
     int CodSeg;
+    int CodSeg2;
     String Password;
     String Password2;
     int idPerfil;
@@ -707,7 +708,7 @@ public class beanUsuario {
         Usuario user = new Usuario();
         UsuarioDB udb = new UsuarioDB();
         user = this.retornarUsuario(ID);
-        if (user.getCodSeg() == this.getCodSeg()) {
+        if (user.getCodSeg() == this.getCodSeg2()) {
             if (validarContras()) {
                 udb.contraPorPrimeraVez(ID, this.getPassword());
                 this.mensajeContras2 = "Contraseña establecida satisfactoriamente.";
@@ -781,4 +782,13 @@ public class beanUsuario {
     public void setMensajeCRUD2(String MensajeCRUD2) {
         this.MensajeCRUD2 = MensajeCRUD2;
     }
+
+    public int getCodSeg2() {
+        return CodSeg2;
+    }
+
+    public void setCodSeg2(int CodSeg2) {
+        this.CodSeg2 = CodSeg2;
+    }
+    
 }
