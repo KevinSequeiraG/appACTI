@@ -383,7 +383,7 @@ public class beanOrdenEncabezadoActivo {
         resultList.add(new SelectItem(1,
                 "Pendiente"));
         resultList.add(new SelectItem(2,
-                "Aprovado"));
+                "Aprobado"));
         resultList.add(new SelectItem(3,
                 "Rechazado"));
         return resultList;

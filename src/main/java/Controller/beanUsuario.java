@@ -67,6 +67,8 @@ public class beanUsuario {
     String mensaje2 = "";
     String mensajeContras = "";
     String mensajeContras2 = "";
+    String MensajeCRUD = "";
+    String MensajeCRUD2 = "";
 
     //Lista para el crud de Funcionarios
     ArrayList<Usuario> listaFuncionarios = new ArrayList<>();
@@ -76,8 +78,8 @@ public class beanUsuario {
 
     public beanUsuario() {
     }
-    
-    public void ayuda(){
+
+    public void ayuda() {
         this.ayuda = "Página de mantenimiento de funcionarios por rol\n. Puede crear nuevos usuarios, elegir el rol en el combo de opciones y editar o eliminar los miembros de la tabla.";
     }
 
@@ -96,7 +98,6 @@ public class beanUsuario {
     public void setAyuda(String ayuda) {
         this.ayuda = ayuda;
     }
-    
 
     public int getIdPerfilEdit() {
         return idPerfilEdit;
@@ -118,8 +119,6 @@ public class beanUsuario {
         this.mensajeContras2 = mensajeContras2;
     }
 
-    
-    
     public void setIdPerfilEdit(int idPerfilEdit) {
         this.idPerfilEdit = idPerfilEdit;
     }
@@ -292,18 +291,18 @@ public class beanUsuario {
      * @throws SQLException
      * @throws IOException
      */
-    public int generarCod(){
-        int numero = (int)(Math.random()*(999999-100000))+100000;
+    public int generarCod() {
+        int numero = (int) (Math.random() * (999999 - 100000)) + 100000;
         return numero;
     }
+
     public void RegistrarFuncionario(int TipoId, int proId, int canId, int disId, int barId, String numTelefono, String tipoTelefono, String numTelefono2, String sede, int tipoPerfil) throws SNMPExceptions, SQLException, IOException {
         setMensaje("");
         setMensaje2("");
         this.setCodSeg(generarCod());
         // aqui es donde yo le digo que apenas la persona regsitre le mandemos el parametro del cod y email a esa clase
         // la funcion generar cod es la del codigo logic xd
-        
-        
+
         this.setIdTipoID(TipoId);
         this.setIdProvincia(proId);
         this.setIdCanton(canId);
@@ -318,7 +317,7 @@ public class beanUsuario {
                 Telefonos(numTelefono, tipoTelefono, numTelefono2);
                 this.run();
                 Limpiar();
-                
+
             }
         }
 
@@ -407,7 +406,7 @@ public class beanUsuario {
         user.setEmail(this.getEmail());
         user.setIdSede(this.getIdSede());
         user.setCodSeg(this.getCodSeg());
-        user.setPassword(this.getPassword());
+        user.setPassword(String.valueOf(this.getCodSeg()));
         user.setIdBarrio(this.getIdBarrio());
         user.setIdPerfil(this.getIdPerfil());
         user.setEstadoSolicitud(this.getEstadoSolicitud());
@@ -636,19 +635,19 @@ public class beanUsuario {
     }
 
     public void editarFuncionario() throws SNMPExceptions, SQLException {
-        mensaje2 = "";
-            mensaje = "";
+        MensajeCRUD2 = "";
+        MensajeCRUD = "";
         if (Nombre.equals("") || Apellido1.equals("") || Apellido2.equals("") || idTipoID == 0 || Email.equals("") || idSede.equals("")) {
-            mensaje = "Debe presionar el botón editar del funcionario que desea modificar.";
-            mensaje2 = "";
-        } else if(this.EstadoSolicitud != 'A' && this.EstadoSolicitud != 'R' && this.EstadoSolicitud != 'P'){
-            mensaje = "El estado de solicitud debe ser A = Aprobado, R = Rechazado o P = Pendiente.";
-            mensaje2 = "";
+            MensajeCRUD = "Debe presionar el botón editar del funcionario que desea modificar.";
+            MensajeCRUD2 = "";
+        } else if (this.EstadoSolicitud != 'A' && this.EstadoSolicitud != 'R' && this.EstadoSolicitud != 'P') {
+            MensajeCRUD = "El estado de solicitud debe ser A = Aprobado, R = Rechazado o P = Pendiente.";
+            MensajeCRUD2 = "";
         } else {
             UsuarioDB logica = new UsuarioDB();
             logica.editarFuncionario(ID, idPerfilEdit, idTipoID, Nombre, Apellido1, Apellido2, simpleDateFormat.format(FechNac), Email, idSede, idProvincia, idCanton, idDistrito, idBarrio, OtrasSennas, EstadoSolicitud);
-            mensaje2 = "Funcionario Editado Correctamente.";
-            mensaje = "";
+            MensajeCRUD2 = "Funcionario Editado Correctamente.";
+            MensajeCRUD = "";
             this.Nombre = "";
             this.Apellido1 = "";
             this.Apellido2 = "";
@@ -714,11 +713,10 @@ public class beanUsuario {
                 this.mensajeContras2 = "Contraseña establecida satisfactoriamente.";
                 this.mensajeContras = "";
             }
-        } else{
+        } else {
             this.mensajeContras = "Código de seguridad inválido.";
             this.mensajeContras2 = "";
         }
-        
 
     }
 
@@ -726,15 +724,15 @@ public class beanUsuario {
         this.mensajeContras = "";
         this.mensajeContras2 = "";
         boolean result = true;
-        if(this.getPassword().length()<8){
+        if (this.getPassword().length() < 8) {
             result = false;
             this.mensajeContras = "Las contraseña es muy corta.";
             return result;
-        } else if(this.getPassword().length()>12){
+        } else if (this.getPassword().length() > 12) {
             result = false;
             this.mensajeContras = "Las contraseña es muy larga.";
             return result;
-        } else if(!this.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")){
+        } else if (!this.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")) {
             result = false;
             this.mensajeContras = "Las contraseña debe contener números, mayúsculas y minúsculas.";
             return result;
@@ -742,8 +740,8 @@ public class beanUsuario {
             result = false;
             this.mensajeContras = "Las contraseñas no coinciden.";
             return result;
-        } 
-        
+        }
+
         return result;
     }
 
@@ -761,8 +759,25 @@ public class beanUsuario {
         UsuarioDB logica = new UsuarioDB();
         logica.aceptarFuncionarios(Id);
     }
+
     public void run() {
         EnviarCorreo enviar = new EnviarCorreo();
-	enviar.sendEmail(this.getEmail(), this.getNombre(), this.getCodSeg());
-}
+        enviar.sendEmail(this.getEmail(), this.getNombre(), this.getCodSeg());
+    }
+
+    public String getMensajeCRUD() {
+        return MensajeCRUD;
+    }
+
+    public void setMensajeCRUD(String MensajeCRUD) {
+        this.MensajeCRUD = MensajeCRUD;
+    }
+
+    public String getMensajeCRUD2() {
+        return MensajeCRUD2;
+    }
+
+    public void setMensajeCRUD2(String MensajeCRUD2) {
+        this.MensajeCRUD2 = MensajeCRUD2;
+    }
 }
