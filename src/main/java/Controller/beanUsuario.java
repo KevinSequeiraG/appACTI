@@ -757,9 +757,10 @@ public class beanUsuario {
 
     public void aprobarFuncionario(String Id) throws SNMPExceptions, SQLException {
         UsuarioDB logica = new UsuarioDB();
+        EnviarCorreo correo = new EnviarCorreo();
         logica.aceptarFuncionarios(Id);
+        correo.sendEmailAdmitido(logica.retornarUsuario(Id).getEmail(), logica.retornarUsuario(Id).getNombre());
     }
-
     public void run() {
         EnviarCorreo enviar = new EnviarCorreo();
         enviar.sendEmail(this.getEmail(), this.getNombre(), this.getCodSeg());

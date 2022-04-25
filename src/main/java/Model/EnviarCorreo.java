@@ -87,4 +87,36 @@ public class EnviarCorreo extends Thread implements Serializable {
 		e.printStackTrace();
 	}
 }
+    public void sendEmailAdmitido(String email, String nombre) {
+	// Obtenemos las direcciones/destinatarios
+	String direcciones = getDirecciones(email);
+	// Obtenemos la conexion al servidor de correos
+	Session session = connectServer();
+	try {
+		MimeMessage msg = new MimeMessage(session);
+		//Agregamos los headers necesarios
+		msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+		msg.addHeader("format", "flowed");
+		msg.addHeader("Content-Transfer-Encoding", "8bit");
+		// Asignamos el asunto del correo
+		msg.setSubject("Aprobación del usuario", "UTF-8");
+
+		Multipart multiparte = new MimeMultipart();
+	
+		//Creamos el cuerpo del mensaje
+		BodyPart cuerpoMensaje = new MimeBodyPart();
+                // en ese get contenido va el codigo que le tenemos que enviar
+		cuerpoMensaje.setContent("<h1>Hola, "+nombre+".</h1><h2>Este usuario fue aprobado por los administradores, favor ingresar al sistema con el código de seguridad asignado.</h2><br></br>Asegurese de cambiar la contraseña<br></br>ProjectACTI", "text/html");
+		multiparte.addBodyPart(cuerpoMensaje);
+		msg.setContent(multiparte);
+		msg.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(direcciones));
+		//Agregamos el origen del mensaje (nuestro email)
+		msg.setFrom(new InternetAddress("asistenteproyectosprogra@gmail.com"));
+		
+		//Enviamos el mensaje
+		Transport.send(msg);
+	} catch (MessagingException e) {
+		e.printStackTrace();
+	}
+}
 }
