@@ -12,6 +12,7 @@ import Model.EncOrdenDB;
 import Model.OrdenDetalle;
 import Model.OrdenDetalleDB;
 import Model.SedeDB;
+import Model.TipoID;
 import Model.UsuarioDB;
 import java.util.Date;
 import java.sql.SQLException;
@@ -48,6 +49,10 @@ public class beanOrdenEncabezadoActivo {
     String mensaje2 = "";
     String mensajeAprov = "";
     String mensajeAprov2 = "";
+    int estadoN;
+    ArrayList<EncOrden> listaReporteEstado = new ArrayList<>();
+
+    LinkedList<SelectItem> listaEstado = new LinkedList<>();
 
     public beanOrdenEncabezadoActivo() {
     }
@@ -217,6 +222,10 @@ public class beanOrdenEncabezadoActivo {
             mensaje = "El usuario digitado no existe.";
             resp = false;
             return resp;
+        } else if (userDB.consultarPerfil(this.getIdUserRecibe()) != 2) {
+            mensaje = "El usuario digitado no es un funcionario.";
+            resp = false;
+            return resp;
         } /*else if(!userDB.retornarUsuario(this.getIdUserRecibe()).getIdSede().equals(String.valueOf(this.getIdSedeDestino()))){
             mensaje = "El usuario digitado no se encuentra asociado a esa sede.";
             resp = false;
@@ -289,7 +298,7 @@ public class beanOrdenEncabezadoActivo {
     }
 
     public void Aprobar(int idOrden) throws SNMPExceptions, SQLException {
-        mensajeAprov="";
+        mensajeAprov = "";
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.AprobarOrden(idOrden, this.getListaLineaDPorOrden(idOrden))) {
             mensajeAprov = "La orden " + idOrden + " fue aprobada satifactoriamente.";
@@ -300,7 +309,7 @@ public class beanOrdenEncabezadoActivo {
     }
 
     public void Rechazar(int idOrden) throws SNMPExceptions, SQLException {
-        mensajeAprov="";
+        mensajeAprov = "";
         EncOrdenDB encOrdenDB = new EncOrdenDB();
         if (encOrdenDB.RechazarOrden(idOrden)) {
             mensajeAprov = "La orden " + idOrden + " fue denegada.";
@@ -366,4 +375,39 @@ public class beanOrdenEncabezadoActivo {
         this.mensaje2 = mensaje2;
     }
 
+    public LinkedList<SelectItem> getListaEstado() {
+
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0,
+                "Seleccione un Estado"));
+        resultList.add(new SelectItem(1,
+                "Pendiente"));
+        resultList.add(new SelectItem(2,
+                "Aprobado"));
+        resultList.add(new SelectItem(3,
+                "Rechazado"));
+        return resultList;
+    }
+
+    public void setListaEstado(LinkedList<SelectItem> listaEstado) {
+        this.listaEstado = listaEstado;
+    }
+
+    public int getEstadoN() {
+        return estadoN;
+    }
+
+    public void setEstadoN(int estadoN) {
+        this.estadoN = estadoN;
+    }
+
+    public ArrayList<EncOrden> getListaReporteEstado() throws SNMPExceptions, SQLException {
+        EncOrdenDB logica = new EncOrdenDB();
+        
+        return logica.ReporteEstado(estadoN);
+    }
+
+    public void setListaReporteEstado(ArrayList<EncOrden> listaReporteEstado) {
+        this.listaReporteEstado = listaReporteEstado;
+    }
 }

@@ -41,16 +41,12 @@
                             <div class="col-sm-6">
                                 <label class="form-label">Valor</label>
                                 <h:inputText id="Valor" style="text-align: center !important" class="form-control login__input" value="#{beanActivo.valor}"></h:inputText>
-                            </div>
+                            </div>        
                             <div class="col-sm-6">
-                                <label class="form-label">Cantidad</label>
-                                <h:inputText id="Cantidad" style="text-align: center !important" class="form-control login__input" value="#{beanActivo.cantidad}" ></h:inputText>
+                                <label class="form-label">Identificación del Funcionario</label>
+                                <h:inputText id="idUsuario" style="text-align: center !important" class="form-control login__input" value="#{beanActivo.idUsuario}" ></h:inputText>
                             </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Identificación del Usuario</label>
-                                <h:inputText id="idUsuario" style="text-align: center !important" class="form-control login__input" value="#{beanObtenerDatosSesion.datos}" readonly="true" ></h:inputText>
-                            </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <label class="form-label">Sede</label>
                                 <h:selectOneMenu id="ListaSede" style="text-align: center !important" class="form-select login__input" onchange="submit()" value="#{beanSede.ID}">
                                     <f:selectItems value="#{beanSede.listaSedes}"/>
@@ -60,7 +56,7 @@
                             <h:outputLabel value="#{beanActivo.mensaje2}" style="color: greenyellow; font-size: 1rem"></h:outputLabel>
                             <hr class="my-4"></hr>
                             
-                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" actionListener="#{beanActivo.RegistrarActivos(beanSede.ID, beanObtenerDatosSesion.datos)}"></h:commandButton>
+                            <h:commandButton class="w-10 btn btn-primary botones" style="transition: .25s all ease" value="Aceptar" actionListener="#{beanActivo.RegistrarActivos(beanSede.ID, beanActivo.idUsuario)}"></h:commandButton>
 
 
                             <button class="w-10 btn btn-primary botones"><a href="PagPrincipal.xhtml">Regresar</a></button>
